@@ -1,0 +1,22 @@
+.main-content {
+    position: fixed;
+    height: 100%;
+    width: 240px;
+    top: 0;
+    left: 0;
+    border: 1px solid black;
+}
+
+img.img-senai {
+    width: 230px;
+    height: 150px;
+}
+
+.block-userprofile {
+    width: 100%;
+    text-align: center;
+}
+
+img.img-userprofile{
+    width: 100px;
+}
