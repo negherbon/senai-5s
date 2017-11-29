@@ -1,22 +1,70 @@
-.main-content {
+.main-sidebar-nav {
     position: fixed;
-    height: 100%;
-    width: 240px;
-    top: 0;
     left: 0;
-    border: 1px solid black;
+    top: 0px;
+    width: 240px;
+    height: 100%;
+    background-repeat: repeat;
+    z-index: 99; 
 }
 
-img.img-senai {
-    width: 230px;
-    height: 150px;
+.menu {
+    padding-bottom: 30px;
+    padding-top: 60px; 
 }
 
-.block-userprofile {
-    width: 100%;
-    text-align: center;
+.default-navigation {
+    background-color: #fff;
+    -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0 20px rgba(0, 0, 0, 0.1); 
 }
 
-img.img-userprofile{
-    width: 100px;
+.top-bar.primary-top-bar {
+    background: #5867dd; 
 }
+
+.left-nav-toggle, .left-nav-collapsed {
+    margin-left: 0px;
+    line-height: 60px;
+    float: left; 
+}
+
+.left-nav-toggle a, .left-nav-collapsed a {
+    display: block;
+    color: #fff;
+    font-size: 15px;
+    width: 50px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center; 
+}
+
+ul.menu-items {
+    border-top: 1px solid rgb(204, 202, 202);
+}
+
+ul.menu-items > li > a {
+    color: #67757c;
+}
+
+ul.menu-items > li > a:visited {
+    text-decoration: none;
+}
+
+ul.menu-items > li > a:link {
+    text-decoration: none;
+}
+
+ul.menu-items > li > a:hover  {
+    text-decoration: none;
+}
+
+ul.menu-items > li > a:active {
+    text-decoration: none;
+}
+
+li.action-plan {
+    list-style-image: url('../assets/images/icons/action-plan.png') !important;
+}
+
+
