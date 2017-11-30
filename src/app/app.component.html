@@ -1,5 +1,6 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -7,15 +8,10 @@
   <div class="container-fluid">
     <div>
       <div>
-        <a class="admin-logo" href="index.html">
-          <h1>
-          </h1>
-        </a>
         <div class="left-nav-toggle">
-          <a href="#" class="nav-collapse"><i class="fa fa-bars"></i></a>
-        </div>
-        <div class="left-nav-collapsed">
-          <a href="#" class="nav-collapsed"><i class="fa fa-bars"></i></a>
+          <a href="#" class="profile-options">
+              <i class="fa fa-cog"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -26,22 +22,34 @@
   <div>
     <div class="nano-content" tabindex="0" style="right: -17px;">
       <ul class="menu nav flex-column">
-        <div class="card-block border-bottom text-center nav-profile">
-          <p class="lead margin-b-0 toggle-none">John Doe</p>
-          <p class="text-muted mv-0 toggle-none">Welcome</p>
+        <div class="text-center nav-profile">
+          <img alt="Foto de perfil" class="profile-avatar" src="assets/images/icons/avatar.jpg" width="80">
+          <p class="lead margin-b-0 toggle-none" style="margin-bottom:0px !important">Guilherme</p>
+          <p class="text-muted mv-0 toggle-none">Bem vindo</p>
         </div>
       </ul>
 
       <ul class="menu-items">
-        <li class="teste">
-          <a href="#">Avaliações</a>
-        </li>
-        <li>
-          <a href="#">Usuários</a>
-        </li>
-        <li class="action-plan">
-          <a href="#">Plano de Ação</a>
-        </li>
+          <li>
+            <a href="#">
+              <i class=" fa fa-user-circle"></i>
+              <span>Usuários</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <i class="fa fa fa-bolt"></i>
+              <span>Plano de ação</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <i class="fa fa-check-square-o"></i>
+              <span>Avaliações</span>
+            </a>
+          </li>
       </ul>
     </div>
   </div>

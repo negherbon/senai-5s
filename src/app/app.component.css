@@ -4,8 +4,6 @@
     top: 0px;
     width: 240px;
     height: 100%;
-    background-repeat: repeat;
-    z-index: 99; 
 }
 
 .menu {
@@ -20,16 +18,10 @@
 }
 
 .top-bar.primary-top-bar {
-    background: #5867dd; 
+    background: #42bf47; 
 }
 
-.left-nav-toggle, .left-nav-collapsed {
-    margin-left: 0px;
-    line-height: 60px;
-    float: left; 
-}
-
-.left-nav-toggle a, .left-nav-collapsed a {
+.left-nav-toggle a {
     display: block;
     color: #fff;
     font-size: 15px;
@@ -39,8 +31,11 @@
     text-align: center; 
 }
 
+
 ul.menu-items {
     border-top: 1px solid rgb(204, 202, 202);
+    list-style-type: none;
+    padding-top: 10px;
 }
 
 ul.menu-items > li > a {
@@ -56,15 +51,28 @@ ul.menu-items > li > a:link {
 }
 
 ul.menu-items > li > a:hover  {
-    text-decoration: none;
+    color: #42bf47;
 }
 
 ul.menu-items > li > a:active {
     text-decoration: none;
 }
 
-li.action-plan {
-    list-style-image: url('../assets/images/icons/action-plan.png') !important;
+ul.menu-items > li {
+    padding: 10px;
 }
 
+ul.menu-items > li > a i {
+    display: inline-block;
+    margin-right: 5px;
+    text-align: center;
+    width: 20px;
+}
 
+.nav-profile > .profile-avatar {
+    border-radius: 50%;
+}
+
+.profile-options {
+    float: right;
+}
