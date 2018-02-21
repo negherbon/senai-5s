@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "my-app"
+    "name": "flat-lite"
   },
   "apps": [
     {
@@ -19,9 +19,21 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/ti-icons/css/themify-icons.css",
+        "assets/icon/icofont/css/icofont.css",
+        "../node_modules/ng2-toasty/style-bootstrap.css",
+        "../node_modules/ng2-toasty/style-default.css",
+        "../node_modules/ng2-toasty/style-material.css",
+        "styles.css",
+        "assets/css/custom.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/raphael/raphael.js",
+        "../node_modules/morris.js/morris.js",
+        "../node_modules/jquery-sparkline/jquery.sparkline.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -36,16 +48,13 @@
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json",
-      "exclude": "**/node_modules/**"
+      "project": "src/tsconfig.app.json"
     },
     {
-      "project": "src/tsconfig.spec.json",
-      "exclude": "**/node_modules/**"
+      "project": "src/tsconfig.spec.json"
     },
     {
-      "project": "e2e/tsconfig.e2e.json",
-      "exclude": "**/node_modules/**"
+      "project": "e2e/tsconfig.e2e.json"
     }
   ],
   "test": {
