@@ -46,7 +46,7 @@ const MENUITEMS = [
         icon: 'ti-user'
       },
       {
-        state: 'advance',
+        state: 'evaluations',
         name: 'Avaliações',
         type: 'link',
         icon: 'ti-check-box'

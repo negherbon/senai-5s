@@ -2169,3 +2169,6 @@ agm-map, vector_map {
 .text-align-right {
   text-align: right;
 }
+.text-align-left{
+  text-align: left;
+}    

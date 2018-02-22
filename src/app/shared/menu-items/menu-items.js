@@ -79,7 +79,7 @@ var MENUITEMS = [
                 ]
             },
             {
-                state: 'advance',
+                state: 'evaluations',
                 name: 'Advance Components',
                 type: 'sub',
                 icon: 'ti-crown',

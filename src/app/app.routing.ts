@@ -18,8 +18,8 @@ export const AppRoutes: Routes = [{
       path: 'users',
       loadChildren: './users/user.module#UserModule'
     }, {
-      path: 'advance',
-      loadChildren: './components/advance/advance.module#AdvanceModule'
+      path: 'evaluations',
+      loadChildren: './evaluations/evaluation.module#EvaluationModule'
     }
   ]
 }, {
