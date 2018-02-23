@@ -1,0 +1,110 @@
+<div class="button-page">
+  <div class="row">
+    <!-- bootstrap modal start -->
+    <div class="col-sm-12">
+      <app-card [title]="'Cadastro de Ambientes'">
+        <form>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Título</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Unidade</label>
+            <div class="col-sm-10">
+              <select name="select" class="form-control">
+                <option value="opt1">Senai Norte</option>
+                <option value="opt2">Senai Sul</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Responsável</label>
+            <div class="col-sm-10">
+              <select name="select" class="form-control">
+                <option value="opt1">Marcos Conceição</option>
+                <option value="opt2">José da Silva</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Descrição</label>
+            <div class="col-sm-10">
+              <textarea class="textarea-width-100" name="comment"></textarea>
+            </div>
+          </div>
+
+          <!-- datepicker em andamento -->
+          <!--
+          <div>
+            <ng-datepicker></ng-datepicker>
+          </div>
+          -->
+          <button class="btn btn-primary pull-right no-margin-right" type="submit">Salvar</button>
+        </form>
+      </app-card>
+
+      <app-card [title]="'Listagem de Ambientes'">
+        <div class="table-responsive">
+          <table class="table table--clean">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Unidade</th>
+                <th>Responsável</th>
+                <th>Descrição</th>
+                <th class="text-align-left">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Laboratório de informática</td>
+                <td>Senai Norte</td>
+                <td>Rodrigo Costa</td>
+                <td>N/A</td>
+                <td>
+                  <span class="inline-block">
+                    <button class="btn btn-info btn-icon no-margin">
+                      <i class="icofont icofont-edit"></i>
+                    </button>
+                  </span>
+                  <span class="inline-block margin-left-10">
+                    <button class="btn btn-danger btn-icon no-margin">
+                      <i class="icofont icofont-trash"></i>
+                    </button>
+                  </span>
+                </td>
+              </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td>Laboratório de mecânica</td>
+                  <td>Senai Sul</td>
+                  <td>Victor Santos</td>
+                  <td>N/A</td>
+                  <td>
+                    <span class="inline-block">
+                      <button class="btn btn-info btn-icon no-margin">
+                        <i class="icofont icofont-edit"></i>
+                      </button>
+                    </span>
+                    <span class="inline-block margin-left-10">
+                      <button class="btn btn-danger btn-icon no-margin">
+                        <i class="icofont icofont-trash"></i>
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </app-card>
+    </div>
+    <!-- Bootstrap modal end -->
+  </div>
+</div>
+<ng2-toasty [position]="position"></ng2-toasty>

@@ -23,7 +23,7 @@ export class TitleComponent {
             }
           });
         } while (currentRoute);
-        this.titleService.setTitle( 'Flat Able | ' + title );
+        this.titleService.setTitle( '5S | ' + title );
       });
   }
 }

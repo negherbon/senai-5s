@@ -1,0 +1,64 @@
+<div class="button-page">
+  <div class="row">
+    <!-- bootstrap modal start -->
+    <div class="col-sm-12">
+      <app-card [title]="'Cadastro de perguntas'">
+        <form>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Título</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control">
+            </div>
+          </div>
+          <button class="btn btn-primary pull-right no-margin-right" type="submit">Salvar</button>
+        </form>
+      </app-card>
+
+      <app-card [title]="'Listagem de perguntas'">
+        <div class="table-responsive">
+          <table class="table table--clean">
+            <thead>
+              <tr>
+                <th width="40%">Título</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>O ambiente está organizado?</td>
+                <td>
+                  <span class="inline-block">
+                    <button class="btn btn-info btn-icon no-margin">
+                      <i class="icofont icofont-edit"></i>
+                    </button>
+                  </span>
+                  <span class="inline-block margin-left-10">
+                    <button class="btn btn-danger btn-icon no-margin">
+                      <i class="icofont icofont-trash"></i>
+                    </button>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>O ambiente tem uma boa estrutura?</td>
+                <td>
+                  <span class="inline-block">
+                    <button class="btn btn-info btn-icon no-margin">
+                      <i class="icofont icofont-edit"></i>
+                    </button>
+                  </span>
+                  <span class="inline-block margin-left-10">
+                    <button class="btn btn-danger btn-icon no-margin">
+                      <i class="icofont icofont-trash"></i>
+                    </button>
+                  </span>
+                </td>
+              </tr>
+            <tbody>
+          </table>
+        </div>
+      </app-card>
+    </div>
+    <!-- Bootstrap modal end -->
+  </div>
+</div>
+<ng2-toasty [position]="position"></ng2-toasty>

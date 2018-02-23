@@ -20,6 +20,12 @@ export const AppRoutes: Routes = [{
     }, {
       path: 'evaluations',
       loadChildren: './evaluations/evaluation.module#EvaluationModule'
+    }, {
+      path: 'enviroments',
+      loadChildren: './enviroments/enviroment.module#EnviromentModule'
+    }, {
+      path: 'questions',
+      loadChildren: './questions/question.module#QuestionModule'
     }
   ]
 }, {

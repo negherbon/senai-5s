@@ -52,13 +52,13 @@ const MENUITEMS = [
         icon: 'ti-check-box'
       },
       {
-        state: 'advance',
+        state: 'enviroments',
         name: 'Ambientes',
         type: 'link',
         icon: 'ti-location-pin'
       },
       {
-        state: 'advance',
+        state: 'questions',
         name: 'Perguntas',
         type: 'link',
         icon: 'ti-agenda'
@@ -72,8 +72,4 @@ export class MenuItems {
   getAll(): Menu[] {
     return MENUITEMS;
   }
-
-  /*add(menu: Menu) {
-    MENUITEMS.push(menu);
-  }*/
 }
