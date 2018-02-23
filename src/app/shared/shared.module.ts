@@ -20,10 +20,12 @@ import {TagInputModule} from 'ngx-chips';
 import {AgmCoreModule} from '@agm/core';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
 import {ClickOutsideModule} from 'ng-click-outside';
+import {NgDatepickerModule} from 'ng2-datepicker';
 
 @NgModule({
   imports: [
       CommonModule,
+      NgDatepickerModule,
       FormsModule,
       ReactiveFormsModule,
       NgbModule.forRoot(),
@@ -69,7 +71,8 @@ import {ClickOutsideModule} from 'ng-click-outside';
       AgmCoreModule,
       Ng2GoogleChartsModule,
       ClickOutsideModule,
-      GoTopButtonModule
+      GoTopButtonModule,
+      NgDatepickerModule
   ],
   providers: [
       MenuItems

@@ -14,6 +14,7 @@ import { BreadcrumbsComponent } from './layouts/admin/breadcrumbs/breadcrumbs.co
 import { TitleComponent } from './layouts/admin/title/title.component';
 import {ScrollModule} from './scroll/scroll.module';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { NgDatepickerModule } from 'ng2-datepicker';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {LocationStrategy, PathLocationStrategy} from '@angular/common';
     RouterModule.forRoot(AppRoutes),
     FormsModule,
     HttpModule,
-    ScrollModule
+    ScrollModule,
+    NgDatepickerModule
   ],
   exports: [ScrollModule],
   providers: [
