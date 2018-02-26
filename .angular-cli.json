@@ -26,6 +26,7 @@
         "../node_modules/ng2-toasty/style-default.css",
         "../node_modules/ng2-toasty/style-material.css",
         "styles.css",
+        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
         "assets/css/custom.css"
       ],
       "scripts": [
