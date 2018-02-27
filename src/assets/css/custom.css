@@ -2171,4 +2171,9 @@ agm-map, vector_map {
 }
 .text-align-left{
   text-align: left;
-}    
+}
+
+.textarea-width-100{
+    width: 100%;
+    min-height: 50px;
+}
