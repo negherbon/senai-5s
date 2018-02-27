@@ -24,11 +24,17 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Prazo</label>
+            <label class="col-sm-2 col-form-label">Prazo:</label>
             <div class="col-sm-4">
-                <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker>
+              <input
+              class="form-control"
+              #drp="bsDaterangepicker"
+              bsDaterangepicker>
             </div>
-            <button class="btn btn-success" (click)="drp.toggle()">Calendário</button>
+
+            <div>
+                <input type="button" class="btn btn-success" (click)="drp.toggle()">
+              </div>
           </div>
 
           <div class="form-group row">
