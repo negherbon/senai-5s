@@ -1051,12 +1051,6 @@
     z-index: 10001 !important;
 }
 
-/* components/basic/accordion */
-
-.squeezebox .sb-item {
-    /*overflow: hidden;*/
-}
-
 .squeezebox .sb-item-head a {
     cursor: pointer;
     display: block;
@@ -2175,5 +2169,5 @@ agm-map, vector_map {
 
 .textarea-width-100{
     width: 100%;
-    min-height: 50px;
+    min-height: 100px;
 }

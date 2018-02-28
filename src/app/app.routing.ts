@@ -26,6 +26,9 @@ export const AppRoutes: Routes = [{
     }, {
       path: 'questions',
       loadChildren: './questions/question.module#QuestionModule'
+    }, {
+      path: 'units',
+      loadChildren: './units/unit.module#UnitModule'
     }
   ]
 }, {

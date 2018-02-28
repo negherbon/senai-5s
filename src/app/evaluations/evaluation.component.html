@@ -15,25 +15,25 @@
             <label class="col-sm-2 col-form-label">Ambiente</label>
             <div class="col-sm-10">
               <select name="select" class="form-control">
-                <option value="opt1">Biblioteca</option>
+                <option>Selecione um ambiente</option>
                 <option value="opt2">Sala A101</option>
                 <option value="opt3">Sala B101</option>
                 <option value="opt4">Laboratório</option>
+                <option value="opt5">Biblioteca</option>
               </select>
             </div>
           </div>
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Prazo:</label>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Período:</label>
             <div class="col-sm-4">
-              <input
-              class="form-control"
-              #drp="bsDaterangepicker"
-              bsDaterangepicker>
+              <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker>
             </div>
 
             <div>
-                <input type="button" class="btn btn-success" (click)="drp.toggle()">
+                <button class="btn btn-success" title="Clique aqui para expandir o calendário" (click)="drp.toggle()">
+                  <i class='ti-calendar'></i>
+                </button>
               </div>
           </div>
 
@@ -41,6 +41,7 @@
             <label class="col-sm-2 col-form-label">Responsável</label>
             <div class="col-sm-10">
               <select name="select" class="form-control">
+                <option>Selecione um responsável</option>
                 <option value="opt1">Guilherme</option>
                 <option value="opt2">Rafael</option>
                 <option value="opt3">Osório</option>
@@ -52,7 +53,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Descrição</label>
             <div class="col-sm-10">
-              <textarea class="textarea-width-100" name="comment"></textarea>
+              <textarea class="textarea-width-100 form-control" name="comment"></textarea>
             </div>
           </div>
 
@@ -129,4 +130,3 @@
     <!-- Bootstrap modal end -->
   </div>
 </div>
-<ng2-toasty [position]="position"></ng2-toasty>

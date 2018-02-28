@@ -15,6 +15,7 @@
             <label class="col-sm-2 col-form-label">Unidade</label>
             <div class="col-sm-10">
               <select name="select" class="form-control">
+                <option>Selecione a unidade</option>
                 <option value="opt1">Senai Norte</option>
                 <option value="opt2">Senai Sul</option>
               </select>
@@ -25,6 +26,7 @@
             <label class="col-sm-2 col-form-label">Responsável</label>
             <div class="col-sm-10">
               <select name="select" class="form-control">
+                <option>Selecione o Responsável</option>
                 <option value="opt1">Marcos Conceição</option>
                 <option value="opt2">José da Silva</option>
               </select>
@@ -34,16 +36,10 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Descrição</label>
             <div class="col-sm-10">
-              <textarea class="textarea-width-100" name="comment"></textarea>
+              <textarea class="textarea-width-100 form-control" name="comment"></textarea>
             </div>
           </div>
 
-          <!-- datepicker em andamento -->
-          <!--
-          <div>
-            <ng-datepicker></ng-datepicker>
-          </div>
-          -->
           <button class="btn btn-primary pull-right no-margin-right" type="submit">Salvar</button>
         </form>
       </app-card>
@@ -53,11 +49,11 @@
           <table class="table table--clean">
             <thead>
               <tr>
-                <th>Título</th>
-                <th>Unidade</th>
-                <th>Responsável</th>
-                <th>Descrição</th>
-                <th class="text-align-left">Ações</th>
+                <th style='width: 25%'>Título</th>
+                <th style='width: 20%'>Unidade</th>
+                <th style='width: 20%'>Responsável</th>
+                <th style='width: 25%'>Descrição</th>
+                <th style='width: 10%' class="text-align-left">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -107,4 +103,3 @@
     <!-- Bootstrap modal end -->
   </div>
 </div>
-<ng2-toasty [position]="position"></ng2-toasty>

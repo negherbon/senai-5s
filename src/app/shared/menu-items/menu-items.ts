@@ -62,6 +62,12 @@ const MENUITEMS = [
         name: 'Perguntas',
         type: 'link',
         icon: 'ti-agenda'
+      },
+      {
+        state: 'units',
+        name: 'Unidades',
+        type: 'link',
+        icon: 'ti-star'
       }
     ]
   }
