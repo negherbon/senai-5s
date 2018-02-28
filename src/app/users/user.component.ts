@@ -13,4 +13,12 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  save() {
+    $.ajax({
+      method: 'post',
+      data: "user",
+      url: 'http://localhost:4000/users'
+    })
+  }
 }
