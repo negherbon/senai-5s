@@ -10,10 +10,14 @@ import { User } from './user';
    styleUrls: ['./user.component.css']
 })
 
-export class UserComponent {
+export class UserComponent implements OnInit{
 
   user: User = new User();
   constructor(private userService: UserService) {
+  }
+  
+  ngOnInit(): void {
+    this.userService.load();
   }
 
   save(user) {
