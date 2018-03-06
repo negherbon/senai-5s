@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-declare const $: any;
-declare var Morris: any;
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { UserService } from './user.service';
+import { User } from './user';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html'
+   selector: 'app-user',
+   templateUrl: './user.component.html',
+   styleUrls: ['./user.component.css']
 })
 
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit{
 
-  constructor() { }
-
-  ngOnInit() {
+  user: User = new User();
+  constructor(private userService: UserService) {
+  }
+  
+  ngOnInit(): void {
+    this.userService.load();
   }
 
-  save() {
-    $.ajax({
-      method: 'post',
-      data: "user",
-      url: 'http://localhost:4000/users'
-    })
+  save(user) {
+    this.userService.save(user);
   }
 }
+    

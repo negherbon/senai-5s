@@ -1,34 +1,41 @@
 <div class="button-page">
   <div class="row">
-    <!-- bootstrap modal start -->
     <div class="col-sm-12">
       <app-card [title]="'Cadastro de usuários'">
         <form>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Nome</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control">
+              <input type="text" [(ngModel)]="user.name" [ngModelOptions]="{standalone: true}" class="form-control">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control">
+              <input type="text" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" class="form-control">
             </div>
           </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Senha</label>
+            <div class="col-sm-10">
+              <input type="text" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}" class="form-control">
+            </div>
+          </div>
+
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Perfil</label>
             <div class="col-sm-10">
-              <select name="select" class="form-control">
+              <select [(ngModel)]="user.profile" [ngModelOptions]="{standalone: true}" class="form-control">
                 <option value="opt1">Selecione um perfil</option>
-                <option value="opt2">Administrador</option>
-                <option value="opt3">Avaliador</option>
-                <option value="opt4">Responsável pelo ambiente</option>
+                <option value="admin">Administrador</option>
+                <option value="avaliador">Avaliador</option>
+                <option value="responsavel">Responsável pelo ambiente</option>
               </select>
             </div>
           </div>
 
-          <button class="btn btn-primary pull-right no-margin-right" type="submit" (click)="save()">Salvar</button>
+          <button class="btn btn-primary pull-right no-margin-right" type="submit" (click)="save(user)">Salvar</button>
         </form>
       </app-card>
 

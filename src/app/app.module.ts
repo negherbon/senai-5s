@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { HttpClientModule }    from '@angular/common/http';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
@@ -15,6 +15,8 @@ import { TitleComponent } from './layouts/admin/title/title.component';
 import {ScrollModule} from './scroll/scroll.module';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { NgDatepickerModule } from 'ng2-datepicker';
+import { UserComponent } from './users/user.component'
+import { UserService } from './users/user.service';
 
 @NgModule({
   declarations: [
@@ -22,10 +24,11 @@ import { NgDatepickerModule } from 'ng2-datepicker';
     AdminLayoutComponent,
     AuthLayoutComponent,
     BreadcrumbsComponent,
-    TitleComponent
+    TitleComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
     RouterModule.forRoot(AppRoutes),
@@ -36,7 +39,8 @@ import { NgDatepickerModule } from 'ng2-datepicker';
   ],
   exports: [ScrollModule],
   providers: [
-      { provide: LocationStrategy, useClass: PathLocationStrategy }
+      { provide: LocationStrategy, useClass: PathLocationStrategy },
+      UserService
   ],
   bootstrap: [AppComponent]
 })
