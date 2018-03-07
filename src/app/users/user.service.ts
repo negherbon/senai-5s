@@ -8,6 +8,9 @@ import { User } from './user';
 @Injectable()
 
 export class UserService {
+
+    data = [];
+
     ngOnInit(): void {
         this.load();
     }
@@ -25,10 +28,6 @@ export class UserService {
 
     load(){
         this.http.get("http://localhost:4000/users/")
-        .subscribe(
-            data => {
-                //console.log(data[0].email);
-            }
-        )
+        .subscribe()
     }
 }
