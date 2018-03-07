@@ -8,11 +8,14 @@ import { User } from './user';
 @Injectable()
 
 export class UserService {
-    ngOnInit(): void {
-        this.load();
-    }
+    users: User[];
+  
    constructor(private http:Http) { }
 
+   ngOnInit(): void {
+        this.load();
+    }
+  
    save(user: User) {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: cpHeaders });
@@ -20,15 +23,11 @@ export class UserService {
     .subscribe(
         data => {
             console.log("ok, it works");
-            });
+        });
     }
 
     load(){
         this.http.get("http://localhost:4000/users/")
-        .subscribe(
-            data => {
-                //console.log(data[0].email);
-            }
-        )
+        .subscribe(users => this.users = users);
     }
 }
