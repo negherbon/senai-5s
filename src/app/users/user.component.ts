@@ -13,15 +13,21 @@ import { User } from './user';
 export class UserComponent implements OnInit{
 
   user: User = new User();
+  users: User[];
   constructor(private userService: UserService) {
   }
   
   ngOnInit(): void {
-    this.userService.load();
+    this.load();
   }
 
   save(user) {
     this.userService.save(user);
+  }
+
+  load(){
+    this.userService.load()
+    .subscribe(users => this.users = users);
   }
 }
     
