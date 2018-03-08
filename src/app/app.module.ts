@@ -12,8 +12,8 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './layouts/admin/breadcrumbs/breadcrumbs.component';
 import { TitleComponent } from './layouts/admin/title/title.component';
-import {ScrollModule} from './scroll/scroll.module';
-import {LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { ScrollModule} from './scroll/scroll.module';
+import { LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { UserComponent } from './users/user.component'
 import { UserService } from './users/user.service';
