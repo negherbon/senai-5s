@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class UserService {
 
-   constructor(private http: HttpClient) { }
+   constructor(public http: HttpClient) { }
 
    ngOnInit(): void {
         this.load();

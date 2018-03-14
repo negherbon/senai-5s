@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
 import { UserService } from './user.service';
 import { User } from './user';
+
 
 @Component({
    selector: 'app-user',

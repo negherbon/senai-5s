@@ -17,6 +17,8 @@ import { LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { UserComponent } from './users/user.component'
 import { UserService } from './users/user.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,8 +41,11 @@ import { UserService } from './users/user.service';
   ],
   exports: [ScrollModule],
   providers: [
-      { provide: LocationStrategy, useClass: PathLocationStrategy },
-      UserService
+    UserService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
