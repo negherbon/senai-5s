@@ -3,9 +3,12 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpResponse,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -20,6 +23,17 @@ export class TokenInterceptor implements HttpInterceptor {
       }
     });
 
-    return next.handle(request);
+    return next.handle(request).do((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+            // do stuff with response if you want
+        }
+    }, 
+    (err: any) => {
+        if (err instanceof HttpErrorResponse) {
+            if (err.status === 401) {
+                window.location.href = 'http://localhost:8080/';
+            }
+        }   
+    });
   }
 }
