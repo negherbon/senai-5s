@@ -11,6 +11,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class UserService {
 
+   private url = "http://localhost:4000/users";
+
    constructor(public http: HttpClient) { }
 
    ngOnInit(): void {
@@ -23,18 +25,14 @@ export class UserService {
                 'Content-Type':  'application/json'
             })
         };
-      this.http.post('http://localhost:4000/users/', user, httpOptions)
-      .subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log('Error occured');
-        }
-      );
+      return this.http.post(`${this.url}`, user, httpOptions)
     }
 
     load(): Observable<User[]> {
-        return this.http.get<User[]>("http://localhost:4000/users/");
+        return this.http.get<User[]>(`${this.url}`);
+    }
+
+    remove(id){
+       return this.http.delete(`${this.url}/${id}`);
     }
 }
