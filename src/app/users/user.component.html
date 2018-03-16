@@ -38,7 +38,7 @@
           <button class="btn btn-primary pull-right no-margin-right" type="submit" (click)="save(user)">Salvar</button>
         </form>
       </app-card>
-      
+
       <ng-template #noUsers>
         <p class="no-content">Nenhum registro para mostrar.</p>
       </ng-template>
@@ -66,8 +66,8 @@
                     </button>
                   </span>
                   <span class="inline-block margin-left-10">
-                    <button class="btn btn-danger btn-icon no-margin" (click)="getModalAnswer(user.id)">
-                      <i class="icofont icofont-trash"></i>
+                    <button class="btn btn-danger btn-icon no-margin" [disabled]="user.id === userSession.id" (click)="getModalAnswer(user.id)">
+                      <i class="icofont icofont-trash" title="Você não pode remover o seu próprio usuário"></i>
                     </button>
                   </span>
                 </td>
