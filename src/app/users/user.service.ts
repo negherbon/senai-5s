@@ -28,6 +28,15 @@ export class UserService {
       return this.http.post(`${this.url}`, user, httpOptions)
     }
 
+    update(user: User) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json'
+            })
+        };
+      return this.http.put(`${this.url}/${user.id}`, user, httpOptions)
+    }
+
     load(): Observable<User[]> {
         return this.http.get<User[]>(`${this.url}`);
     }
