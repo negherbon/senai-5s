@@ -29,14 +29,26 @@ export class UserComponent implements OnInit{
 
   /* NASS: Refatorar */
   save(user): void {
-    this.userService.save(user)
-    .subscribe(res => {
-      swal({
-        title: "",
-        text: res["status"] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-        icon: "success"
+    if(!user.id){
+      this.userService.save(user)
+        .subscribe(res => {
+          this.getValidation(res);
+          this.load();
       });
-      this.load();
+    } else {
+      this.userService.update(user)
+      .subscribe(res => {
+        this.getValidation(res);
+        this.load();
+      })
+    }
+  }
+
+  getValidation(res){
+    swal({
+      title: "",
+      text: res["status"] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: "success"
     });
   }
 
@@ -50,6 +62,11 @@ export class UserComponent implements OnInit{
         console.log(error)
       },
     )
+  }
+
+  update(user: User): void {
+    window.scroll(0,0);
+    this.user = user;
   }
 
   /* NASS: Colocar icones e mensagens de acordo com retorno da api */
