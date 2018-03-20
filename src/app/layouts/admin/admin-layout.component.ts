@@ -1,8 +1,11 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation, ElementRef, AfterViewInit} from '@angular/core';
 import 'rxjs/add/operator/filter';
 import {state, style, transition, animate, trigger, AUTO_STYLE} from '@angular/animations';
-
+import { User } from '../../users/user';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { MenuItems } from '../../shared/menu-items/menu-items';
+
+const helper = new JwtHelperService();
 
 export interface Options {
   heading?: string;
@@ -44,7 +47,8 @@ export class AdminLayoutComponent implements OnInit {
   isCollapsedSideBar = 'no-block';
   toggleOn = true;
   windowWidth: number;
-
+  userSession: User = new User();
+  
   public htmlButton: string;
 
   constructor(public menuItems: MenuItems) {
@@ -54,7 +58,9 @@ export class AdminLayoutComponent implements OnInit {
     this.setMenuAttributs(this.windowWidth);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userSession = helper.decodeToken(localStorage.getItem("token"));
+  }
 
   onClickedOutside(e: Event) {
       if (this.windowWidth < 768 && this.toggleOn && this.verticalNavType !== 'offcanvas') {
