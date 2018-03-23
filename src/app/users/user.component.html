@@ -2,78 +2,54 @@
   <div class="row">
     <div class="col-sm-12">
       <app-card [title]="'Cadastro de usuários'">
-        <form>
-          <div *ngIf="name.invalid && (name.dirty || name.touched)" 
-          class="alert alert-danger">
-            <div *ngIf="name.errors.required">
-              Campo NOME é requerido
+        <form #userForm="ngForm" (submit)="save(user); this.userForm.reset()">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nome <span style="color: red">*</span></label>
+            <div class="col-sm-10">
+              <input id="name" name="name" class="form-control" required [(ngModel)]="user.name" #name="ngModel">
+              <span *ngIf="name.invalid && (name.dirty || name.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Nome</label>
+            <label class="col-sm-2 col-form-label">Email <span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <input id="name" name="name" class="form-control"
-              required [(ngModel)]="user.name" ngmode #name="ngModel" >
-            </div>
-          </div>
-
-          <div *ngIf="email.invalid && (email.dirty || email.touched)" 
-          class="alert alert-danger">
-              <div *ngIf="email.errors.required">
-                Campo EMAIL é requerido
-              </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-              <input id="email" name="email" class="form-control"
+              <input id="email" name="email" class="form-control user-email"
               required [(ngModel)]="user.email" #email="ngModel" >
+              <span *ngIf="email.invalid && (email.dirty || email.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
 
-
-          <div *ngIf="password.invalid && (password.dirty || password.touched)" 
-          class="alert alert-danger">
-              <div *ngIf="password.errors.required">
-                Campo SENHA é requerido
-              </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Senha</label>
+          <!-- Campo de senha só aparece para cadastro de novo usuário e alteração do usuário logado -->
+          <div *ngIf="userSession.id == user.id || !user.id" class="form-group row">
+            <label class="col-sm-2 col-form-label">Senha <span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <input type="password" name="password" required [(ngModel)]="user.password" #password="ngModel" class="form-control">
-            </div>
+            <input type="password" name="password" [placeholder]="user.id ? 'Caso deseja alterar a senha atual, basta inserir a nova senha aqui!' : ''" 
+            [required]="user.id ? false : true" [(ngModel)]="user.password" #password="ngModel" class="form-control">
+            <span *ngIf="password.invalid && (password.dirty || password.touched)" style='color: red'>Este campo é obrigatório.</span>  
           </div>
-
-          <div *ngIf="profile.invalid && (profile.dirty || profile.touched)" 
-          class="alert alert-danger">
-              <div *ngIf="profile.errors.required">
-                Campo PERFIL é requerido
-              </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Perfil</label>
+            <label class="col-sm-2 col-form-label">Perfil <span style="color: red">*</span></label>
             <div class="col-sm-10">
               <select [(ngModel)]="user.profile" name="profile" required #profile="ngModel" class="form-control">
-                <option value="opt1">Selecione um perfil</option>
+                <option value="">Selecione um perfil</option>
                 <option value="admin">Administrador</option>
                 <option value="avaliador">Avaliador</option>
                 <option value="responsavel">Responsável pelo ambiente</option>
               </select>
+              <span *ngIf="profile.invalid && (profile.dirty || profile.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
-
-          <button class="btn btn-primary pull-right no-margin-right" type="submit" (click)="save(user)">Salvar</button>
+          <button type="submit" class="btn btn-primary pull-right no-margin-right" [disabled]="!userForm.valid">Salvar</button>
         </form>
       </app-card>
 
       <ng-template #noUsers>
         <p class="no-content">Nenhum registro para mostrar.</p>
       </ng-template>
+
       <app-card [title]="'Listagem de usuários'">
         <div class="table-responsive">
           <table *ngIf="users?.length > 0; else noUsers" class="table table--clean">
@@ -86,7 +62,6 @@
               </tr>
             </thead>
             <tbody>
-
               <tr *ngFor="let user of users">
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>

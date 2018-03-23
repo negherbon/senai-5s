@@ -1,20 +1,31 @@
 <div class="button-page">
   <div class="row">
-    <!-- bootstrap modal start -->
     <div class="col-sm-12">
       <app-card [title]="'Cadastro de unidades'">
-        <form>
+        <form #unitForm="ngForm" (submit)="save(unit); this.unitForm.reset()">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Nome</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control">
+              <input type="text" [(ngModel)]="unit.name" name="name" class="form-control">
             </div>
           </div>
-          
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Cidade</label>
+            <div class="col-sm-10">
+              <select name="city" [(ngModel)]="unit.city" name="city" class="form-control">
+                <option *ngFor="let city of cities" [ngValue]="city">
+                  {{ city.cidade }}
+                </option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Descrição</label>
             <div class="col-sm-10">
-              <textarea class="textarea-width-100 form-control" name="comment"></textarea>
+              <textarea [(ngModel)]="unit.description" name="description" class="textarea-width-100 form-control"
+               name="comment"></textarea>
             </div>
           </div>
 
@@ -28,43 +39,31 @@
             <thead>
               <tr>
                 <th width="30%">Nome</th>
+                <th width="30%">Cidade</th>
                 <th width="30%">Descrição</th>
                 <th width="10%">Ações</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr>
-                <td>Senai Sul</td>
-                <td>Unidade na zona sul de Joinville</td>
+              <tr *ngFor="let unit of units">
+                <td>{{unit.name}}</td>
+                <td>{{unit.city}}</td>
+                <td>{{unit.description}}</td>
                 <td>
                   <span class="inline-block">
                     <button class="btn btn-info btn-icon no-margin">
-                      <i class="icofont icofont-edit"></i>
+                      <i class="icofont icofont-edit" (click)="update(unit)"></i>
                     </button>
                   </span>
                   <span class="inline-block margin-left-10">
-                    <button class="btn btn-danger btn-icon no-margin">
+                    <button class="btn btn-danger btn-icon no-margin" (click)="getModalAnswer(unit.id)">
                       <i class="icofont icofont-trash"></i>
                     </button>
                   </span>
                 </td>
               </tr>
-              <tr>
-                <td>Senai Norte</td>
-                <td>Unidade na zona norte de Joinville</td>
-                <td>
-                  <span class="inline-block">
-                    <button class="btn btn-info btn-icon no-margin">
-                      <i class="icofont icofont-edit"></i>
-                    </button>
-                  </span>
-                  <span class="inline-block margin-left-10">
-                    <button class="btn btn-danger btn-icon no-margin">
-                      <i class="icofont icofont-trash"></i>
-                    </button>
-                  </span>
-                </td>
-              </tr>
+            </tbody>
           </table>
         </div>
       </app-card>

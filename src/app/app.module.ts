@@ -17,6 +17,7 @@ import { LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { UserComponent } from './users/user.component'
 import { UserService } from './users/user.service';
+import { UnitService } from './units/unit.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
 
@@ -45,7 +46,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    UnitService
   ],
   bootstrap: [AppComponent]
 })

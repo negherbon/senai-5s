@@ -34,12 +34,14 @@ export class UserComponent implements OnInit{
         .subscribe(res => {
           this.getValidation(res);
           this.load();
+          this.user = new User();  // reseta valores do formulário
       });
     } else {
       this.userService.update(user)
       .subscribe(res => {
         this.getValidation(res);
         this.load();
+        this.user = new User(); // reseta valores do formulário
       })
     }
   }
@@ -65,8 +67,8 @@ export class UserComponent implements OnInit{
   }
 
   update(user: User): void {
-    window.scroll(0,0);
     this.user = user;
+    window.scroll(0,0);
   }
 
   /* NASS: Colocar icones e mensagens de acordo com retorno da api */
