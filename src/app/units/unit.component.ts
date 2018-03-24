@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UnitService } from './unit.service';
 import { Unit } from './unit';
+import swal from 'sweetalert';
+
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html'
@@ -11,15 +13,29 @@ export class UnitComponent implements OnInit {
   constructor(public unitService : UnitService) { }
 
   cities : any;
+  states: any;
   units: Unit[];
   unit: Unit = new Unit();
 
   ngOnInit() {
-    this.getCities();
+    this.getStates();
+    this.load();
   }
 
-  getCities(){
-    this.unitService.getCities().subscribe(
+  getStates(){
+    this.unitService.getStates().subscribe(
+      states => {
+        this.states = states
+      },
+      error => {
+        console.log(error)
+      },
+    )
+    console.log(this.states);
+  }
+
+  getCities(stateId){
+    this.unitService.getCities(stateId).subscribe(
       cities => {
         this.cities = cities
       },
@@ -31,6 +47,7 @@ export class UnitComponent implements OnInit {
   }
 
   save(unit): void {
+    unit.city = unit.city.cidade;
     if(!unit.id){
       this.unitService.save(unit)
         .subscribe(res => {
@@ -39,6 +56,7 @@ export class UnitComponent implements OnInit {
           this.unit = new Unit();  // reseta valores do formulário
       });
     } else {
+      unit.city = unit.city.cidade;
       this.unitService.update(unit)
       .subscribe(res => {
         this.getValidation(res);
@@ -51,7 +69,7 @@ export class UnitComponent implements OnInit {
   getValidation(res){
     swal({
       title: "",
-      text: res["status"] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      text: res["status"] === 201 ? 'Unidade salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
       icon: "success"
     });
   }
@@ -69,7 +87,6 @@ export class UnitComponent implements OnInit {
   }
 
   update(unit: Unit): void {
-    this.unit = unit;
     window.scroll(0,0);
   }
 
@@ -85,7 +102,7 @@ export class UnitComponent implements OnInit {
   getModalAnswer(unitId){
     swal({
       title: "Exclusão de usuário",
-      text: "Tem certeza que deseja excluir o usuário?",
+      text: "Tem certeza que deseja excluir a unidade?",
       buttons: ["Cancelar", "OK"],
       icon: "warning",
       dangerMode: true,

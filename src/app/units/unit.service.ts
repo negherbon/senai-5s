@@ -15,13 +15,12 @@ export class UnitService {
 
    constructor(public http: HttpClient) { }
 
-   ngOnInit(): void {
-        this.getCities();
-        this.load();
+    getStates(){
+        return this.http.get("https://br-cidade-estado-nodejs.glitch.me/estados/");
     }
 
-    getCities(){
-        return this.http.get("https://br-cidade-estado-nodejs.glitch.me/estados/SC/cidades?");
+    getCities(stateId){
+        return this.http.get(`https://br-cidade-estado-nodejs.glitch.me/estados/${stateId}/cidades?`);
     }
     
     save(unit: Unit) {
