@@ -3,4 +3,5 @@ export class Unit {
     name: string;
     city: string;
     description: string;
+    state: string;
 }

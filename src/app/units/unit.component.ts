@@ -4,7 +4,7 @@ import { Unit } from './unit';
 import swal from 'sweetalert';
 
 @Component({
-  selector: 'app-unit',
+  selector: 'app-unit', 
   templateUrl: './unit.component.html'
 })
 
@@ -47,7 +47,6 @@ export class UnitComponent implements OnInit {
   }
 
   save(unit): void {
-    unit.city = unit.city.cidade;
     if(!unit.id){
       this.unitService.save(unit)
         .subscribe(res => {
@@ -56,7 +55,6 @@ export class UnitComponent implements OnInit {
           this.unit = new Unit();  // reseta valores do formulário
       });
     } else {
-      unit.city = unit.city.cidade;
       this.unitService.update(unit)
       .subscribe(res => {
         this.getValidation(res);
@@ -87,6 +85,8 @@ export class UnitComponent implements OnInit {
   }
 
   update(unit: Unit): void {
+    this.getCities(unit.state);
+    this.unit = unit;
     window.scroll(0,0);
   }
 
@@ -101,7 +101,7 @@ export class UnitComponent implements OnInit {
 
   getModalAnswer(unitId){
     swal({
-      title: "Exclusão de usuário",
+      title: "Exclusão de unidade",
       text: "Tem certeza que deseja excluir a unidade?",
       buttons: ["Cancelar", "OK"],
       icon: "warning",
