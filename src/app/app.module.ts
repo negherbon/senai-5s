@@ -20,6 +20,7 @@ import { UserService } from './users/user.service';
 import { UnitService } from './units/unit.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { EnviromentTypeService } from './enviroments-type/enviroment-type.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
       useClass: TokenInterceptor,
       multi: true
     },
-    UnitService
+    UnitService, EnviromentTypeService
+
   ],
   bootstrap: [AppComponent]
 })

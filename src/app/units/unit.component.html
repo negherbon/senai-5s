@@ -4,31 +4,34 @@
       <app-card [title]="!unit.id ? 'Cadastro de unidades' : 'Edição de unidades'">
         <form #unitForm="ngForm" (submit)="save(unit); this.unitForm.reset()">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Nome</label>
+            <label class="col-sm-2 col-form-label">Nome <span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <input type="text" [(ngModel)]="unit.name" name="name" class="form-control">
+              <input type="text" [(ngModel)]="unit.name" required name="name" #name="ngModel" class="form-control">
+              <span *ngIf="name.invalid && (name.dirty || name.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Estado</label>
+            <label class="col-sm-2 col-form-label">Estado <span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <select name="state" [(ngModel)]="unit.state" (change)="getCities($event.target.value)" name="state" class="form-control">
+              <select name="state" [(ngModel)]="unit.state" required #state="ngModel"(change)="getCities($event.target.value)" name="state" class="form-control">
                 <option *ngFor="let state of states" [value]="state.id"> 
                   {{ state.estado }}
                 </option>     
               </select>
+              <span *ngIf="state.invalid && (state.dirty || state.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Cidade</label>
+            <label class="col-sm-2 col-form-label">Cidade <span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <select name="city" [(ngModel)]="unit.city" name="city" class="form-control">
+              <select name="city" [(ngModel)]="unit.city" #city="ngModel" required name="city" class="form-control">
                 <option *ngFor="let city of cities" [value]="city.cidade">
                   {{ city.cidade }}                                                                                                                                                                                                                                                                                                     
                 </option> 
               </select>
+              <span *ngIf="city.invalid && (city.dirty || city.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>  
           </div>
 
@@ -40,7 +43,7 @@
             </div>
           </div>
 
-          <button class="btn btn-primary pull-right no-margin-right" type="submit">Salvar</button>
+          <button class="btn btn-primary pull-right no-margin-right" type="submit" [disabled]="!unitForm.valid">Salvar</button>
         </form>
       </app-card>
 
