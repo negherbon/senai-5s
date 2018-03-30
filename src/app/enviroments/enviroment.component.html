@@ -1,105 +1,102 @@
 <div class="button-page">
   <div class="row">
-    <!-- bootstrap modal start -->
     <div class="col-sm-12">
-      <app-card [title]="'Cadastro de Ambientes'">
-        <form>
+      <app-card [title]="!enviroment.id ? 'Cadastro de ambientes' : 'Edição de ambientes'">
+        <form #enviromentForm="ngForm" (submit)="save(enviroment); this.enviromentForm.reset()">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Título</label>
+            <label class="col-sm-2 col-form-label">Nome <span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control">
+              <input type="text" [(ngModel)]="enviroment.name" required name="name" #name="ngModel" class="form-control">
+              <span *ngIf="name.invalid && (name.dirty || name.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Unidade</label>
+            <label class="col-sm-2 col-form-label">Unidade<span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <select name="select" class="form-control">
-                <option>Selecione a unidade</option>
-                <option value="opt1">Senai Norte</option>
-                <option value="opt2">Senai Sul</option>
+              <select [(ngModel)]="enviroment.units_id" #enviromentUnit="ngModel" required name="enviromentUnit" class="form-control">
+                <option *ngFor="let unit of units" [value]="unit.id">
+                  {{ unit.name }}                                                                                                                                                                                                                                                                                                     
+                </option> 
               </select>
-            </div>
+              <span *ngIf="enviromentUnit.invalid && (enviromentUnit.dirty || enviromentUnit.touched)" style='color: red'>Este campo é obrigatório.</span>  
+            </div>  
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Responsável</label>
+            <label class="col-sm-2 col-form-label">Responsável<span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <select name="select" class="form-control">
-                <option>Selecione o Responsável</option>
-                <option value="opt1">Marcos Conceição</option>
-                <option value="opt2">José da Silva</option>
+              <select [(ngModel)]="enviroment.users_id" #enviromentResponsible="ngModel" required name="enviromentResponsible" class="form-control">
+                <option *ngFor="let user of users" [value]="user.id">
+                  {{ user.name }}                                                                                                                                                                                                                                                                                                     
+                </option> 
               </select>
-            </div>
+              <span *ngIf="enviromentResponsible.invalid && (enviromentResponsible.dirty || enviromentResponsible.touched)" style='color: red'>Este campo é obrigatório.</span>  
+            </div>  
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Tipo de ambiente<span style="color: red">*</span></label>
+            <div class="col-sm-10">
+              <select [(ngModel)]="enviroment.enviroment_types_id" #enviromentType="ngModel" required name="enviromentType" class="form-control">
+                <option *ngFor="let enviromentType of enviromentTypes" [value]="enviromentType.id">
+                  {{ enviromentType.name }}                                                                                                                                                                                                                                                                                                     
+                </option> 
+              </select>
+              <span *ngIf="enviromentType.invalid && (enviromentType.dirty || enviromentType.touched)" style='color: red'>Este campo é obrigatório.</span>  
+            </div>  
           </div>
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Descrição</label>
             <div class="col-sm-10">
-              <textarea class="textarea-width-100 form-control" name="comment"></textarea>
+              <textarea [(ngModel)]="enviroment.description" name="description" class="textarea-width-100 form-control"
+               name="comment"></textarea>
             </div>
           </div>
-
-          <button class="btn btn-primary pull-right no-margin-right" type="submit">Salvar</button>
+  
+          <button class="btn btn-primary pull-right no-margin-right" type="submit" [disabled]="!enviromentForm.valid">Salvar</button>
         </form>
       </app-card>
 
-      <app-card [title]="'Listagem de Ambientes'">
+      <app-card [title]="'Listagem de ambientes'">
         <div class="table-responsive">
           <table class="table table--clean">
             <thead>
               <tr>
-                <th style='width: 25%'>Título</th>
-                <th style='width: 20%'>Unidade</th>
-                <th style='width: 20%'>Responsável</th>
-                <th style='width: 25%'>Descrição</th>
-                <th style='width: 10%' class="text-align-left">Ações</th>
+                <th>Nome</th>
+                <th>Unidade</th>
+                <th>Responsável</th>
+                <th>Tipo de ambiente</th>
+                <th>Descrição</th>
+                <th>Ações</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr>
-                <td>Laboratório de informática</td>
-                <td>Senai Norte</td>
-                <td>Rodrigo Costa</td>
-                <td>N/A</td>
+              <tr *ngFor="let enviroment of enviroments">
+                <td>{{enviroment.name}}</td>
+                <td>{{enviroment.units_id}}</td>
+                <td>{{enviroment.users_id}}</td>
+                <td>{{enviroment.enviroment_types_id}}</td>
+                <td>{{enviroment.description}}</td>
                 <td>
                   <span class="inline-block">
                     <button class="btn btn-info btn-icon no-margin">
-                      <i class="icofont icofont-edit"></i>
+                      <i class="icofont icofont-edit" (click)="update(enviroment)"></i>
                     </button>
                   </span>
                   <span class="inline-block margin-left-10">
-                    <button class="btn btn-danger btn-icon no-margin">
+                    <button class="btn btn-danger btn-icon no-margin" (click)="getModalAnswer(enviroment.id)">
                       <i class="icofont icofont-trash"></i>
                     </button>
                   </span>
                 </td>
               </tr>
-              </tbody>
-              <tbody>
-                <tr>
-                  <td>Laboratório de mecânica</td>
-                  <td>Senai Sul</td>
-                  <td>Victor Santos</td>
-                  <td>N/A</td>
-                  <td>
-                    <span class="inline-block">
-                      <button class="btn btn-info btn-icon no-margin">
-                        <i class="icofont icofont-edit"></i>
-                      </button>
-                    </span>
-                    <span class="inline-block margin-left-10">
-                      <button class="btn btn-danger btn-icon no-margin">
-                        <i class="icofont icofont-trash"></i>
-                      </button>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
+            </tbody>
           </table>
         </div>
       </app-card>
     </div>
-    <!-- Bootstrap modal end -->
   </div>
 </div>

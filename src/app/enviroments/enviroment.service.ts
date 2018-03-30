@@ -4,47 +4,41 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { Enviroment } from './enviroment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Unit } from './unit';
 
 @Injectable()
 
-export class UnitService {
-    
-    private url = "http://localhost:4000/units";
+export class EnviromentService {
+
+   private url = "http://localhost:4000/enviroments";
 
    constructor(public http: HttpClient) { }
 
-    getStates(){
-        return this.http.get("https://br-cidade-estado-nodejs.glitch.me/estados/");
+   ngOnInit(): void {
+        this.load();
     }
-
-    getCities(stateId){
-        return this.http.get(`https://br-cidade-estado-nodejs.glitch.me/estados/${stateId}/cidades?`);
-    }
-    
-    save(unit: Unit) {
+  
+    save(enviroment: Enviroment) {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, unit, httpOptions)
+      return this.http.post(`${this.url}`, enviroment, httpOptions)
     }
 
-    update(unit: Unit) {
+    update(enviroment: Enviroment) {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${unit.id}`, unit, httpOptions)
+      return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions)
     }
 
-    load(): Observable<any> {
-        return this.http.get(`${this.url}`).map((response: Response) => {
-            return response;
-        });
+    load(): Observable<Enviroment[]> {
+        return this.http.get<Enviroment[]>(`${this.url}`);
     }
 
     remove(id){
