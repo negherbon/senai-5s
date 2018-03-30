@@ -26,6 +26,9 @@ export const AppRoutes: Routes = [{
       path: 'enviroments',
       loadChildren: './enviroments/enviroment.module#EnviromentModule',
     }, {
+      path: 'enviromentstype',
+      loadChildren: './enviroments-type/enviroment-type.module#EnviromentTypeModule',
+    }, {
       path: 'questions',
       loadChildren: './questions/question.module#QuestionModule',
     }, {

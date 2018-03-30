@@ -1,7 +1,7 @@
 <div class="button-page">
   <div class="row">
     <div class="col-sm-12">
-      <app-card [title]="'Cadastro de usuários'">
+      <app-card [title]="!user.id ? 'Cadastro de usuários' : 'Edição de usuários'">
         <form #userForm="ngForm" (submit)="save(user); this.userForm.reset()">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Nome <span style="color: red">*</span></label>

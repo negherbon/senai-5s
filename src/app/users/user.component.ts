@@ -27,7 +27,6 @@ export class UserComponent implements OnInit{
     this.userSession = helper.decodeToken(localStorage.getItem("token"));
   }
 
-  /* NASS: Refatorar */
   save(user): void {
     if(!user.id){
       this.userService.save(user)
@@ -45,15 +44,6 @@ export class UserComponent implements OnInit{
       })
     }
   }
-
-  getValidation(res){
-    swal({
-      title: "",
-      text: res["status"] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: "success"
-    });
-  }
-
   load(){
     this.userService.load()
     .subscribe(
@@ -77,6 +67,14 @@ export class UserComponent implements OnInit{
     .subscribe((res) => {
       swal("", res["message"], "success");
       this.load();
+    });
+  }
+
+  getValidation(res){
+    swal({
+      title: "",
+      text: res["status"] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: "success"
     });
   }
 
