@@ -68,6 +68,12 @@ const MENUITEMS = [
         name: 'Unidades',
         type: 'link',
         icon: 'ti-star'
+      },
+      {
+        state: 'enviromentstype',
+        name: 'Tipo de Ambiente',
+        type: 'link',
+        icon: 'ti-star'
       }
     ]
   }

@@ -27,31 +27,30 @@ export class UserComponent implements OnInit{
     this.userSession = helper.decodeToken(localStorage.getItem("token"));
   }
 
-  /* NASS: Refatorar */
   save(user): void {
-    if(!user.id){
-      this.userService.save(user)
+    let isRegistered = this.users.find(currentUser => currentUser.email == user.email)
+
+    if(isRegistered)
+      this.showModal("Usuário não cadastrado", "Já existe um usuário com este e-maill")    
+    else {
+      if(!user.id){
+        this.userService.save(user)
+          .subscribe(res => {
+            this.getValidation(res);
+            this.load();
+            this.user = new User();  // reseta valores do formulário
+        });
+      } else {
+        this.userService.update(user)
         .subscribe(res => {
           this.getValidation(res);
           this.load();
-      });
-    } else {
-      this.userService.update(user)
-      .subscribe(res => {
-        this.getValidation(res);
-        this.load();
-      })
+          this.user = new User(); // reseta valores do formulário
+        })
+      }
     }
+    
   }
-
-  getValidation(res){
-    swal({
-      title: "",
-      text: res["status"] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: "success"
-    });
-  }
-
   load(){
     this.userService.load()
     .subscribe(
@@ -65,16 +64,23 @@ export class UserComponent implements OnInit{
   }
 
   update(user: User): void {
-    window.scroll(0,0);
     this.user = user;
+    window.scroll(0,0);
   }
 
-  /* NASS: Colocar icones e mensagens de acordo com retorno da api */
   remove(id: string): void {
     this.userService.remove(id)
     .subscribe((res) => {
       swal("", res["message"], "success");
       this.load();
+    });
+  }
+
+  getValidation(res){
+    swal({
+      title: "",
+      text: res["status"] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: "success"
     });
   }
 
@@ -90,6 +96,16 @@ export class UserComponent implements OnInit{
       if (willDelete)
         this.remove(userId);
     });
+  }
+
+  showModal(title, text){
+    swal({
+      title: title,
+      text: text,
+      buttons: ["Cancelar", "OK"],
+      icon: "warning",
+      dangerMode: true,
+    })
   }
 }
     
