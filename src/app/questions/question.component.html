@@ -1,65 +1,54 @@
 <div class="button-page">
   <div class="row">
-    <!-- bootstrap modal start -->
     <div class="col-sm-12">
-      <app-card [title]="'Cadastro de perguntas'">
-        <form>
+      <app-card [title]="!question.id ? 'Cadastro de perguntas' : 'Edição de perguntas'">
+        <form #questionForm="ngForm" (submit)="save(question); this.questionForm.reset()">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Título</label>
+            <label class="col-sm-2 col-form-label">Nome <span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control">
+              <input type="text" [(ngModel)]="question.title" required name="title" #title="ngModel" class="form-control">
+              <span *ngIf="title.invalid && (title.dirty || title.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
-          <button class="btn btn-primary pull-right no-margin-right" type="submit">Salvar</button>
+
+          <button class="btn btn-primary pull-right no-margin-right" type="submit" [disabled]="!questionForm.valid">Salvar</button>
         </form>
       </app-card>
 
+      <ng-template #noQuestions>
+        <p class="no-content">Nenhum registro para mostrar.</p>
+      </ng-template>
+
       <app-card [title]="'Listagem de perguntas'">
         <div class="table-responsive">
-          <table class="table table--clean">
+          <table *ngIf="questions?.length > 0; else noQuestions" class="table table--clean">
             <thead>
               <tr>
-                <th width="40%">Título</th>
-                <th width="40%">Ações</th>
+                <th>Título</th>
+                <th>Ações</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr>
-                <td>O ambiente está organizado?</td>
+              <tr *ngFor="let question of questions">
+                <td>{{question.title}}</td>
                 <td>
                   <span class="inline-block">
                     <button class="btn btn-info btn-icon no-margin">
-                      <i class="icofont icofont-edit"></i>
+                      <i class="icofont icofont-edit" (click)="update(question)"></i>
                     </button>
                   </span>
                   <span class="inline-block margin-left-10">
-                    <button class="btn btn-danger btn-icon no-margin">
+                    <button class="btn btn-danger btn-icon no-margin" (click)="getModalAnswer(question.id)">
                       <i class="icofont icofont-trash"></i>
                     </button>
                   </span>
                 </td>
               </tr>
-              <tr>
-                <td>O ambiente tem uma boa estrutura?</td>
-                <td>
-                  <span class="inline-block">
-                    <button class="btn btn-info btn-icon no-margin">
-                      <i class="icofont icofont-edit"></i>
-                    </button>
-                  </span>
-                  <span class="inline-block margin-left-10">
-                    <button class="btn btn-danger btn-icon no-margin">
-                      <i class="icofont icofont-trash"></i>
-                    </button>
-                  </span>
-                </td>
-              </tr>
-            <tbody>
+            </tbody>
           </table>
         </div>
       </app-card>
     </div>
-    <!-- Bootstrap modal end -->
   </div>
 </div>
-<ng2-toasty [position]="position"></ng2-toasty>

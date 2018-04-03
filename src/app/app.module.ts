@@ -22,6 +22,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { EnviromentTypeService } from './enviroments-type/enviroment-type.service';
 import { EnviromentService } from './enviroments/enviroment.service';
+import { QuestionService } from './questions/question.service';
 
 @NgModule({
   declarations: [
@@ -49,8 +50,7 @@ import { EnviromentService } from './enviroments/enviroment.service';
       useClass: TokenInterceptor,
       multi: true
     },
-    UnitService, EnviromentTypeService, EnviromentService
-
+    UnitService, EnviromentTypeService, EnviromentService, QuestionService
   ],
   bootstrap: [AppComponent]
 })
