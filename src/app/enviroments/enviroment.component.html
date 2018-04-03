@@ -76,9 +76,9 @@
             <tbody>
               <tr *ngFor="let enviroment of enviroments">
                 <td>{{enviroment.name}}</td>
-                <td>{{enviroment.units_id}}</td>
-                <td>{{enviroment.users_id}}</td>
-                <td>{{enviroment.enviroment_types_id}}</td>
+                <td>{{enviroment.Unit.name}}</td>
+                <td>{{enviroment.User.name}}</td>
+                <td>{{enviroment.EnviromentType.name}}</td>
                 <td>{{enviroment.description}}</td>
                 <td>
                   <span class="inline-block">
