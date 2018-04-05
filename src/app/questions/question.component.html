@@ -4,13 +4,13 @@
       <app-card [title]="!question.id ? 'Cadastro de perguntas' : 'Edição de perguntas'">
         <form #questionForm="ngForm" (submit)="save(question); this.questionForm.reset()">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Nome <span style="color: red">*</span></label>
+            <label class="col-sm-2 col-form-label">Título <span style="color: red">*</span></label>
             <div class="col-sm-10">
               <input type="text" [(ngModel)]="question.title" required name="title" #title="ngModel" class="form-control">
               <span *ngIf="title.invalid && (title.dirty || title.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
-
+          
           <button class="btn btn-primary pull-right no-margin-right" type="submit" [disabled]="!questionForm.valid">Salvar</button>
         </form>
       </app-card>
