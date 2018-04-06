@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './question.service';
 import { Question } from './question';
 import swal from 'sweetalert';
+import { IOption } from 'ng-select';
+import { EnviromentTypeService } from '../enviroments-type/enviroment-type.service';
+import { EnviromentType } from '../enviroments-type/enviroment-type';
+
 
 @Component({
   selector: 'app-question',
@@ -10,13 +14,40 @@ import swal from 'sweetalert';
 
 export class QuestionComponent implements OnInit {
 
-  constructor(public questionService: QuestionService) { }
+  constructor(public questionService: QuestionService, public enviromentTypeService : EnviromentTypeService) { }
 
   questions: Question[];
-  question: Question = new Question();
+  enviromentTypes: EnviromentType[];
+  question: Question = new Question();  
+  myOptions: any[];
 
   ngOnInit() {
     this.load();
+    this.loadEnviromentTypes();
+  }
+
+
+  load() {
+    this.questionService.load()
+      .subscribe(
+        questions => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+          this.questions = questions;
+          
+        },
+        error => {
+          console.log(error)
+        },
+    )
+  }
+
+  loadEnviromentTypes(){
+    this.enviromentTypeService.load()
+    .subscribe(
+      enviromentTypes => {
+        this.enviromentTypes = enviromentTypes;
+        this.myOptions = enviromentTypes.map(({id,name}) => ({label:name,value:id}));
+      }
+    )
   }
 
   save(question): void {
@@ -37,38 +68,25 @@ export class QuestionComponent implements OnInit {
     }
   }
 
-  getValidation(res) {
-    swal({
-      title: "",
-      text: res["status"] === 201 ? 'Pergunta salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: "success"
-    });
-  }
-
-  load() {
-    this.questionService.load()
-      .subscribe(
-        questions => {
-          this.questions = questions
-        },
-        error => {
-          console.log(error)
-        },
-    )
-  }
-
   update(question: Question): void {
     this.question = question;
     window.scroll(0, 0);
   }
 
-  /* NASS: Colocar icones e mensagens de acordo com retorno da api */
   remove(id: string): void {
     this.questionService.remove(id)
       .subscribe((res) => {
         swal("", res["message"], "success");
         this.load();
       });
+  }
+
+  getValidation(res) {
+    swal({
+      title: "",
+      text: res["status"] === 201 ? 'Pergunta salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: "success"
+    });
   }
 
   getModalAnswer(questionId) {

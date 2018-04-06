@@ -13,7 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './layouts/admin/breadcrumbs/breadcrumbs.component';
 import { TitleComponent } from './layouts/admin/title/title.component';
 import { ScrollModule} from './scroll/scroll.module';
-import { LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { LocationStrategy, PathLocationStrategy, CommonModule} from '@angular/common';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { UserComponent } from './users/user.component'
 import { UserService } from './users/user.service';
@@ -33,6 +33,7 @@ import { QuestionService } from './questions/question.service';
     TitleComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -41,7 +42,7 @@ import { QuestionService } from './questions/question.service';
     FormsModule,
     HttpModule,
     ScrollModule,
-    NgDatepickerModule
+    NgDatepickerModule,
   ],
   exports: [ScrollModule],
   providers: [
