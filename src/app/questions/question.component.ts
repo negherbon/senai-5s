@@ -51,9 +51,15 @@ export class QuestionComponent implements OnInit {
   }
 
   save(question): void {
+
+    var enviroments = [];
+
+    enviroments.push(question.enviroment_types_id);
+
     if (!question.id) {
-      this.questionService.save(question)
+     this.questionService.save(question)
         .subscribe(res => {
+          this.saveInAssociateTable(res["questionId"], enviroments);
           this.getValidation(res);
           this.load();
           this.question = new Question();  // reseta valores do formulário
@@ -67,6 +73,14 @@ export class QuestionComponent implements OnInit {
         })
     }
   }
+
+  
+  saveInAssociateTable(questionId, enviroments) : void{
+    this.questionService.saveInAssociateTable(questionId, enviroments)
+    .subscribe(res =>{
+      console.log(res)
+    })
+}
 
   update(question: Question): void {
     this.question = question;

@@ -12,6 +12,7 @@ import { Question } from './question';
 export class QuestionService {
     
     private url = "http://localhost:4000/questions";
+    private urlRelatedItems = "http://localhost:4000/related";
 
    constructor(public http: HttpClient) { }
     
@@ -22,6 +23,21 @@ export class QuestionService {
             })
         };
       return this.http.post(`${this.url}`, question, httpOptions)
+    }
+
+    saveInAssociateTable(questionId, enviroments){
+        let relatedIds = {
+            questionId: questionId,
+            enviroments: enviroments
+        }
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json'
+            })
+        };
+
+      return this.http.post(`${this.urlRelatedItems}`, relatedIds, httpOptions)
     }
 
     update(question: Question) {
