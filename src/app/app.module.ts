@@ -13,7 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './layouts/admin/breadcrumbs/breadcrumbs.component';
 import { TitleComponent } from './layouts/admin/title/title.component';
 import { ScrollModule} from './scroll/scroll.module';
-import { LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { LocationStrategy, PathLocationStrategy, CommonModule} from '@angular/common';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { UserComponent } from './users/user.component'
 import { UserService } from './users/user.service';
@@ -22,6 +22,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { EnviromentTypeService } from './enviroments-type/enviroment-type.service';
 import { EnviromentService } from './enviroments/enviroment.service';
+import { QuestionService } from './questions/question.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { EnviromentService } from './enviroments/enviroment.service';
     TitleComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -40,7 +42,7 @@ import { EnviromentService } from './enviroments/enviroment.service';
     FormsModule,
     HttpModule,
     ScrollModule,
-    NgDatepickerModule
+    NgDatepickerModule,
   ],
   exports: [ScrollModule],
   providers: [
@@ -49,8 +51,7 @@ import { EnviromentService } from './enviroments/enviroment.service';
       useClass: TokenInterceptor,
       multi: true
     },
-    UnitService, EnviromentTypeService, EnviromentService
-
+    UnitService, EnviromentTypeService, EnviromentService, QuestionService
   ],
   bootstrap: [AppComponent]
 })

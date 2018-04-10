@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 import { QuestionComponent } from './question.component';
 
 export const QuestionRoutes: Routes = [{
