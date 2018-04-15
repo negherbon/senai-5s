@@ -1,33 +1,39 @@
 <div class="button-page">
   <div class="row">
-    <!-- bootstrap modal start -->
     <div class="col-sm-12">
       <app-card [title]="'Cadastro de Avaliações'">
-        <form>
+        <form #evaluationForm="ngForm" (submit)="save(evaluation); this.evaluationForm.reset()">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Título</label>
+            <label class="col-sm-2 col-form-label">Título<span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control">
+              <input [(ngModel)]="evaluation.title" required name="title" #title="ngModel" type="text" class="form-control">
+              <span *ngIf="title.invalid && (title.dirty || title.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Ambiente</label>
+          <div class="form-group row">  
+            <label class="col-sm-2 col-form-label">Ambiente<span style="color: red">*</span></label>
             <div class="col-sm-10">
-              <select name="select" class="form-control">
-                <option>Selecione um ambiente</option>
-                <option value="opt2">Sala A101</option>
-                <option value="opt3">Sala B101</option>
-                <option value="opt4">Laboratório</option>
-                <option value="opt5">Biblioteca</option>
+              <select [(ngModel)]="evaluation.enviroments_id" #evaluationEnviroment="ngModel" required name="evaluationEnviroment" class="form-control">
+                <option *ngFor="let enviroment of enviroments" [value]="enviroment.id">
+                  {{ enviroment.name }}                                                                                                                                                                                                                                                                                                     
+                </option> 
               </select>
-            </div>
+              <span *ngIf="evaluationEnviroment.invalid && (evaluationEnviroment.dirty || evaluationEnviroment.touched)" style='color: red'>Este campo é obrigatório.</span>  
+            </div>  
           </div>
 
           <div class="row">
-            <label class="col-sm-2 col-form-label">Período:</label>
-            <div class="col-sm-4">
-              <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker>
+            <label class="col-sm-2 col-form-label">Período</label>
+            <div class="col-xs-12 col-md-5 col-lg-4 form-group">
+              <input
+                class="form-control"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+                #dpYMD="bsDatepicker"
+                bsDatepicker
+                formControlName="myDateYMD"
+                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
             </div>
 
             <div>
@@ -63,70 +69,8 @@
 
       <app-card [title]="'Listagem de Avaliações'">
         <div class="table-responsive">
-          <table class="table table--clean">
-            <thead>
-              <tr>
-                <th>Título</th>
-                <th>Ambiente</th>
-                <th>Data início</th>
-                <th>Data fim</th>
-                <th>Responsável</th>
-                <th>Status</th>
-                <th>Descrição</th>
-                <th class="text-align-left">Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Avaliação da sala A101</td>
-                <td>Sala A101</td>
-                <td>01/03/2018</td>
-                <td>01/04/2018</td>
-                <td>Rafael Negherbon</td>
-                <td>Pendente</td>
-                <td>N/A</td>
-                <td class="text-align-right">
-                  <span class="inline-block">
-                    <button class="btn btn-info btn-icon no-margin">
-                      <i class="icofont icofont-edit"></i>
-                    </button>
-                  </span>
-                  <span class="inline-block margin-left-10">
-                    <button class="btn btn-danger btn-icon no-margin">
-                      <i class="icofont icofont-trash"></i>
-                    </button>
-                  </span>
-                </td>
-              </tr>
-              </tbody>
-
-              <tbody>
-                <tr>
-                  <td>Avaliação do laboratório</td>
-                  <td>Laboratório</td>
-                  <td>11/05/2018</td>
-                  <td>01/06/2018</td>
-                  <td>Guilherme Nass</td>
-                  <td>Em andamento</td>
-                  <td>N/A</td>
-                  <td class="text-align-right">
-                    <span class="inline-block">
-                      <button class="btn btn-info btn-icon no-margin">
-                        <i class="icofont icofont-edit"></i>
-                      </button>
-                    </span>
-                    <span class="inline-block margin-left-10">
-                      <button class="btn btn-danger btn-icon no-margin">
-                        <i class="icofont icofont-trash"></i>
-                      </button>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-          </table>
         </div>
       </app-card>
     </div>
-    <!-- Bootstrap modal end -->
   </div>
 </div>

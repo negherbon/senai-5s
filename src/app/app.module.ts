@@ -23,6 +23,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { EnviromentTypeService } from './enviroments-type/enviroment-type.service';
 import { EnviromentService } from './enviroments/enviroment.service';
 import { QuestionService } from './questions/question.service';
+import { EvaluationService } from './evaluations/evaluation.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { QuestionService } from './questions/question.service';
       useClass: TokenInterceptor,
       multi: true
     },
-    UnitService, EnviromentTypeService, EnviromentService, QuestionService
+    UnitService, EnviromentTypeService, EnviromentService, QuestionService, EvaluationService
   ],
   bootstrap: [AppComponent]
 })
