@@ -12,6 +12,7 @@ import { Question } from './question';
 export class QuestionService {
     
     private url = "http://localhost:4000/questions";
+    private urlRelatedItems = "http://localhost:4000/associate";
 
    constructor(public http: HttpClient) { }
     
@@ -22,6 +23,27 @@ export class QuestionService {
             })
         };
       return this.http.post(`${this.url}`, question, httpOptions)
+    }
+
+    saveInAssociateTable(questionId, enviromentTypeId){
+        let relatedIds = {
+            questionId: questionId,
+            enviromentTypeId: enviromentTypeId
+        }
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json'
+            })
+        };
+
+      return this.http.post(`${this.urlRelatedItems}`, relatedIds, httpOptions)
+    }
+
+    getAssociatedItems(questionId) : Observable<any> {
+        return this.http.get(`${this.urlRelatedItems}/${questionId}`).map((response: Response) => {
+            return response;
+        });
     }
 
     update(question: Question) {
