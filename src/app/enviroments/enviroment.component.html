@@ -59,9 +59,13 @@
         </form>
       </app-card>
 
+      <ng-template #noEnviroments>
+        <p class="no-content">Nenhum registro para mostrar.</p>
+      </ng-template>
+
       <app-card [title]="'Listagem de ambientes'">
         <div class="table-responsive">
-          <table class="table table--clean">
+          <table *ngIf="enviroments?.length > 0; else noEnviroments"  class="table table--clean">
             <thead>
               <tr>
                 <th>Nome</th>
