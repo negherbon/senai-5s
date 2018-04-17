@@ -40,7 +40,7 @@ export class EnviromentComponent implements OnInit {
   }
 
   save(enviroment): void {
-    if(!enviroment.id){
+    if(!enviroment.id) {
       this.enviromentService.save(enviroment)
         .subscribe(res => {
           this.getValidation(res);
@@ -55,7 +55,7 @@ export class EnviromentComponent implements OnInit {
     }
   }
 
-  loadResponsibles(){
+  loadResponsibles() {
     this.userService.load()
     .subscribe(
       users => {
@@ -67,7 +67,7 @@ export class EnviromentComponent implements OnInit {
     )
   }
 
-  loadUnits(){
+  loadUnits() {
     this.unitService.load()
     .subscribe(
       units => {
@@ -75,62 +75,62 @@ export class EnviromentComponent implements OnInit {
       
       },
       error => {
-        console.log(error)
+        console.log(error);
       }
     )
   }
 
-  loadEnviromentTypes(){
+  loadEnviromentTypes() {
     this.enviromentTypeService.load()
     .subscribe(   
       enviromentTypes => {
         this.enviromentTypes = enviromentTypes
       },
       error => {
-        console.log(error)
+        console.log(error);
       }
     )
   }
 
-  load(){
+  load() {
     this.enviromentService.load()
     .subscribe(
       enviroments => {
         this.enviroments = enviroments
       },
       error => {
-        console.log(error)
+        console.log(error);
       },
     )
   }
   
   update(enviroment: Enviroment): void {
     this.enviroment = enviroment;
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
   remove(id: string): void {
     this.enviromentService.remove(id)
     .subscribe((res) => {
-      swal("", res["message"], "success");
+      swal('', res['message'], 'success');
       this.load();
     });
   }
 
-  getValidation(res){
+  getValidation(res) {
     swal({
-      title: "",
-      text: res["status"] === 201 ? 'Ambiente salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: "success"
+      title: '',
+      text: res['status'] === 201 ? 'Ambiente salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: 'success'
     });
   }
 
-  getModalAnswer(enviromentId){
+  getModalAnswer(enviromentId) {
     swal({
-      title: "Exclusão de ambiente",
-      text: "Tem certeza que deseja excluir o ambiente?",
-      buttons: ["Cancelar", "OK"],
-      icon: "warning",
+      title: 'Exclusão de ambiente',
+      text: 'Tem certeza que deseja excluir o ambiente?',
+      buttons: ['Cancelar', 'OK'],
+      icon: 'warning',
       dangerMode: true,
     })
     .then((willDelete) => {

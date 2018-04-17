@@ -37,7 +37,7 @@ export class QuestionComponent implements OnInit {
     )
   }
 
-  loadEnviromentTypes(){
+  loadEnviromentTypes() {
     this.enviromentTypeService.load()
     .subscribe(
       enviromentTypes => {
@@ -52,7 +52,7 @@ export class QuestionComponent implements OnInit {
     if (!question.id) {
         this.questionService.save(question)
         .subscribe(res => {
-          this.saveInAssociateTable(res["questions_id"], res["enviroment_types_id"]);
+          this.saveInAssociateTable(res['questions_id'], res['enviroment_types_id']);
           this.getValidation(res);
           this.load();
           this.question = new Question();  
@@ -90,25 +90,25 @@ export class QuestionComponent implements OnInit {
   remove(id: string): void {
     this.questionService.remove(id)
       .subscribe((res) => {
-        swal("", res["message"], "success");
+        swal('', res['message'], 'success');
         this.load();
       });
   }
 
   getValidation(res) {
     swal({
-      title: "",
-      text: res["status"] === 201 ? 'Pergunta salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: "success"
+      title: '',
+      text: res['status'] === 201 ? 'Pergunta salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: 'success'
     });
   }
 
   getModalAnswer(questionId) {
     swal({
-      title: "Exclusão de pergunta",
-      text: "Tem certeza que deseja excluir a pergunta?",
-      buttons: ["Cancelar", "OK"],
-      icon: "warning",
+      title: 'Exclusão de pergunta',
+      text: 'Tem certeza que deseja excluir a pergunta?',
+      buttons: ['Cancelar', 'OK'],
+      icon: 'warning',
       dangerMode: true,
     })
       .then((willDelete) => {

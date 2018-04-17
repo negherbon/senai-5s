@@ -48,7 +48,7 @@ export class AdminLayoutComponent implements OnInit {
   toggleOn = true;
   windowWidth: number;
   userSession: User = new User();
-  
+
   public htmlButton: string;
 
   constructor(public menuItems: MenuItems) {
@@ -59,7 +59,7 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userSession = helper.decodeToken(localStorage.getItem("token"));
+    this.userSession = helper.decodeToken(localStorage.getItem('token'));
   }
 
   onClickedOutside(e: Event) {

@@ -11,8 +11,8 @@ import { Question } from './question';
 
 export class QuestionService {
     
-    private url = "http://localhost:4000/questions";
-    private urlRelatedItems = "http://localhost:4000/associate";
+    private url = 'http://localhost:4000/questions';
+    private urlRelatedItems = 'http://localhost:4000/associate';
 
    constructor(public http: HttpClient) { }
     
@@ -25,7 +25,7 @@ export class QuestionService {
       return this.http.post(`${this.url}`, question, httpOptions)
     }
 
-    saveInAssociateTable(questionId, enviromentTypeId){
+    saveInAssociateTable(questionId, enviromentTypeId) {
         let relatedIds = {
             questionId: questionId,
             enviromentTypeId: enviromentTypeId
@@ -61,7 +61,7 @@ export class QuestionService {
         });
     }
 
-    remove(id){
+    remove(id) {
        return this.http.delete(`${this.url}/${id}`);
     }
 }
