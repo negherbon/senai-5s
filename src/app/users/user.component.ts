@@ -30,8 +30,8 @@ export class UserComponent implements OnInit{
   save(user): void {
     let isRegistered = this.users.find(currentUser => currentUser.email == user.email)
 
-    if(isRegistered)
-      this.showModal("Usuário não cadastrado", "Já existe um usuário com este e-maill")    
+    if(isRegistered && isRegistered.id != user.id)
+      this.showModal("Usuário não cadastrado", "Já existe um usuário com este e-maill");
     else {
       if(!user.id){
         this.userService.save(user)
@@ -102,7 +102,7 @@ export class UserComponent implements OnInit{
     swal({
       title: title,
       text: text,
-      buttons: ["Cancelar", "OK"],
+      buttons: [null ,"OK"],
       icon: "warning",
       dangerMode: true,
     })
