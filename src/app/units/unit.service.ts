@@ -11,15 +11,15 @@ import { Unit } from './unit';
 
 export class UnitService {
     
-    private url = "http://localhost:4000/units";
+    private url = 'http://localhost:4000/units';
 
    constructor(public http: HttpClient) { }
 
-    getStates(){
-        return this.http.get("https://br-cidade-estado-nodejs.glitch.me/estados/");
+    getStates() {
+        return this.http.get('https://br-cidade-estado-nodejs.glitch.me/estados/');
     }
 
-    getCities(stateId){
+    getCities(stateId) {
         return this.http.get(`https://br-cidade-estado-nodejs.glitch.me/estados/${stateId}/cidades?`);
     }
     
@@ -47,7 +47,7 @@ export class UnitService {
         });
     }
 
-    remove(id){
+    remove(id) {
        return this.http.delete(`${this.url}/${id}`);
     }
 }

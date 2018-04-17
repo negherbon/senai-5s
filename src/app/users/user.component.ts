@@ -18,22 +18,22 @@ export class UserComponent implements OnInit{
   user: User = new User();
   users: User[];
   userSession: User = new User();
-  
+
   constructor(private userService: UserService) {
   }
-  
+
   ngOnInit(): void {
     this.load();
-    this.userSession = helper.decodeToken(localStorage.getItem("token"));
+    this.userSession = helper.decodeToken(localStorage.getItem('token'));
   }
 
   save(user): void {
-    let isRegistered = this.users.find(currentUser => currentUser.email == user.email)
+    let isRegistered = this.users.find(currentUser => currentUser.email == user.email);
 
-    if(isRegistered)
-    this.showModal("Usuário não cadastrado", "Já existe um usuário com este e-maill") 
-        else {
-      if(!user.id){
+    if(isRegistered  && isRegistered.id != user.id) {
+      this.showModal('Usuário não cadastrado', 'Já existe um usuário com este e-mail');
+    } else {
+      if(!user.id) {
         this.userService.save(user)
           .subscribe(res => {
             this.getValidation(res);
@@ -49,9 +49,9 @@ export class UserComponent implements OnInit{
         })
       }
     }
-    
+
   }
-  load(){
+  load() {
     this.userService.load()
     .subscribe(
       users => {
@@ -65,47 +65,47 @@ export class UserComponent implements OnInit{
 
   update(user: User): void {
     this.user = user;
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
   remove(id: string): void {
     this.userService.remove(id)
     .subscribe((res) => {
-      swal("", res["message"], "success");
+      swal('', res['message'], 'success');
       this.load();
     });
   }
 
-  getValidation(res){
+  getValidation(res) {
     swal({
-      title: "",
-      text: res["status"] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: "success"
-    });
+      title: '',
+      text: res['status'] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: 'success'
+    } );
   }
 
-  getModalAnswer(userId){
+  getModalAnswer(userId) {
     swal({
-      title: "Exclusão de usuário",
-      text: "Tem certeza que deseja excluir o usuário?",
-      buttons: ["Cancelar", "OK"],
-      icon: "warning",
+      title: 'Exclusão de usuário',
+      text: 'Tem certeza que deseja excluir o usuário?',
+      buttons: [null, 'OK'],
+      icon: 'warning',
       dangerMode: true,
     })
     .then((willDelete) => {
-      if (willDelete)
+      if (willDelete) {
         this.remove(userId);
+      }
     });
   }
 
-  showModal(title, text){
+  showModal(title, text) {
     swal({
       title: title,
       text: text,
-      buttons: [ null,"OK"],
-      icon: "warning",
+      buttons: [null, 'OK'],
+      icon: 'warning',
       dangerMode: true,
     })
   }
 }
-    
