@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class EnviromentService {
 
-   private url = "http://localhost:4000/enviroments";
+   private url = 'http://localhost:4000/enviroments';
 
    constructor(public http: HttpClient) { }
 
@@ -41,7 +41,7 @@ export class EnviromentService {
         return this.http.get<Enviroment[]>(`${this.url}`);
     }
 
-    remove(id){
+    remove(id) {
        return this.http.delete(`${this.url}/${id}`);
     }
 }

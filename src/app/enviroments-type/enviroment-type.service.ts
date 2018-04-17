@@ -11,7 +11,7 @@ import { EnviromentType } from './enviroment-type';
 
 export class EnviromentTypeService {
     
-    private url = "http://localhost:4000/enviromenttypes";
+    private url = 'http://localhost:4000/enviromenttypes';
 
    constructor(public http: HttpClient) { }
 
@@ -37,7 +37,7 @@ export class EnviromentTypeService {
         return this.http.get<EnviromentType[]>(`${this.url}`);
     }
 
-    remove(id){
+    remove(id) {
        return this.http.delete(`${this.url}/${id}`);
     }
 }

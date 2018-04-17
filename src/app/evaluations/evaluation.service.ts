@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class EvaluationService {
 
-   private url = "http://localhost:4000/evaluations";
+   private url = 'http://localhost:4000/evaluations';
 
    constructor(public http: HttpClient) { }
 
@@ -41,7 +41,7 @@ export class EvaluationService {
         return this.http.get<Evaluation[]>(`${this.url}`);
     }
 
-    // remove(id){
+    // remove(id) {
     //    return this.http.delete(`${this.url}/${id}`);
     // }
 }

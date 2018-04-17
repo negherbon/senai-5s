@@ -13,8 +13,8 @@ export class AuthComponent implements OnInit {
   constructor(public router: Router) {}
   
   ngOnInit() {
-    var token = window.location.href.split("?token=")[1];
-    localStorage.setItem("token", token);
+    var token = window.location.href.split('?token=')[1];
+    localStorage.setItem('token', token);
     this.router.navigate(['dashboard']);
   }
 }

@@ -11,21 +11,21 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class UserService {
 
-   private url = "http://localhost:4000/users";
+   private url = 'http://localhost:4000/users';
 
    constructor(public http: HttpClient) { }
 
    ngOnInit(): void {
         this.load();
     }
-  
+
     save(user: User) {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, user, httpOptions)
+      return this.http.post(`${this.url}`, user, httpOptions);
     }
 
     update(user: User) {
@@ -34,14 +34,14 @@ export class UserService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${user.id}`, user, httpOptions)
+      return this.http.put(`${this.url}/${user.id}`, user, httpOptions);
     }
 
     load(): Observable<User[]> {
         return this.http.get<User[]>(`${this.url}`);
     }
 
-    remove(id){
+    remove(id) {
        return this.http.delete(`${this.url}/${id}`);
     }
 }
