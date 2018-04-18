@@ -4,13 +4,13 @@ import { Unit } from './unit';
 import swal from 'sweetalert';
 
 @Component({
-  selector: 'app-unit', 
+  selector: 'app-unit',
   templateUrl: './unit.component.html'
 })
 
 export class UnitComponent implements OnInit {
 
-  constructor( public unitService : UnitService) { }
+  constructor( public unitService: UnitService) { }
 
   cities: any;
   states: any;
@@ -25,24 +25,24 @@ export class UnitComponent implements OnInit {
   getStates() {
     this.unitService.getStates().subscribe(
       states => {
-        this.states = states
+        this.states = states;
       },
       error => {
-        console.log(error)
+        console.log(error);
       },
-    )
+    );
     console.log(this.states);
   }
 
   getCities(stateId) {
     this.unitService.getCities(stateId).subscribe(
       cities => {
-        this.cities = cities
+        this.cities = cities;
       },
       error => {
         console.log(error);
       },
-    )
+    );
     console.log(this.cities);
   }
 
@@ -81,7 +81,7 @@ export class UnitComponent implements OnInit {
       error => {
         console.log(error);
       },
-    )
+    );
   }
 
   update(unit: Unit): void {
@@ -108,8 +108,9 @@ export class UnitComponent implements OnInit {
       dangerMode: true,
     })
     .then((willDelete) => {
-      if (willDelete)
+      if (willDelete) {
         this.remove(unitId);
+      }
     });
   }
 }

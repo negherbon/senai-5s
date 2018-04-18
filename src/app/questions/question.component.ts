@@ -14,11 +14,11 @@ import { EnviromentType } from '../enviroments-type/enviroment-type';
 
 export class QuestionComponent implements OnInit {
 
-  constructor(public questionService: QuestionService, public enviromentTypeService : EnviromentTypeService) { }
+  constructor(public questionService: QuestionService, public enviromentTypeService: EnviromentTypeService) { }
 
   questions: Question[];
   enviromentTypes: EnviromentType[];
-  question: Question = new Question();  
+  question: Question = new Question();
   myOptions: any[];
   nome: any[];
 
@@ -31,14 +31,13 @@ export class QuestionComponent implements OnInit {
   load() {
     this.questionService.load()
       .subscribe(
-        questions => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        questions => {
           this.questions = questions;
-          
         },
         error => {
-          console.log(error)
+          console.log(error);
         },
-    )
+    );
   }
 
   loadEnviromentTypes() {
@@ -46,9 +45,9 @@ export class QuestionComponent implements OnInit {
     .subscribe(
       enviromentTypes => {
         this.enviromentTypes = enviromentTypes;
-        this.myOptions = enviromentTypes.map(({id,name}) => ({label:name,value:id}));
+        this.myOptions = enviromentTypes.map(({id, name}) => ({label: name, value: id}));
       }
-    )
+    );
   }
 
   save(question): void {
@@ -59,27 +58,25 @@ export class QuestionComponent implements OnInit {
           this.saveInAssociateTable(res['questions_id'], res['enviroment_types_id']);
           this.getValidation(res);
           this.load();
-          this.question = new Question();  
+          this.question = new Question();
         });
     } else {
       this.questionService.update(question)
         .subscribe(res => {
           this.getValidation(res);
           this.load();
-          this.question = new Question(); 
-      })
+          this.question = new Question();
+      });
     }
   }
 
-  
-  saveInAssociateTable(questionId, enviromentTypeId) : void{
+  saveInAssociateTable (questionId, enviromentTypeId): void {
     this.questionService.saveInAssociateTable(questionId, enviromentTypeId)
     .subscribe(res => {
-      console.log(res)
-    })
+      console.log(res);
+    });
   }
 
-  
   update(question: Question): void {
     let relatedIds = [];
 
@@ -90,7 +87,7 @@ export class QuestionComponent implements OnInit {
         relatedIds.push(element.enviroment_types_id);
         console.log(relatedIds);
       });
-    })
+    });
     this.question = question;
     window.scroll(0, 0);
   }
@@ -120,8 +117,9 @@ export class QuestionComponent implements OnInit {
       dangerMode: true,
     })
       .then((willDelete) => {
-        if (willDelete)
+        if (willDelete) {
           this.remove(questionId);
+        }
       });
   }
 }

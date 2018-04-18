@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,26 +10,26 @@ import { Question } from './question';
 @Injectable()
 
 export class QuestionService {
-    
+
     private url = 'http://localhost:4000/questions';
     private urlRelatedItems = 'http://localhost:4000/associate';
 
    constructor(public http: HttpClient) { }
-    
+
     save(question: Question) {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, question, httpOptions)
+      return this.http.post(`${this.url}`, question, httpOptions);
     }
 
     saveInAssociateTable(questionId, enviromentTypeId) {
         let relatedIds = {
             questionId: questionId,
             enviromentTypeId: enviromentTypeId
-        }
+        };
 
         const httpOptions = {
             headers: new HttpHeaders({
@@ -37,10 +37,10 @@ export class QuestionService {
             })
         };
 
-      return this.http.post(`${this.urlRelatedItems}`, relatedIds, httpOptions)
+      return this.http.post(`${this.urlRelatedItems}`, relatedIds, httpOptions);
     }
 
-    getAssociatedItems(questionId) : Observable<any> {
+    getAssociatedItems(questionId): Observable<any> {
         return this.http.get(`${this.urlRelatedItems}/${questionId}`).map((response: Response) => {
             return response;
         });
@@ -52,7 +52,7 @@ export class QuestionService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${question.id}`, question, httpOptions)
+      return this.http.put(`${this.url}/${question.id}`, question, httpOptions);
     }
 
     load(): Observable<any> {

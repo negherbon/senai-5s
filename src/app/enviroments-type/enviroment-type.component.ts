@@ -4,15 +4,15 @@ import { EnviromentType } from './enviroment-type';
 import swal from 'sweetalert';
 
 @Component({
-  selector: 'app-enviroment-type', 
+  selector: 'app-enviroment-type',
   templateUrl: './enviroment-type.component.html'
 })
 
 export class EnviromentTypeComponent implements OnInit {
 
-  constructor(public enviromentTypeService : EnviromentTypeService) { }
+  constructor(public enviromentTypeService: EnviromentTypeService) { }
 
-  enviromentTypes: EnviromentType[]
+  enviromentTypes: EnviromentType[];
   enviromentType: EnviromentType = new EnviromentType();
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class EnviromentTypeComponent implements OnInit {
   }
 
   save(enviromentType): void {
-    if(!enviromentType.id) {
+    if (!enviromentType.id) {
       this.enviromentTypeService.save(enviromentType)
         .subscribe(res => {
           this.getValidation(res);
@@ -33,7 +33,7 @@ export class EnviromentTypeComponent implements OnInit {
         this.getValidation(res);
         this.load();
         this.enviromentType = new EnviromentType(); // reseta valores do formulário
-      })
+      });
     }
   }
 
@@ -49,12 +49,12 @@ export class EnviromentTypeComponent implements OnInit {
     this.enviromentTypeService.load()
     .subscribe(
       enviromentsType => {
-        this.enviromentTypes = enviromentsType
+        this.enviromentTypes = enviromentsType;
       },
       error => {
         console.log(error);
       },
-    )
+    );
   }
   update(enviromentType: EnviromentType): void {
     this.enviromentType = enviromentType;
@@ -79,8 +79,9 @@ export class EnviromentTypeComponent implements OnInit {
       dangerMode: true,
     })
     .then((willDelete) => {
-      if (willDelete)
+      if (willDelete) {
         this.remove(enviromentsTypeId);
+      }
     });
   }
 }

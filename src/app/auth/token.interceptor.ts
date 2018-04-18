@@ -16,7 +16,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
+
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -27,13 +27,13 @@ export class TokenInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
             // do stuff with response if you want
         }
-    }, 
+    },
     (err: any) => {
         if (err instanceof HttpErrorResponse) {
             if (err.status === 401) {
                 window.location.href = 'http://localhost:8080/';
             }
-        }   
+        }
     });
   }
 }
