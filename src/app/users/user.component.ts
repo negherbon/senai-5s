@@ -31,6 +31,7 @@ export class UserComponent implements OnInit {
     let isRegistered = this.users.find(currentUser => currentUser.email === user.email);
 
     if (isRegistered  && isRegistered.id !== user.id) {
+
       this.showModal('Usuário não cadastrado', 'Já existe um usuário com este e-mail');
     } else {
       if (!user.id) {
