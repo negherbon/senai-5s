@@ -20,7 +20,7 @@ export class EnviromentTypeComponent implements OnInit {
   }
 
   save(enviromentType): void {
-    if(!enviromentType.id){
+    if(!enviromentType.id) {
       this.enviromentTypeService.save(enviromentType)
         .subscribe(res => {
           this.getValidation(res);
@@ -37,45 +37,45 @@ export class EnviromentTypeComponent implements OnInit {
     }
   }
 
-  getValidation(res){
+  getValidation(res) {
     swal({
-      title: "",
-      text: res["status"] === 201 ? 'Tipo de ambiente salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: "success"
+      title: '',
+      text: res['status'] === 201 ? 'Tipo de ambiente salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: 'success'
     });
   }
 
-  load(){
+  load() {
     this.enviromentTypeService.load()
     .subscribe(
       enviromentsType => {
         this.enviromentTypes = enviromentsType
       },
       error => {
-        console.log(error)
+        console.log(error);
       },
     )
   }
   update(enviromentType: EnviromentType): void {
     this.enviromentType = enviromentType;
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
   /* NASS: Colocar icones e mensagens de acordo com retorno da api */
   remove(id: string): void {
     this.enviromentTypeService.remove(id)
     .subscribe((res) => {
-      swal("", res["message"], "success");
+      swal('', res['message'], 'success');
       this.load();
     });
   }
 
-  getModalAnswer(enviromentsTypeId){
+  getModalAnswer(enviromentsTypeId) {
     swal({
-      title: "Exclusão de tipo de ambiente",
-      text: "Tem certeza que deseja excluir o tipo de ambiente?",
-      buttons: ["Cancelar", "OK"],
-      icon: "warning",
+      title: 'Exclusão de tipo de ambiente',
+      text: 'Tem certeza que deseja excluir o tipo de ambiente?',
+      buttons: ['Cancelar', 'OK'],
+      icon: 'warning',
       dangerMode: true,
     })
     .then((willDelete) => {

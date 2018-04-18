@@ -10,9 +10,9 @@ import swal from 'sweetalert';
 
 export class UnitComponent implements OnInit {
 
-  constructor(public unitService : UnitService) { }
+  constructor( public unitService : UnitService) { }
 
-  cities : any;
+  cities: any;
   states: any;
   units: Unit[];
   unit: Unit = new Unit();
@@ -22,7 +22,7 @@ export class UnitComponent implements OnInit {
     this.load();
   }
 
-  getStates(){
+  getStates() {
     this.unitService.getStates().subscribe(
       states => {
         this.states = states
@@ -34,20 +34,20 @@ export class UnitComponent implements OnInit {
     console.log(this.states);
   }
 
-  getCities(stateId){
+  getCities(stateId) {
     this.unitService.getCities(stateId).subscribe(
       cities => {
         this.cities = cities
       },
       error => {
-        console.log(error)
+        console.log(error);
       },
     )
     console.log(this.cities);
   }
 
   save(unit): void {
-    if(!unit.id){
+    if (!unit.id) {
       this.unitService.save(unit)
         .subscribe(res => {
           this.getValidation(res);
@@ -60,26 +60,26 @@ export class UnitComponent implements OnInit {
         this.getValidation(res);
         this.load();
         this.unit = new Unit(); // reseta valores do formulário
-      })
+      });
     }
   }
 
-  getValidation(res){
+  getValidation(res) {
     swal({
-      title: "",
-      text: res["status"] === 201 ? 'Unidade salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: "success"
+      title: '',
+      text: res['status'] === 201 ? 'Unidade salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: 'success'
     });
   }
 
-  load(){
+  load() {
     this.unitService.load()
     .subscribe(
       units => {
-        this.units = units
+        this.units = units;
       },
       error => {
-        console.log(error)
+        console.log(error);
       },
     )
   }
@@ -87,24 +87,24 @@ export class UnitComponent implements OnInit {
   update(unit: Unit): void {
     this.getCities(unit.state);
     this.unit = unit;
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
   /* NASS: Colocar icones e mensagens de acordo com retorno da api */
   remove(id: string): void {
     this.unitService.remove(id)
     .subscribe((res) => {
-      swal("", res["message"], "success");
+      swal('', res['message'], 'success');
       this.load();
     });
   }
 
-  getModalAnswer(unitId){
+  getModalAnswer(unitId) {
     swal({
-      title: "Exclusão de unidade",
-      text: "Tem certeza que deseja excluir a unidade?",
-      buttons: ["Cancelar", "OK"],
-      icon: "warning",
+      title: 'Exclusão de unidade',
+      text: 'Tem certeza que deseja excluir a unidade?',
+      buttons: ['Cancelar', 'OK'],
+      icon: 'warning',
       dangerMode: true,
     })
     .then((willDelete) => {

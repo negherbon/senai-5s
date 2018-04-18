@@ -27,18 +27,18 @@ export class EvaluationComponent implements OnInit {
     this.loadEnviroments();
   }
 
-  load(){
+  load() {
     console.log('1');
   }
 
-  loadEnviroments(){
+  loadEnviroments() {
     this.enviromentService.load()
     .subscribe(enviroments => {
         this.enviroments = enviroments;
     })
   }
 
-  save(evaluation){
+  save(evaluation) {
     alert('evaluation' + evaluation);
   }
 
