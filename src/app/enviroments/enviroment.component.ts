@@ -26,10 +26,10 @@ export class EnviromentComponent implements OnInit {
   enviromentTypes: EnviromentType[];
 
   constructor(
-      private enviromentService : EnviromentService, 
-      private unitService : UnitService,
-      private enviromentTypeService : EnviromentTypeService,
-      private userService : UserService
+      private enviromentService: EnviromentService,
+      private unitService: UnitService,
+      private enviromentTypeService: EnviromentTypeService,
+      private userService: UserService
     ) {}
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class EnviromentComponent implements OnInit {
   }
 
   save(enviroment): void {
-    if(!enviroment.id) {
+    if (!enviroment.id) {
       this.enviromentService.save(enviroment)
         .subscribe(res => {
           this.getValidation(res);
@@ -51,7 +51,7 @@ export class EnviromentComponent implements OnInit {
       .subscribe(res => {
         this.getValidation(res);
         this.load();
-      })
+      });
     }
   }
 
@@ -59,51 +59,50 @@ export class EnviromentComponent implements OnInit {
     this.userService.load()
     .subscribe(
       users => {
-        this.users = users
+        this.users = users;
       },
       error => {
         console.log(error);
       }
-    )
+    );
   }
 
   loadUnits() {
     this.unitService.load()
     .subscribe(
       units => {
-        this.units = units
-      
+        this.units = units;
       },
       error => {
         console.log(error);
       }
-    )
+    );
   }
 
   loadEnviromentTypes() {
     this.enviromentTypeService.load()
-    .subscribe(   
+    .subscribe(
       enviromentTypes => {
-        this.enviromentTypes = enviromentTypes
+        this.enviromentTypes = enviromentTypes;
       },
       error => {
         console.log(error);
       }
-    )
+    );
   }
 
   load() {
     this.enviromentService.load()
     .subscribe(
       enviroments => {
-        this.enviroments = enviroments
+        this.enviroments = enviroments;
       },
       error => {
         console.log(error);
       },
-    )
+    );
   }
-  
+
   update(enviroment: Enviroment): void {
     this.enviroment = enviroment;
     window.scroll(0, 0);
@@ -134,8 +133,9 @@ export class EnviromentComponent implements OnInit {
       dangerMode: true,
     })
     .then((willDelete) => {
-      if (willDelete)
+      if (willDelete) {
         this.remove(enviromentId);
+      }
     });
   }
 }

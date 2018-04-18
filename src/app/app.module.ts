@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
@@ -15,7 +15,7 @@ import { TitleComponent } from './layouts/admin/title/title.component';
 import { ScrollModule} from './scroll/scroll.module';
 import { LocationStrategy, PathLocationStrategy, CommonModule} from '@angular/common';
 import { NgDatepickerModule } from 'ng2-datepicker';
-import { UserComponent } from './users/user.component'
+import { UserComponent } from './users/user.component';
 import { UserService } from './users/user.service';
 import { UnitService } from './units/unit.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';

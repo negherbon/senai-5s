@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
 
   constructor(public router: Router) {}
-  
+
   ngOnInit() {
     var token = window.location.href.split('?token=')[1];
     localStorage.setItem('token', token);
