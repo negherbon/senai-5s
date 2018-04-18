@@ -47,9 +47,13 @@
         </form>
       </app-card>
 
+      <ng-template #noUnits>
+        <p class="no-content">Nenhum registro para mostrar.</p>
+      </ng-template>
+
       <app-card [title]="'Listagem de unidades'">
         <div class="table-responsive">
-          <table class="table table--clean">
+          <table *ngIf="units?.length > 0; else noUnits" class="table table--clean">
             <thead>
               <tr>
                 <th>Nome</th>
