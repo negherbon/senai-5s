@@ -20,14 +20,10 @@ export class QuestionComponent implements OnInit {
   enviromentTypes: EnviromentType[];
   question: Question = new Question();  
   myOptions: any[];
-  nome: any[];
-
   ngOnInit() {
     this.load();
     this.loadEnviromentTypes();
   }
-
-
   load() {
     this.questionService.load()
       .subscribe(
@@ -47,14 +43,14 @@ export class QuestionComponent implements OnInit {
       enviromentTypes => {
         this.enviromentTypes = enviromentTypes;
         this.myOptions = enviromentTypes.map(({id,name}) => ({label:name,value:id}));
+        
       }
     )
   }
 
   save(question): void {
-
     if (!question.id) {
-     this.questionService.save(question)
+        this.questionService.save(question)
         .subscribe(res => {
           this.saveInAssociateTable(res["questions_id"], res["enviroment_types_id"]);
           this.getValidation(res);
@@ -75,21 +71,17 @@ export class QuestionComponent implements OnInit {
   saveInAssociateTable(questionId, enviromentTypeId) : void{
     this.questionService.saveInAssociateTable(questionId, enviromentTypeId)
     .subscribe(res => {
-      console.log(res)
+
     })
   }
-
   
   update(question: Question): void {
     let relatedIds = [];
 
     this.questionService.getAssociatedItems(question.id)
     .subscribe(relatedItems => {
-      relatedItems.forEach(element => {
-        console.log(element);
-        relatedIds.push(element.enviroment_types_id);
-        console.log(relatedIds);
-      });
+      var items = this.enviromentTypes.filter(enviroment=>relatedItems.find(relatedItem=> enviroment.id === relatedItem.enviroment_types_id))
+      this.myOptions = items.map(({id,name}) => ({label:name,value:id}))
     })
     this.question = question;
     window.scroll(0, 0);
