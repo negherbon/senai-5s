@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { EnviromentTypeComponent } from './enviroment-type.component'
+import { EnviromentTypeComponent } from './enviroment-type.component';
 import { EnviromentTypeRoutes } from './enviroment-type.routing';
 import { SharedModule } from '../shared/shared.module';
 

@@ -4,7 +4,7 @@
       <app-card [title]="!question.id ? 'Cadastro de perguntas' : 'Edição de perguntas'">
         <form #questionForm="ngForm" (submit)="save(question); this.questionForm.reset()">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Título <span style="color: red">*</span></label>
+            <label class="col-sm-2 col-form-label">Título </label>
             <div class="col-sm-10">
               <input type="text" [(ngModel)]="question.title" required name="title" #title="ngModel" class="form-control">
               <span *ngIf="title.invalid && (title.dirty || title.touched)" style='color: red'>Este campo é obrigatório.</span>  
@@ -58,8 +58,8 @@
                 <td>{{question.description}}</td>
                 <td>
                   <span class="inline-block">
-                    <button class="btn btn-info btn-icon no-margin">
-                      <i class="icofont icofont-edit" (click)="update(question)"></i>
+                    <button class="btn btn-info btn-icon no-margin" (click)="update(question)">
+                      <i class="icofont icofont-edit"></i>
                     </button>
                   </span>
                   <span class="inline-block margin-left-10">

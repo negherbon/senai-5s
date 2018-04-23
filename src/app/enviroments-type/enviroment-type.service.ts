@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,7 +10,7 @@ import { EnviromentType } from './enviroment-type';
 @Injectable()
 
 export class EnviromentTypeService {
-    
+
     private url = 'http://localhost:4000/enviromenttypes';
 
    constructor(public http: HttpClient) { }
@@ -21,7 +21,7 @@ export class EnviromentTypeService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, enviromentType, httpOptions)
+      return this.http.post(`${this.url}`, enviromentType, httpOptions);
     }
 
     update(enviromentType: EnviromentType) {
@@ -30,7 +30,7 @@ export class EnviromentTypeService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${enviromentType.id}`, enviromentType, httpOptions)
+      return this.http.put(`${this.url}/${enviromentType.id}`, enviromentType, httpOptions);
     }
 
     load(): Observable<EnviromentType[]> {

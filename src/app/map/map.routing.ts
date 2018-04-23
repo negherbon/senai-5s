@@ -10,4 +10,4 @@ export const MapRoutes: Routes = [
             status: false
         }
     }
-]
+];

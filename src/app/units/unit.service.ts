@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,7 +10,7 @@ import { Unit } from './unit';
 @Injectable()
 
 export class UnitService {
-    
+
     private url = 'http://localhost:4000/units';
 
    constructor(public http: HttpClient) { }
@@ -22,14 +22,14 @@ export class UnitService {
     getCities(stateId) {
         return this.http.get(`https://br-cidade-estado-nodejs.glitch.me/estados/${stateId}/cidades?`);
     }
-    
+
     save(unit: Unit) {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, unit, httpOptions)
+      return this.http.post(`${this.url}`, unit, httpOptions);
     }
 
     update(unit: Unit) {
@@ -38,7 +38,7 @@ export class UnitService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${unit.id}`, unit, httpOptions)
+      return this.http.put(`${this.url}/${unit.id}`, unit, httpOptions);
     }
 
     load(): Observable<any> {

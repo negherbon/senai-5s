@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -9,23 +9,23 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 
-export class EnviromentService {
+export class EnviromentService implements OnInit {
 
    private url = 'http://localhost:4000/enviroments';
 
    constructor(public http: HttpClient) { }
 
-   ngOnInit(): void {
+    ngOnInit(): void {
         this.load();
     }
-  
+
     save(enviroment: Enviroment) {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, enviroment, httpOptions)
+      return this.http.post(`${this.url}`, enviroment, httpOptions);
     }
 
     update(enviroment: Enviroment) {
@@ -34,7 +34,7 @@ export class EnviromentService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions)
+      return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions);
     }
 
     load(): Observable<Enviroment[]> {

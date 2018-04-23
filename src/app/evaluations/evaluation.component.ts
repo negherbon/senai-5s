@@ -17,10 +17,7 @@ export class EvaluationComponent implements OnInit {
   evaluations: Evaluation[];
   enviroments: Enviroment[];
 
-  constructor(private evaluationService : EvaluationService, private enviromentService : EnviromentService) 
-  {
-
-  }
+  constructor(private evaluationService: EvaluationService, private enviromentService: EnviromentService) {}
 
   ngOnInit() {
     this.load();
@@ -35,7 +32,7 @@ export class EvaluationComponent implements OnInit {
     this.enviromentService.load()
     .subscribe(enviroments => {
         this.enviroments = enviroments;
-    })
+    });
   }
 
   save(evaluation) {

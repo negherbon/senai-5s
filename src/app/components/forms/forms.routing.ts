@@ -10,4 +10,4 @@ export const FormsRoutes: Routes = [
       status: true
     }
   }
-]
+];
