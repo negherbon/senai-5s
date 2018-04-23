@@ -103,13 +103,8 @@ export class UserComponent implements OnInit{
     swal({
       title: title,
       text: text,
-<<<<<<< ce1d5a3544abf17e05067822575b442b623caf94
       buttons: [null ,"OK"],
       icon: "warning",
-=======
-      buttons: [null, 'OK'],
-      icon: 'warning',
->>>>>>> Ajustes após rodar o ng lint
       dangerMode: true,
     })
   }
