@@ -26,6 +26,7 @@ export class QuestionService {
     }
 
     saveInAssociateTable(questionId, enviromentTypeId) {
+        console.log("tessssssst");
         let relatedIds = {
             questionId: questionId,
             enviromentTypeId: enviromentTypeId
@@ -44,6 +45,10 @@ export class QuestionService {
         return this.http.get(`${this.urlRelatedItems}/${questionId}`).map((response: Response) => {
             return response;
         });
+    }
+
+    removeAssociatedItems(questionId){
+        return this.http.delete(`${this.urlRelatedItems}/${questionId}`);
     }
 
     update(question: Question) {

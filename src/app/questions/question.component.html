@@ -15,8 +15,14 @@
             <label class="col-sm-2 col-form-label">Tipo de ambientes: </label>
             <div class="col-sm-10">
               <ng-select
-                [options]="myOptions" [(ngModel)]="question.enviroment_types_id" multiple="true" label="Selecione os tipos de ambientes que tem relação com a pergunta" name="enviroments" #enviroments="ngModel">
+                  #environmentTypes="ngModel"
+                  [options]="selectItems"
+                  name="selectItems"
+                  multiple="true"
+                  required
+                  [(ngModel)]="selectedEnviromentTypes">
               </ng-select>
+              <span *ngIf="environmentTypes.invalid && (environmentTypes.dirty || environmentTypes.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
 
