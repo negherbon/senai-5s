@@ -26,7 +26,6 @@ export class QuestionService {
     }
 
     saveInAssociateTable(questionId, enviromentTypeId) {
-        console.log("tessssssst");
         let relatedIds = {
             questionId: questionId,
             enviromentTypeId: enviromentTypeId
