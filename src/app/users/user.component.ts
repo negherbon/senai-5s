@@ -29,19 +29,11 @@ export class UserComponent implements OnInit{
 
   save(user): void {
     let isRegistered = this.users.find(currentUser => currentUser.email == user.email);
-<<<<<<< HEAD
 
-    if(isRegistered && isRegistered.id != user.id)
-      this.showModal("Usuário não cadastrado", "Já existe um usuário com este e-mail");
-    else {
-      if(!user.id){
-=======
-    
     if(isRegistered  && isRegistered.id != user.id) {
       this.showModal('Usuário não cadastrado', 'Já existe um usuário com este e-mail');
     } else {
       if(!user.id) {
->>>>>>> d84bfad3ce5b44903d124936b49d8008b7607436
         this.userService.save(user)
           .subscribe(res => {
             this.getValidation(res);
@@ -111,18 +103,8 @@ export class UserComponent implements OnInit{
     swal({
       title: title,
       text: text,
-<<<<<<< HEAD
-<<<<<<< ce1d5a3544abf17e05067822575b442b623caf94
-      buttons: [null ,"OK"],
-      icon: "warning",
-=======
       buttons: [null, 'OK'],
       icon: 'warning',
->>>>>>> Ajustes após rodar o ng lint
-=======
-      buttons: [null, 'OK'],
-      icon: 'warning',
->>>>>>> d84bfad3ce5b44903d124936b49d8008b7607436
       dangerMode: true,
     })
   }
