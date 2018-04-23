@@ -19,19 +19,14 @@ export class QuestionComponent implements OnInit {
   questions: Question[];
   enviromentTypes: EnviromentType[];
   question: Question = new Question();  
-<<<<<<< HEAD
   selectItems: Array<IOption>;
   selectedEnviromentTypes: Array<String> = [];
 
-=======
-  myOptions: any[];
->>>>>>> d84bfad3ce5b44903d124936b49d8008b7607436
   ngOnInit() {
 
    this.load();
     this.loadEnviromentTypes();
   }
-<<<<<<< HEAD
 
   //TODO: REFATORAR ESSA FUNÇÃO
   save(question): void {
@@ -56,8 +51,6 @@ export class QuestionComponent implements OnInit {
     }
   }
 
-=======
->>>>>>> d84bfad3ce5b44903d124936b49d8008b7607436
   load() {
     this.questionService.load()
       .subscribe(
@@ -71,7 +64,6 @@ export class QuestionComponent implements OnInit {
   }
 
   loadEnviromentTypes() {
-<<<<<<< HEAD
     this.enviromentTypeService.load() 
     .subscribe(
       enviromentTypes => {
@@ -79,61 +71,20 @@ export class QuestionComponent implements OnInit {
         this.selectItems = enviromentTypes.map(({id, name}) => ({label: name, value: id.toString()}));
       }
     );
-=======
-    this.enviromentTypeService.load()
-    .subscribe(
-      enviromentTypes => {
-        this.enviromentTypes = enviromentTypes;
-        this.myOptions = enviromentTypes.map(({id,name}) => ({label:name,value:id}));
-        
-      }
-    )
-  }
-
-  save(question): void {
-    if (!question.id) {
-        this.questionService.save(question)
-        .subscribe(res => {
-          this.saveInAssociateTable(res['questions_id'], res['enviroment_types_id']);
-          this.getValidation(res);
-          this.load();
-          this.question = new Question();  
-        });
-    } else {
-      this.questionService.update(question)
-        .subscribe(res => {
-          this.getValidation(res);
-          this.load();
-          this.question = new Question(); 
-      })
-    }
->>>>>>> d84bfad3ce5b44903d124936b49d8008b7607436
   }
    
   saveInAssociateTable(questionId, enviromentTypeId): void {
     this.questionService.saveInAssociateTable(questionId, enviromentTypeId)
-<<<<<<< HEAD
     .subscribe(res => {});
-=======
-    .subscribe(res => {
-
-    })
->>>>>>> d84bfad3ce5b44903d124936b49d8008b7607436
   }
   
   update(question: Question): void {
     this.questionService.getAssociatedItems(question.id)
     .subscribe(relatedItems => {
-<<<<<<< HEAD
       const items = this.enviromentTypes.filter(enviroment => relatedItems.find(relatedItem => enviroment.id === relatedItem.enviroment_types_id)); 
       this.selectedEnviromentTypes = items.map( item => String(item.id) );
     });
 
-=======
-      var items = this.enviromentTypes.filter(enviroment=>relatedItems.find(relatedItem=> enviroment.id === relatedItem.enviroment_types_id))
-      this.myOptions = items.map(({id,name}) => ({label:name,value:id}))
-    })
->>>>>>> d84bfad3ce5b44903d124936b49d8008b7607436
     this.question = question;
     window.scroll(0, 0);
   }
