@@ -46,6 +46,10 @@ export class QuestionService {
         });
     }
 
+    removeAssociatedItems(questionId){
+        return this.http.delete(`${this.urlRelatedItems}/${questionId}`);
+    }
+
     update(question: Question) {
         const httpOptions = {
             headers: new HttpHeaders({

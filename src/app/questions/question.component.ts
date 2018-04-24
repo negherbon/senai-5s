@@ -18,76 +18,73 @@ export class QuestionComponent implements OnInit {
 
   questions: Question[];
   enviromentTypes: EnviromentType[];
-  question: Question = new Question();
-  myOptions: any[];
-  nome: any[];
+  question: Question = new Question();  
+  selectItems: Array<IOption>;
+  selectedEnviromentTypes: Array<String> = [];
 
   ngOnInit() {
-    this.load();
+
+   this.load();
     this.loadEnviromentTypes();
   }
 
+  //TODO: REFATORAR ESSA FUNÇÃO
+  save(question): void {
+    if (!question.id) {
+        question['enviroment_types_id'] = this.selectedEnviromentTypes;
+        this.questionService.save(question)
+        .subscribe(res => {
+          this.saveInAssociateTable(res['questions_id'], res['enviroment_types_id']);
+          this.getValidation(res);
+          this.load();
+          this.question = new Question();  
+        });
+    } else {
+      question['enviroment_types_id'] = this.selectedEnviromentTypes;
+      this.questionService.removeAssociatedItems(question.id)
+      .subscribe(res => {
+        this.saveInAssociateTable(question.id, question["enviroment_types_id"]);
+        this.getValidation(res);
+        this.load();
+        this.question = new Question(); 
+      })
+    }
+  }
 
   load() {
     this.questionService.load()
       .subscribe(
-        questions => {
+        questions => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
           this.questions = questions;
         },
         error => {
-          console.log(error);
+          console.log(error)
         },
     );
   }
 
   loadEnviromentTypes() {
-    this.enviromentTypeService.load()
+    this.enviromentTypeService.load() 
     .subscribe(
       enviromentTypes => {
         this.enviromentTypes = enviromentTypes;
-        this.myOptions = enviromentTypes.map(({id, name}) => ({label: name, value: id}));
+        this.selectItems = enviromentTypes.map(({id, name}) => ({label: name, value: id.toString()}));
       }
     );
   }
-
-  save(question): void {
-
-    if (!question.id) {
-     this.questionService.save(question)
-        .subscribe(res => {
-          this.saveInAssociateTable(res['questions_id'], res['enviroment_types_id']);
-          this.getValidation(res);
-          this.load();
-          this.question = new Question();
-        });
-    } else {
-      this.questionService.update(question)
-        .subscribe(res => {
-          this.getValidation(res);
-          this.load();
-          this.question = new Question();
-      });
-    }
-  }
-
-  saveInAssociateTable (questionId, enviromentTypeId): void {
+   
+  saveInAssociateTable(questionId, enviromentTypeId): void {
     this.questionService.saveInAssociateTable(questionId, enviromentTypeId)
-    .subscribe(res => {
-      console.log(res);
-    });
+    .subscribe(res => {});
   }
-
+  
   update(question: Question): void {
-    let relatedIds = [];
-
     this.questionService.getAssociatedItems(question.id)
     .subscribe(relatedItems => {
-      relatedItems.forEach(element => {
-        console.log(element);
-        relatedIds.push(element.enviroment_types_id);
-        console.log(relatedIds);
-      });
+      const items = this.enviromentTypes.filter(enviroment => relatedItems.find(relatedItem => enviroment.id === relatedItem.enviroment_types_id)); 
+      this.selectedEnviromentTypes = items.map( item => String(item.id) );
     });
+
     this.question = question;
     window.scroll(0, 0);
   }
@@ -117,9 +114,8 @@ export class QuestionComponent implements OnInit {
       dangerMode: true,
     })
       .then((willDelete) => {
-        if (willDelete) {
+        if (willDelete)
           this.remove(questionId);
-        }
       });
   }
 }

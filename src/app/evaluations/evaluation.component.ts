@@ -38,6 +38,4 @@ export class EvaluationComponent implements OnInit {
   save(evaluation) {
     alert('evaluation' + evaluation);
   }
-
-
 }
