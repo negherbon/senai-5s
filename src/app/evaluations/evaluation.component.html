@@ -25,22 +25,6 @@
 
           
           <div class="row">
-<<<<<<< Updated upstream
-              <label class="col-sm-2 col-form-label">Período</label>
-              <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
-                <input class="form-control"
-                    bsDaterangepicker
-                    name="period"
-                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
-                    #drp="bsDaterangepicker"
-                    [minDate]="minDate"
-                    #dpYMD="bsDaterangepicker"
-                    [(ngModel)]="evaluation.period"
-                    [maxDate]="maxDate">
-              </div>
-  
-              <div>
-=======
             <label class="col-sm-2 col-form-label">Período</label>
             <div class="col-xs-12 col-md-5 col-lg-4 form-group">
               <input
@@ -53,7 +37,6 @@
             </div>
 
             <div>
->>>>>>> Stashed changes
                 <button class="btn btn-success" title="Clique aqui para expandir o calendário" (click)="drp.toggle()">
                   <i class='ti-calendar'></i>
                 </button>

@@ -7,15 +7,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 const helper = new JwtHelperService();
 
-<<<<<<< Updated upstream
-export class UserComponent implements OnInit {
-=======
 @Component({
    selector: 'app-user',
    templateUrl: './user.component.html',
    styleUrls: ['./user.component.css']
 })
->>>>>>> Stashed changes
 
 export class UserComponent implements OnInit{
 
