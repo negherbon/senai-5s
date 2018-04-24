@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 
-export class UserService {
+export class UserComponent implements OnInit {
 
    private url = 'http://localhost:4000/users';
 
