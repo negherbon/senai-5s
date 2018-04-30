@@ -14,31 +14,83 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 export class EvaluationComponent implements OnInit {
   evaluation: Evaluation = new Evaluation();
-  
+  evaluations: Evaluation[];
+  users: User[];
+  enviroments: Enviroment[];
 
-  constructor(private evaluationService: EvaluationService){}
+  constructor(private evaluationService: EvaluationService,
+              private userService: UserService,
+              private enviromentService: EnviromentService){}
 
-  ngOnInit() {  }
+  ngOnInit() {
+    this.loadEnviroments();
+    this.loadUsers();
+    this.load();
+  }
 
-  // loadEnviroments() {
-  //   this.enviromentService.load()
-  //   .subscribe(enviroments => {
-  //       this.enviroments = enviroments;
-  //   });
-  // }
+  load() {
+    this.evaluationService.load()
+      .subscribe(
+        evaluations => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+          this.evaluations = evaluations;
+        },
+        error => {
+          console.log(error)
+        },
+    );
+  }
 
-  // loadUsers() {
-  //   this.userService.load()
-  //   .subscribe(users => {
-  //     this.users = users;
-  //   })
-  // }
+  loadEnviroments() {
+    this.enviromentService.load()
+    .subscribe(enviroments => {
+        this.enviroments = enviroments;
+    });
+  }
+
+  loadUsers() {
+    this.userService.load()
+    .subscribe(users => {
+      this.users = users;
+    })
+  }
 
   save(evaluation) {
+    evaluation.createDate = evaluation.period[0];
+    evaluation.dueDate = evaluation.period[1];
     evaluation.status = "NÃO INICIADA";
     this.evaluationService.save(evaluation)
     .subscribe(res => {
       console.log('res', res)
     }) 
+  }
+
+  getValidation(res) {
+    swal({
+      title: '',
+      text: res['status'] === 201 ? 'Pergunta salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: 'success'
+    });
+  }
+
+  getModalAnswer(questionId) {
+    swal({
+      title: 'Exclusão de pergunta',
+      text: 'Tem certeza que deseja excluir a pergunta?',
+      buttons: ['Cancelar', 'OK'],
+      icon: 'warning',
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete)
+        this.remove(questionId);
+    });
+  }
+
+  remove(id: number): void {
+    this.evaluationService.remove(id)
+    .subscribe((res) => {
+      swal('', res['message'], 'success');
+      this.load();
+    });
   }
 }
