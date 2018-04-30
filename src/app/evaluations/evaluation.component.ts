@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Evaluation } from './evaluation';
 import { EvaluationService} from './evaluation.service';
 import { EnviromentService } from '../enviroments/enviroment.service';
 import { Enviroment } from '../enviroments/enviroment';
+import { User } from '../users/user';
+import { UserService } from '../users/user.service';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-evaluation',
@@ -11,31 +13,32 @@ import { Enviroment } from '../enviroments/enviroment';
 })
 
 export class EvaluationComponent implements OnInit {
-
-
   evaluation: Evaluation = new Evaluation();
-  evaluations: Evaluation[];
-  enviroments: Enviroment[];
+  
 
-  constructor(private evaluationService: EvaluationService, private enviromentService: EnviromentService) {}
+  constructor(private evaluationService: EvaluationService){}
 
-  ngOnInit() {
-    this.load();
-    this.loadEnviroments();
-  }
+  ngOnInit() {  }
 
-  load() {
-    console.log('1');
-  }
+  // loadEnviroments() {
+  //   this.enviromentService.load()
+  //   .subscribe(enviroments => {
+  //       this.enviroments = enviroments;
+  //   });
+  // }
 
-  loadEnviroments() {
-    this.enviromentService.load()
-    .subscribe(enviroments => {
-        this.enviroments = enviroments;
-    });
-  }
+  // loadUsers() {
+  //   this.userService.load()
+  //   .subscribe(users => {
+  //     this.users = users;
+  //   })
+  // }
 
   save(evaluation) {
-    alert('evaluation' + evaluation);
+    evaluation.status = "NÃO INICIADA";
+    this.evaluationService.save(evaluation)
+    .subscribe(res => {
+      console.log('res', res)
+    }) 
   }
 }

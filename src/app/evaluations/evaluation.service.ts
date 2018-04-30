@@ -15,9 +15,7 @@ export class EvaluationService implements OnInit {
 
    constructor(public http: HttpClient) { }
 
-    ngOnInit(): void {
-        this.load();
-    }
+    ngOnInit(): void {}
 
     save(evaluation: Evaluation) {
         const httpOptions = {
@@ -25,23 +23,6 @@ export class EvaluationService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, evaluation, httpOptions);
+      return this.http.post(`${this.url}`, evaluation);
     }
-
-    // update(enviroment: Evaluation) {
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({
-    //             'Content-Type':  'application/json'
-    //         })
-    //     };
-    //   return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions)
-    // }
-
-    load(): Observable<Evaluation[]> {
-        return this.http.get<Evaluation[]>(`${this.url}`);
-    }
-
-    // remove(id) {
-    //    return this.http.delete(`${this.url}/${id}`);
-    // }
 }
