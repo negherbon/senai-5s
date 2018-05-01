@@ -4,7 +4,7 @@ export class Evaluation {
     status: string;
     enviroment_id: number;
     createDate: Date;
-    endDate: Date;
+    dueDate: Date;
     user_id: number;
     description: string;
 }

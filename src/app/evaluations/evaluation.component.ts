@@ -17,6 +17,7 @@ export class EvaluationComponent implements OnInit {
   evaluations: Evaluation[];
   users: User[];
   enviroments: Enviroment[];
+  period = {};
 
   constructor(private evaluationService: EvaluationService,
               private userService: UserService,
@@ -30,13 +31,13 @@ export class EvaluationComponent implements OnInit {
 
   load() {
     this.evaluationService.load()
-      .subscribe(
-        evaluations => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-          this.evaluations = evaluations;
-        },
-        error => {
-          console.log(error)
-        },
+    .subscribe(
+      evaluations => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        this.evaluations = evaluations;
+      },
+      error => {
+        console.log(error)
+      },
     );
   }
 
@@ -55,13 +56,18 @@ export class EvaluationComponent implements OnInit {
   }
 
   save(evaluation) {
-    evaluation.createDate = evaluation.period[0];
-    evaluation.dueDate = evaluation.period[1];
+    evaluation.createDate = this.period[0];
+    evaluation.dueDate = this.period[1];
     evaluation.status = "NÃO INICIADA";
     this.evaluationService.save(evaluation)
-    .subscribe(res => {
-      console.log('res', res)
-    }) 
+    .subscribe(res => {}) 
+  }
+  
+  update(evaluation: Evaluation): void {
+
+    this.period = evaluation.createDate;
+    this.evaluation = evaluation;
+    window.scroll(0, 0);
   }
 
   getValidation(res) {
@@ -75,7 +81,7 @@ export class EvaluationComponent implements OnInit {
   getModalAnswer(questionId) {
     swal({
       title: 'Exclusão de pergunta',
-      text: 'Tem certeza que deseja excluir a pergunta?',
+      text:  'Tem certeza que deseja excluir a pergunta?',
       buttons: ['Cancelar', 'OK'],
       icon: 'warning',
       dangerMode: true,
