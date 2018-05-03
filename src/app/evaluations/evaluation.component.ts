@@ -6,6 +6,7 @@ import { Enviroment } from '../enviroments/enviroment';
 import { User } from '../users/user';
 import { UserService } from '../users/user.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-evaluation',
@@ -17,7 +18,7 @@ export class EvaluationComponent implements OnInit {
   evaluations: Evaluation[];
   users: User[];
   enviroments: Enviroment[];
-  period = {};
+  period: Date[];
 
   constructor(private evaluationService: EvaluationService,
               private userService: UserService,
@@ -64,8 +65,9 @@ export class EvaluationComponent implements OnInit {
   }
   
   update(evaluation: Evaluation): void {
-
-    this.period = evaluation.createDate;
+    moment.locale('pt-BR');
+    this.period = [moment(evaluation.createDate).toDate(), moment(evaluation.dueDate, '').toDate()];
+    console.log(this.period);
     this.evaluation = evaluation;
     window.scroll(0, 0);
   }
@@ -73,22 +75,22 @@ export class EvaluationComponent implements OnInit {
   getValidation(res) {
     swal({
       title: '',
-      text: res['status'] === 201 ? 'Pergunta salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      text: res['status'] === 201 ? 'Avaliação salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
       icon: 'success'
     });
   }
 
-  getModalAnswer(questionId) {
+  getModalAnswer(evaluationId) {
     swal({
-      title: 'Exclusão de pergunta',
-      text:  'Tem certeza que deseja excluir a pergunta?',
+      title: 'Exclusão de avaliação',
+      text:  'Tem certeza que deseja excluir a avaliação?',
       buttons: ['Cancelar', 'OK'],
       icon: 'warning',
       dangerMode: true,
     })
     .then((willDelete) => {
       if (willDelete)
-        this.remove(questionId);
+        this.remove(evaluationId);
     });
   }
 
