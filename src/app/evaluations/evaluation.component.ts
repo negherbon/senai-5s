@@ -5,8 +5,11 @@ import { EnviromentService } from '../enviroments/enviroment.service';
 import { Enviroment } from '../enviroments/enviroment';
 import { User } from '../users/user';
 import { UserService } from '../users/user.service';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig /*BsLocaleService, BsDaterangepickerConfig*/} from 'ngx-bootstrap/datepicker';
 import * as moment from 'moment';
+import { defineLocale } from 'ngx-bootstrap';
+import { ptBr } from 'ngx-bootstrap/locale';
+defineLocale('pt-br', ptBr);
 
 @Component({
   selector: 'app-evaluation',
@@ -22,7 +25,8 @@ export class EvaluationComponent implements OnInit {
 
   constructor(private evaluationService: EvaluationService,
               private userService: UserService,
-              private enviromentService: EnviromentService){}
+              private enviromentService: EnviromentService){
+              }
 
   ngOnInit() {
     this.loadEnviroments();
@@ -57,16 +61,17 @@ export class EvaluationComponent implements OnInit {
   }
 
   save(evaluation) {
-    evaluation.createDate = this.period[0];
-    evaluation.dueDate = this.period[1];
+    evaluation.createDate = moment(this.period[0]).format('YYYY-MM-DDT12:00:00');
+    evaluation.dueDate = moment(this.period[1]).format('YYYY-MM-DDT12:00:00');
     evaluation.status = "NÃO INICIADA";
     this.evaluationService.save(evaluation)
     .subscribe(res => {}) 
   }
   
   update(evaluation: Evaluation): void {
-    moment.locale('pt-BR');
-    this.period = [moment(evaluation.createDate).toDate(), moment(evaluation.dueDate, '').toDate()];
+    this.period = [new Date(evaluation.createDate), 
+                   new Date(evaluation.dueDate)];
+
     console.log(this.period);
     this.evaluation = evaluation;
     window.scroll(0, 0);
