@@ -29,6 +29,7 @@
     "angular2-jwt": "^0.2.3",
     "angular2-notifications": "^0.7.8",
     "bootstrap": "^4.0.0-beta",
+    "brmasker": "^1.0.19",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
     "jquery-sparkline": "^2.4.0",

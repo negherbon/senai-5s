@@ -27,19 +27,17 @@
           <div class="row">
               <label class="col-sm-2 col-form-label">Período</label>
               <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
-                <input class="form-control"
-                    bsDaterangepicker
-                    name="period"
-                    [bsConfig]="{rangeInputFormat: 'DD/MM/YYYY'}"
-                    #drp="bsDaterangepicker"
-                    [(ngModel)]="period">
-              </div>
-  
-              <div>
-                <button class="btn btn-success" title="Clique aqui para expandir o calendário" (click)="drp.toggle()">
-                  <i class='ti-calendar'></i>
-                </button>
-              </div>
+                  <input type="text"
+                    name="createDate"
+                    class="form-control"
+                    #dp="bsDatepicker"
+                    [(ngModel)]="createDate"
+                    bsDatepicker   
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
+                </div>
+                <div class="col-xs-12 col-12 col-md-3 form-group">
+                  <button class="btn btn-success" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">Date Picker</button>
+              </div>   
           </div>
   
           <div class="form-group row">
@@ -90,7 +88,7 @@
                   <td>{{evaluation.User.name}}</td>
                   <td>{{evaluation.Enviroment.name}}</td>
                   <td>{{evaluation.status}}</td>
-                  <td>{{evaluation.createDate}} - {{evaluation.dueDate}}</td>
+                  <td>{{evaluation.createDate | date: 'dd/MM/yyyy' }}</td>
                   <td>{{evaluation.description}}</td>
                   <td>
                     <span class="inline-block">
