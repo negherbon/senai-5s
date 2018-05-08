@@ -27,16 +27,16 @@
           <div class="row">
               <label class="col-sm-2 col-form-label">Período</label>
               <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
-                  <input type="text"
-                    name="createDate"
-                    class="form-control"
-                    #dp="bsDatepicker"
-                    [(ngModel)]="createDate"
-                    bsDatepicker   
-                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
+                <input class="form-control"
+                     bsDaterangepicker
+                     name="period"
+                    [bsConfig]="{rangeInputFormat: 'DD/MM/YYYY',
+                                 locale: 'pt-br'}"
+                     #drp="bsDaterangepicker"
+                     [(ngModel)]="period">
                 </div>
                 <div class="col-xs-12 col-12 col-md-3 form-group">
-                  <button class="btn btn-success" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">Date Picker</button>
+                  <button class="btn btn-success" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">Date Picker</button>
               </div>   
           </div>
   
