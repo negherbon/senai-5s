@@ -28,6 +28,7 @@
               <label class="col-sm-2 col-form-label">Período</label>
               <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
                 <input class="form-control"
+<<<<<<< HEAD
                     bsDaterangepicker
                     name="period"
                     [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY'}"
@@ -41,6 +42,18 @@
                   <i class='ti-calendar'></i>
                 </button>
               </div>
+=======
+                     bsDaterangepicker
+                     name="period"
+                    [bsConfig]="{rangeInputFormat: 'DD/MM/YYYY',
+                                 locale: 'pt-br'}"
+                     #drp="bsDaterangepicker"
+                     [(ngModel)]="period">
+                </div>
+                <div class="col-xs-12 col-12 col-md-3 form-group">
+                  <button class="btn btn-success" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">Date Picker</button>
+              </div>   
+>>>>>>> f41efae7e1468882215e2e3b8b44c87e24d65b21
           </div>
   
           <div class="form-group row">
@@ -58,16 +71,56 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Descrição</label>
             <div class="col-sm-10">
-              <textarea class="textarea-width-100 form-control" name="comment"></textarea>
+              <textarea [(ngModel)]="evaluation.description" class="textarea-width-100 form-control" name="comment"></textarea>
             </div>
           </div>
 
-          <button class="btn btn-primary pull-right no-margin-right" type="submit">Salvar</button>
+          <button class="btn btn-primary pull-right no-margin-right" [disabled]="!evaluationForm.valid" type="submit">Salvar</button>
         </form>
       </app-card>
 
+      <ng-template #noContent>
+        <p class="no-content">Nenhum registro para mostrar.</p>
+      </ng-template>
+
       <app-card [title]="'Listagem de Avaliações'">
         <div class="table-responsive">
+          <table *ngIf="evaluations?.length > 0; else noEvaluations"  class="table table--clean">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Responsável</th>
+                  <th>Ambiente</th>
+                  <th>Status</th>
+                  <th>Período</th>
+                  <th>Descrição</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                <tr *ngFor="let evaluation of evaluations">
+                  <td>{{evaluation.title}}</td>
+                  <td>{{evaluation.User.name}}</td>
+                  <td>{{evaluation.Enviroment.name}}</td>
+                  <td>{{evaluation.status}}</td>
+                  <td>{{evaluation.createDate | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{evaluation.description}}</td>
+                  <td>
+                    <span class="inline-block">
+                      <button class="btn btn-info btn-icon no-margin" (click)="update(evaluation)">
+                        <i class="icofont icofont-edit"></i>
+                      </button>
+                    </span>
+                    <span class="inline-block margin-left-10">
+                      <button class="btn btn-danger btn-icon no-margin" (click)="getModalAnswer(evaluation.id)">
+                        <i class="icofont icofont-trash"></i>
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
         </div>
       </app-card>
     </div>
