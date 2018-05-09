@@ -25,4 +25,14 @@ export class EvaluationService implements OnInit {
         };
       return this.http.post(`${this.url}`, evaluation);
     }
+
+    load(): Observable<any> {
+        return this.http.get(`${this.url}`).map((response: Response) => {
+            return response;
+        });
+    }
+
+    remove(id) {
+       return this.http.delete(`${this.url}/${id}`);
+    }
 }

@@ -1,47 +1,111 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from './user.service';
 import { User } from './user';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import swal from 'sweetalert';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
-@Injectable()
+const helper = new JwtHelperService();
 
-export class UserComponent implements OnInit {
+@Component({
+   selector: 'app-user',
+   templateUrl: './user.component.html',
+   styleUrls: ['./user.component.css']
+})
 
-   private url = 'http://localhost:4000/users';
+export class UserComponent implements OnInit{
 
-   constructor(public http: HttpClient) { }
+  user: User = new User();
+  users: User[];
+  userSession: User = new User();
 
-   ngOnInit(): void {
-        this.load();
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit(): void {
+    this.load();
+    this.userSession = helper.decodeToken(localStorage.getItem('token'));
+  }
+
+  save(user): void {
+    let isRegistered = this.users.find(currentUser => currentUser.email == user.email);
+
+    if(isRegistered && isRegistered.id != user.id)
+      this.showModal("Usuário não cadastrado", "Já existe um usuário com este e-mail");
+    else {
+      if(!user.id){
+        this.userService.save(user)
+          .subscribe(res => {
+            this.getValidation(res);
+            this.load();
+            this.user = new User();  // reseta valores do formulário
+        });
+      } else {
+        this.userService.update(user)
+        .subscribe(res => {
+          this.getValidation(res);
+          this.load();
+          this.user = new User(); // reseta valores do formulário
+        })
+      }
     }
 
-    save(user: User) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json'
-            })
-        };
-      return this.http.post(`${this.url}`, user, httpOptions);
-    }
+  }
+  load() {
+    this.userService.load()
+    .subscribe(
+      users => {
+        this.users = users
+      },
+      error => {
+        console.log(error)
+      },
+    )
+  }
 
-    update(user: User) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json'
-            })
-        };
-      return this.http.put(`${this.url}/${user.id}`, user, httpOptions);
-    }
+  update(user: User): void {
+    this.user = user;
+    window.scroll(0, 0);
+  }
 
-    load(): Observable<User[]> {
-        return this.http.get<User[]>(`${this.url}`);
-    }
+  remove(id: string): void {
+    this.userService.remove(id)
+    .subscribe((res) => {
+      swal('', res['message'], 'success');
+      this.load();
+    });
+  }
 
-    remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
-    }
+  getValidation(res) {
+    swal({
+      title: '',
+      text: res['status'] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
+      icon: 'success'
+    } );
+  }
+
+  getModalAnswer(userId) {
+    swal({
+      title: 'Exclusão de usuário',
+      text: 'Tem certeza que deseja excluir o usuário?',
+      buttons: [null, 'OK'],
+      icon: 'warning',
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this.remove(userId);
+      }
+    });
+  }
+
+  showModal(title, text) {
+    swal({
+      title: title,
+      text: text,
+      buttons: [null ,"OK"],
+      icon: "warning",
+      dangerMode: true,
+    })
+  }
 }
