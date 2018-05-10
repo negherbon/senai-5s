@@ -28,32 +28,18 @@
               <label class="col-sm-2 col-form-label">Período</label>
               <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
                 <input class="form-control"
-<<<<<<< HEAD
-                    bsDaterangepicker
-                    name="period"
-                    [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY'}"
-                    #drp="bsDaterangepicker"
-                    [(ngModel)]="evaluation.period"
-                    [bsValue]="bsValue">
-              </div>
-  
-              <div>
-                <button class="btn btn-success" title="Clique aqui para expandir o calendário" (click)="drp.toggle()">
-                  <i class='ti-calendar'></i>
-                </button>
-              </div>
-=======
                      bsDaterangepicker
                      name="period"
-                    [bsConfig]="{rangeInputFormat: 'DD/MM/YYYY',
-                                 locale: 'pt-br'}"
+                     [brmasker]="{mask:'00/00/0000', len:10}"
+                    [bsConfig]="{rangeInputFormat: 'DD/MM/YYYY', locale: 'pt-br'}"
                      #drp="bsDaterangepicker"
                      [(ngModel)]="period">
                 </div>
                 <div class="col-xs-12 col-12 col-md-3 form-group">
-                  <button class="btn btn-success" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">Date Picker</button>
+                  <button class="btn btn-success" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">
+                    <i class='ti-calendar'></i>
+                  </button>
               </div>   
->>>>>>> f41efae7e1468882215e2e3b8b44c87e24d65b21
           </div>
   
           <div class="form-group row">
@@ -79,7 +65,7 @@
         </form>
       </app-card>
 
-      <ng-template #noContent>
+      <ng-template #noEvaluations>
         <p class="no-content">Nenhum registro para mostrar.</p>
       </ng-template>
 

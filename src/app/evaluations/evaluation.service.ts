@@ -26,6 +26,15 @@ export class EvaluationService implements OnInit {
       return this.http.post(`${this.url}`, evaluation);
     }
 
+    update(evaluation: Evaluation) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json'
+            })
+        };
+      return this.http.put(`${this.url}/${evaluation.id}`, evaluation, httpOptions);
+    }
+
     load(): Observable<any> {
         return this.http.get(`${this.url}`).map((response: Response) => {
             return response;
