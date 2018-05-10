@@ -30,13 +30,15 @@
                 <input class="form-control"
                      bsDaterangepicker
                      name="period"
-                    [bsConfig]="{rangeInputFormat: 'DD/MM/YYYY',
-                                 locale: 'pt-br'}"
+                     [brmasker]="{mask:'00/00/0000', len:10}"
+                    [bsConfig]="{rangeInputFormat: 'DD/MM/YYYY', locale: 'pt-br'}"
                      #drp="bsDaterangepicker"
                      [(ngModel)]="period">
                 </div>
                 <div class="col-xs-12 col-12 col-md-3 form-group">
-                  <button class="btn btn-success" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">Date Picker</button>
+                  <button class="btn btn-success" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">
+                    <i class='ti-calendar'></i>
+                  </button>
               </div>   
           </div>
   
@@ -63,7 +65,7 @@
         </form>
       </app-card>
 
-      <ng-template #noContent>
+      <ng-template #noEvaluations>
         <p class="no-content">Nenhum registro para mostrar.</p>
       </ng-template>
 

@@ -13,7 +13,7 @@ const helper = new JwtHelperService();
    styleUrls: ['./user.component.css']
 })
 
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit {
 
   user: User = new User();
   users: User[];
@@ -28,12 +28,13 @@ export class UserComponent implements OnInit{
   }
 
   save(user): void {
-    let isRegistered = this.users.find(currentUser => currentUser.email == user.email);
+    let isRegistered = this.users.find(currentUser => currentUser.email === user.email);
 
-    if(isRegistered && isRegistered.id != user.id)
-      this.showModal("Usuário não cadastrado", "Já existe um usuário com este e-mail");
-    else {
-      if(!user.id){
+    if (isRegistered  && isRegistered.id !== user.id) {
+
+      this.showModal('Usuário não cadastrado', 'Já existe um usuário com este e-mail');
+    } else {
+      if (!user.id) {
         this.userService.save(user)
           .subscribe(res => {
             this.getValidation(res);
@@ -46,7 +47,7 @@ export class UserComponent implements OnInit{
           this.getValidation(res);
           this.load();
           this.user = new User(); // reseta valores do formulário
-        })
+        });
       }
     }
 
@@ -55,12 +56,12 @@ export class UserComponent implements OnInit{
     this.userService.load()
     .subscribe(
       users => {
-        this.users = users
+        this.users = users;
       },
       error => {
-        console.log(error)
+        console.log(error);
       },
-    )
+    );
   }
 
   update(user: User): void {
@@ -103,9 +104,9 @@ export class UserComponent implements OnInit{
     swal({
       title: title,
       text: text,
-      buttons: [null ,"OK"],
-      icon: "warning",
+      buttons: [null, 'OK'],
+      icon: 'warning',
       dangerMode: true,
-    })
+    });
   }
 }
