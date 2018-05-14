@@ -8,6 +8,9 @@
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true
   },
+  "include":[
+    "./**/*.ts",
+  ],
   "exclude": [
     "test.ts",
     "**/*.spec.ts"
