@@ -12,13 +12,7 @@ import {ParentRemoveDirective} from './elements/parent-remove.directive';
 import {PaginationModule} from 'ngx-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from '../spinner/spinner.component';
-import {GoTopButtonModule} from 'ng2-go-top-button';
-import {ScrollModule} from '../scroll/scroll.module';
-import {ToastyModule} from 'ng2-toasty';
 import {SimpleNotificationsModule} from 'angular2-notifications';
-import {TagInputModule} from 'ngx-chips';
-import {AgmCoreModule} from '@agm/core';
-import {Ng2GoogleChartsModule} from 'ng2-google-charts';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {NgDatepickerModule} from 'ng2-datepicker';
 
@@ -30,19 +24,13 @@ import {NgDatepickerModule} from 'ng2-datepicker';
       ReactiveFormsModule,
       NgbModule.forRoot(),
       PaginationModule.forRoot(),
-      ScrollModule,
-      ToastyModule.forRoot(),
       SimpleNotificationsModule.forRoot(),
-      TagInputModule,
-      AgmCoreModule.forRoot({apiKey: 'AIzaSyCE0nvTeHBsiQIrbpMVTe489_O5mwyqofk'}),
-      Ng2GoogleChartsModule,
       ClickOutsideModule,
-      GoTopButtonModule
   ],
   declarations: [
-      AccordionAnchorDirective,
-      AccordionLinkDirective,
-      AccordionDirective,
+    AccordionAnchorDirective,
+    AccordionLinkDirective,
+    AccordionDirective,
       ToggleFullscreenDirective,
       CardRefreshDirective,
       CardToggleDirective,
@@ -51,9 +39,10 @@ import {NgDatepickerModule} from 'ng2-datepicker';
       SpinnerComponent
   ],
   exports: [
-      AccordionAnchorDirective,
-      AccordionLinkDirective,
-      AccordionDirective,
+
+    AccordionAnchorDirective,
+    AccordionLinkDirective,
+    AccordionDirective,
       ToggleFullscreenDirective,
       CardRefreshDirective,
       CardToggleDirective,
@@ -64,14 +53,8 @@ import {NgDatepickerModule} from 'ng2-datepicker';
       PaginationModule,
       FormsModule,
       ReactiveFormsModule,
-      ScrollModule,
-      ToastyModule,
       SimpleNotificationsModule,
-      TagInputModule,
-      AgmCoreModule,
-      Ng2GoogleChartsModule,
       ClickOutsideModule,
-      GoTopButtonModule,
       NgDatepickerModule
   ],
   providers: [

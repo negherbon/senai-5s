@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Evaluation } from './evaluation';
@@ -15,9 +15,7 @@ export class EvaluationService implements OnInit {
 
    constructor(public http: HttpClient) { }
 
-    ngOnInit(): void {
-        this.load();
-    }
+    ngOnInit(): void {}
 
     save(evaluation: Evaluation) {
         const httpOptions = {
@@ -25,23 +23,25 @@ export class EvaluationService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, evaluation, httpOptions);
+      return this.http.post(`${this.url}`, evaluation);
     }
 
-    // update(enviroment: Evaluation) {
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({
-    //             'Content-Type':  'application/json'
-    //         })
-    //     };
-    //   return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions)
-    // }
-
-    load(): Observable<Evaluation[]> {
-        return this.http.get<Evaluation[]>(`${this.url}`);
+    update(evaluation: Evaluation) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json'
+            })
+        };
+      return this.http.put(`${this.url}/${evaluation.id}`, evaluation, httpOptions);
     }
 
-    // remove(id) {
-    //    return this.http.delete(`${this.url}/${id}`);
-    // }
+    load(): Observable<any> {
+        return this.http.get(`${this.url}`).map((response: Response) => {
+            return response;
+        });
+    }
+
+    remove(id) {
+       return this.http.delete(`${this.url}/${id}`);
+    }
 }
