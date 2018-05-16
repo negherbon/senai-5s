@@ -50,6 +50,10 @@
       </ng-template>
 
       <app-card [title]="'Listagem de usuários'">
+          <div class="row">
+            <h4 class="col-sm-2">Pesquisar:  </h4>
+            <input class="form-control col-sm-10" #nameUserSearch placeholder="Pesquise por um Usuário" (keyup)="findUsers(nameUserSearch.value)" >
+          </div>
         <div class="table-responsive">
           <table *ngIf="users?.length > 0; else noUsers" class="table table--clean">
             <thead>
@@ -61,7 +65,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
+              <tr *ngFor="let user of returnedArray">
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.profile}}</td>
@@ -80,6 +84,9 @@
               </tr>
             </tbody>
           </table>
+          <div class="noContents" *ngIf="lengthUsersPagination > 10">
+            <pagination [totalItems]="lengthUsersPagination" (pageChanged)="pageChanged($event)"></pagination>
+          </div>
         </div>
       </app-card>
     </div>

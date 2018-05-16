@@ -52,6 +52,10 @@
       </ng-template>
 
       <app-card [title]="'Listagem de unidades'">
+        <div class="row">
+          <h4 class="col-sm-2">Pesquisar:  </h4>
+          <input class="form-control col-sm-10" #UnitsSearch placeholder="Pesquise por uma Unidade" (keyup)="findUnits(UnitsSearch.value)" >
+        </div>
         <div class="table-responsive">
           <table *ngIf="units?.length > 0; else noUnits" class="table table--clean">
             <thead>
@@ -65,7 +69,7 @@
             </thead>
 
             <tbody>
-              <tr *ngFor="let unit of units">
+              <tr *ngFor="let unit of returnedArray">
                 <td>{{unit.name}}</td>
                 <td>{{unit.state}}</td>
                 <td>{{unit.city}}</td>
@@ -85,6 +89,9 @@
               </tr>
             </tbody>
           </table>
+          <div class="noContents" *ngIf="lengthUnitPagination > 10">
+            <pagination [totalItems]="lengthUnitPagination" (pageChanged)="pageChanged($event)"></pagination>
+          </div>
         </div>
       </app-card>
     </div>
