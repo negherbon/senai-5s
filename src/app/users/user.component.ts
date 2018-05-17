@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
   userSession: User = new User();
 
   //Filter and pagination
-  returnedArray: User[];
+  userFiltered: User[];
   lengthUsersPagination: number;
 
   constructor(private userService: UserService) {
@@ -33,9 +33,9 @@ export class UserComponent implements OnInit {
   }
 
   findUsers(typed: string){
-    typed = typed.toLowerCase();
-    this.returnedArray = this.users.filter(user => user.name.toLowerCase().includes(typed));
-    this.lengthUsersPagination = this.returnedArray.length;
+    this.userFiltered = this.users.filter(
+        user => user.name.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthUsersPagination = this.userFiltered.length;
   }
 
   getModalAnswer(userId) {
@@ -66,7 +66,7 @@ export class UserComponent implements OnInit {
     .subscribe(
       users => {
         this.users = users;
-        this.returnedArray = this.users.slice(0, 10);
+        this.userFiltered = this.users.slice(0, 10);
         this.lengthUsersPagination = this.users.length;
       },
       error => {
@@ -78,7 +78,7 @@ export class UserComponent implements OnInit {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.returnedArray = this.users.slice(startItem, endItem);
+    this.userFiltered = this.users.slice(startItem, endItem);
   }
 
   remove(id: string): void {

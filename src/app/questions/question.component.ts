@@ -24,7 +24,7 @@ export class QuestionComponent implements OnInit {
   selectedEnviromentTypes: Array<String> = [];
 
     //Filter and pagination
-    returnedArray: Question[];
+    questionFiltered: Question[];
     lengthQuestionPagination: number;
 
   ngOnInit() {
@@ -34,9 +34,9 @@ export class QuestionComponent implements OnInit {
   }
 
   findQuestion(typed: string){
-    typed = typed.toLowerCase();
-    this.returnedArray = this.questions.filter(quest => quest.title.toLowerCase().includes(typed));
-    this.lengthQuestionPagination = this.returnedArray.length;
+    this.questionFiltered = this.questions.filter(
+        question => question.title.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthQuestionPagination = this.questionFiltered.length;
   }
 
   //TODO: REFATORAR ESSA FUNÇÃO
@@ -67,7 +67,7 @@ export class QuestionComponent implements OnInit {
       .subscribe(
         questions => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
           this.questions = questions;
-          this.returnedArray = this.questions.slice(0, 10);
+          this.questionFiltered = this.questions.slice(0, 10);
           this.lengthQuestionPagination = this.questions.length;
         },
         error => {
@@ -105,7 +105,7 @@ export class QuestionComponent implements OnInit {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.returnedArray = this.questions.slice(startItem, endItem);
+    this.questionFiltered = this.questions.slice(startItem, endItem);
   }
   remove(id: string): void {
     this.questionService.remove(id)

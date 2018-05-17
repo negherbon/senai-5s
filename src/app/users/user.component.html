@@ -52,7 +52,7 @@
       <app-card [title]="'Listagem de usuários'">
           <div class="row">
             <h4 class="col-sm-2">Pesquisar:  </h4>
-            <input class="form-control col-sm-10" #nameUserSearch placeholder="Pesquise por um Usuário" (keyup)="findUsers(nameUserSearch.value)" >
+            <input class="form-control col-sm-10" #userNameSearch  placeholder="Pesquise por um Usuário" (keyup)="findUsers(userNameSearch.value)" >
           </div>
         <div class="table-responsive">
           <table *ngIf="users?.length > 0; else noUsers" class="table table--clean">
@@ -65,7 +65,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of returnedArray">
+              <tr *ngFor="let user of userFiltered">
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.profile}}</td>

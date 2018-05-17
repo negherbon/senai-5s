@@ -19,7 +19,7 @@ export class UnitComponent implements OnInit {
   unit: Unit = new Unit();
 
   //Filter and pagination
-  returnedArray: Unit[];
+  unitFiltered: Unit[];
   lengthUnitPagination: number;
 
   ngOnInit() {
@@ -28,9 +28,9 @@ export class UnitComponent implements OnInit {
   }
 
   findUnits(typed: string){
-    typed = typed.toLowerCase();
-    this.returnedArray = this.units.filter(unit => unit.name.toLowerCase().includes(typed));
-    this.lengthUnitPagination = this.returnedArray.length;
+    this.unitFiltered = this.units.filter(
+        unit => unit.name.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthUnitPagination = this.unitFiltered.length;
   }
 
   getStates() {
@@ -88,7 +88,7 @@ export class UnitComponent implements OnInit {
     .subscribe(
       units => {
         this.units = units;
-        this.returnedArray = this.units.slice(0, 10);
+        this.unitFiltered = this.units.slice(0, 10);
         this.lengthUnitPagination = this.units.length;
       },
       error => {
@@ -106,7 +106,7 @@ export class UnitComponent implements OnInit {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.returnedArray = this.units.slice(startItem, endItem);
+    this.unitFiltered = this.units.slice(startItem, endItem);
   }
   
   /* NASS: Colocar icones e mensagens de acordo com retorno da api */

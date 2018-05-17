@@ -17,7 +17,7 @@ export class EnviromentTypeComponent implements OnInit {
   enviromentType: EnviromentType = new EnviromentType();
 
     //Filter and pagination
-    returnedArray: EnviromentType[];
+    enviromentTypesFiltered: EnviromentType[];
     lengthEnvironmentTypePagination: number;
 
   ngOnInit() {
@@ -25,9 +25,9 @@ export class EnviromentTypeComponent implements OnInit {
   }
 
   findEnvironmentTypes(typed: string){
-    typed = typed.toLowerCase();
-    this.returnedArray = this.enviromentTypes.filter(env => env.name.toLowerCase().includes(typed));
-    this.lengthEnvironmentTypePagination = this.returnedArray.length;
+    this.enviromentTypesFiltered = this.enviromentTypes.filter(
+        enviromentType => enviromentType.name.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthEnvironmentTypePagination = this.enviromentTypesFiltered.length;
   }
 
   save(enviromentType): void {
@@ -61,7 +61,7 @@ export class EnviromentTypeComponent implements OnInit {
     .subscribe(
       enviromentsType => {
         this.enviromentTypes = enviromentsType;
-        this.returnedArray = this.enviromentTypes.slice(0, 10);
+        this.enviromentTypesFiltered = this.enviromentTypes.slice(0, 10);
         this.lengthEnvironmentTypePagination = this.enviromentTypes.length;
       },
       error => {
@@ -77,7 +77,7 @@ export class EnviromentTypeComponent implements OnInit {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.returnedArray = this.enviromentTypes.slice(startItem, endItem);
+    this.enviromentTypesFiltered = this.enviromentTypes.slice(startItem, endItem);
   }
 
   /* NASS: Colocar icones e mensagens de acordo com retorno da api */

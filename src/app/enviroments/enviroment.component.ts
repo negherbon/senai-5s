@@ -27,7 +27,7 @@ export class EnviromentComponent implements OnInit {
   enviromentTypes: EnviromentType[];
 
   //Filter and pagination
-  returnedArray: Enviroment[];
+  enviromentFiltered: Enviroment[];
   lengthEnvironmentsPagination: number;
 
   constructor(
@@ -45,9 +45,9 @@ export class EnviromentComponent implements OnInit {
   }
 
   findEnvironments(typed: string){
-    typed = typed.toLowerCase();
-    this.returnedArray = this.enviroments.filter(env => env.name.toLowerCase().includes(typed));
-    this.lengthEnvironmentsPagination = this.returnedArray.length;
+    this.enviromentFiltered = this.enviroments.filter(
+        enviroment => enviroment.name.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthEnvironmentsPagination = this.enviromentFiltered.length;
   }
 
   save(enviroment): void {
@@ -107,7 +107,7 @@ export class EnviromentComponent implements OnInit {
     .subscribe(
       enviroments => {
         this.enviroments = enviroments;
-        this.returnedArray = this.enviroments.slice(0, 10);
+        this.enviromentFiltered = this.enviroments.slice(0, 10);
         this.lengthEnvironmentsPagination = this.enviroments.length;
       },
       error => {
@@ -124,7 +124,7 @@ export class EnviromentComponent implements OnInit {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.returnedArray = this.enviroments.slice(startItem, endItem);
+    this.enviromentFiltered = this.enviroments.slice(startItem, endItem);
   }
 
   remove(id: string): void {

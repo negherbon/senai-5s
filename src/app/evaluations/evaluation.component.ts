@@ -25,7 +25,7 @@ export class EvaluationComponent implements OnInit {
   period: Date[];
 
 //Filter and pagination
-  returnedArray: Evaluation[];
+  evaluationFiltered: Evaluation[];
   lengthEvaluationsPagination: number;
 
   constructor(private evaluationService: EvaluationService,
@@ -43,9 +43,9 @@ export class EvaluationComponent implements OnInit {
   }
 
   findEvaluations(typed: string){
-    typed = typed.toLowerCase();
-    this.returnedArray = this.evaluations.filter(evaluation => evaluation.title.toLowerCase().includes(typed));
-    this.lengthEvaluationsPagination = this.returnedArray.length
+    this.evaluationFiltered = this.evaluations.filter(
+        evaluation => evaluation.title.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthEvaluationsPagination = this.evaluationFiltered.length
   }
 
   load() {
@@ -53,7 +53,7 @@ export class EvaluationComponent implements OnInit {
     .subscribe(
       evaluations => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
         this.evaluations = evaluations;
-        this.returnedArray = this.evaluations.slice(0, 10);
+        this.evaluationFiltered = this.evaluations.slice(0, 10);
         this.lengthEvaluationsPagination = this.evaluations.length;
       },
       error => {
@@ -129,7 +129,7 @@ export class EvaluationComponent implements OnInit {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.returnedArray = this.evaluations.slice(startItem, endItem);
+    this.evaluationFiltered = this.evaluations.slice(startItem, endItem);
   }
 
   remove(id: number): void {
