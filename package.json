@@ -2,7 +2,7 @@
   "name": "flat-lite",
   "version": "0.0.0",
   "license": "MIT",
-   "scripts": {
+  "scripts": {
     "ng": "ng",
     "build": "ng build",
     "lint": "ng lint",
@@ -22,7 +22,7 @@
     "@angular/forms": "6.0.0",
     "@angular/http": "6.0.0",
     "@angular/platform-browser": "6.0.0",
-    "@angular/platform-browser-dynamic": "6.0.0",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    "@angular/platform-browser-dynamic": "6.0.0",
     "@angular/router": "6.0.0",
     "@auth0/angular-jwt": "^2.0.0",
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
