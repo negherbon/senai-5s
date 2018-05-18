@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Unit } from './unit';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 
@@ -29,7 +30,7 @@ export class UnitService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, unit, httpOptions);
+      return this.http.post(`${environment.apiUrl}`, unit, httpOptions);
     }
 
     update(unit: Unit) {
@@ -38,16 +39,16 @@ export class UnitService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${unit.id}`, unit, httpOptions);
+      return this.http.put(`${environment.apiUrl}/${unit.id}`, unit, httpOptions);
     }
 
     load(): Observable<any> {
-        return this.http.get(`${this.url}`).map((response: Response) => {
+        return this.http.get(`${environment.apiUrl}`).map((response: Response) => {
             return response;
         });
     }
 
     remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
+       return this.http.delete(`${environment.apiUrl}/${id}`);
     }
 }

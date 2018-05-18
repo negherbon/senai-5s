@@ -6,12 +6,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Evaluation } from './evaluation';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 
 export class EvaluationService implements OnInit {
-
-   private url = 'http://localhost:4000/evaluations';
 
    constructor(public http: HttpClient) { }
 
@@ -23,7 +22,7 @@ export class EvaluationService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, evaluation);
+      return this.http.post(`${environment.apiUrl}`, evaluation);
     }
 
     update(evaluation: Evaluation) {
@@ -32,16 +31,16 @@ export class EvaluationService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${evaluation.id}`, evaluation, httpOptions);
+      return this.http.put(`${environment.apiUrl}/${evaluation.id}`, evaluation, httpOptions);
     }
 
     load(): Observable<any> {
-        return this.http.get(`${this.url}`).map((response: Response) => {
+        return this.http.get(`${environment.apiUrl}`).map((response: Response) => {
             return response;
         });
     }
 
     remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
+       return this.http.delete(`${environment.apiUrl}/${id}`);
     }
 }

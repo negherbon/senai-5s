@@ -6,13 +6,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Question } from './question';
+import { environment } from '../../environments/environment.prod';
+
 
 @Injectable()
 
 export class QuestionService {
-
-    private url = 'http://localhost:4000/questions';
-    private urlRelatedItems = 'http://localhost:4000/associate';
 
    constructor(public http: HttpClient) { }
 
@@ -22,7 +21,7 @@ export class QuestionService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, question, httpOptions);
+      return this.http.post(`${environment.apiUrl}`, question, httpOptions);
     }
 
     saveInAssociateTable(questionId, enviromentTypeId) {
@@ -37,17 +36,17 @@ export class QuestionService {
             })
         };
 
-      return this.http.post(`${this.urlRelatedItems}`, relatedIds, httpOptions);
+      return this.http.post(`${environment.apiUrl}`, relatedIds, httpOptions);
     }
 
     getAssociatedItems(questionId): Observable<any> {
-        return this.http.get(`${this.urlRelatedItems}/${questionId}`).map((response: Response) => {
+        return this.http.get(`${environment.apiUrl}/${questionId}`).map((response: Response) => {
             return response;
         });
     }
 
     removeAssociatedItems(questionId){
-        return this.http.delete(`${this.urlRelatedItems}/${questionId}`);
+        return this.http.delete(`${environment.apiUrl}/${questionId}`);
     }
 
     update(question: Question) {
@@ -56,16 +55,16 @@ export class QuestionService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${question.id}`, question, httpOptions);
+      return this.http.put(`${environment.apiUrl}/${question.id}`, question, httpOptions);
     }
 
     load(): Observable<any> {
-        return this.http.get(`${this.url}`).map((response: Response) => {
+        return this.http.get(`${environment.apiUrl}`).map((response: Response) => {
             return response;
         });
     }
 
     remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
+       return this.http.delete(`${environment.apiUrl}/${id}`);
     }
 }

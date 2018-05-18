@@ -6,12 +6,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { EnviromentType } from './enviroment-type';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 
 export class EnviromentTypeService {
-
-    private url = 'http://localhost:4000/enviromenttypes';
 
    constructor(public http: HttpClient) { }
 
@@ -21,7 +20,7 @@ export class EnviromentTypeService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, enviromentType, httpOptions);
+      return this.http.post(`${environment.apiUrl}`, enviromentType, httpOptions);
     }
 
     update(enviromentType: EnviromentType) {
@@ -30,14 +29,14 @@ export class EnviromentTypeService {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${enviromentType.id}`, enviromentType, httpOptions);
+      return this.http.put(`${environment.apiUrl}/${enviromentType.id}`, enviromentType, httpOptions);
     }
 
     load(): Observable<EnviromentType[]> {
-        return this.http.get<EnviromentType[]>(`${this.url}`);
+        return this.http.get<EnviromentType[]>(`${environment.apiUrl}`);
     }
 
     remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
+       return this.http.delete(`${environment.apiUrl}/${id}`);
     }
 }

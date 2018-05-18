@@ -6,14 +6,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { User } from './user';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 
 export class UserService implements OnInit {
 
-   private url = 'http://localhost:4000/users';
-
-   constructor(public http: HttpClient) { }
+   constructor(public http: HttpClient) {}
 
    ngOnInit(): void {
         this.load();
@@ -25,7 +24,7 @@ export class UserService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, user, httpOptions);
+      return this.http.post(`${environment.apiUrl}`, user, httpOptions);
     }
 
     update(user: User) {
@@ -34,14 +33,14 @@ export class UserService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${user.id}`, user, httpOptions);
+      return this.http.put(`${environment.apiUrl}/${user.id}`, user, httpOptions);
     }
 
     load(): Observable<User[]> {
-        return this.http.get<User[]>(`${this.url}`);
+        return this.http.get<User[]>(`${environment.apiUrl}`);
     }
 
     remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
+       return this.http.delete(`${environment.apiUrl}/${id}`);
     }
 }

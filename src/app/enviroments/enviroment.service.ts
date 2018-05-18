@@ -6,12 +6,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Enviroment } from './enviroment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 
 export class EnviromentService implements OnInit {
-
-   private url = 'http://localhost:4000/enviroments';
 
    constructor(public http: HttpClient) { }
 
@@ -25,7 +24,7 @@ export class EnviromentService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, enviroment, httpOptions);
+      return this.http.post(`${environment.apiUrl}`, enviroment, httpOptions);
     }
 
     update(enviroment: Enviroment) {
@@ -34,14 +33,14 @@ export class EnviromentService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions);
+      return this.http.put(`${environment.apiUrl}/${enviroment.id}`, enviroment, httpOptions);
     }
 
     load(): Observable<Enviroment[]> {
-        return this.http.get<Enviroment[]>(`${this.url}`);
+        return this.http.get<Enviroment[]>(`${environment.apiUrl}`);
     }
 
     remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
+       return this.http.delete(`${environment.apiUrl}/${id}`);
     }
 }
