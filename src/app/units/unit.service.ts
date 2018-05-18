@@ -12,9 +12,38 @@ import { environment } from '../../environments/environment.prod';
 
 export class UnitService {
 
-    private url = 'http://localhost:4000/units';
+    url: string;
+    constructor(public http: HttpClient) {
+        this.url = `${environment.apiUrl}/units`;
+    }
 
-   constructor(public http: HttpClient) { }
+    save(unit: Unit) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.post(this.url, unit, httpOptions);
+    }
+
+    update(unit: Unit) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.put(`${this.url}/${unit.id}`, unit, httpOptions);
+    }
+
+    load(): Observable<any> {
+        return this.http.get(this.url).map((response: Response) => {
+            return response;
+        });
+    }
+
+    remove(id) {
+        return this.http.delete(`${this.url}/${id}`);
+    }
 
     getStates() {
         return this.http.get('https://br-cidade-estado-nodejs.glitch.me/estados/');
@@ -22,33 +51,5 @@ export class UnitService {
 
     getCities(stateId) {
         return this.http.get(`https://br-cidade-estado-nodejs.glitch.me/estados/${stateId}/cidades?`);
-    }
-
-    save(unit: Unit) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json'
-            })
-        };
-      return this.http.post(`${environment.apiUrl}`, unit, httpOptions);
-    }
-
-    update(unit: Unit) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json'
-            })
-        };
-      return this.http.put(`${environment.apiUrl}/${unit.id}`, unit, httpOptions);
-    }
-
-    load(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}`).map((response: Response) => {
-            return response;
-        });
-    }
-
-    remove(id) {
-       return this.http.delete(`${environment.apiUrl}/${id}`);
     }
 }

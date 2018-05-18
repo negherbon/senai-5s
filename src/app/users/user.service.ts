@@ -10,37 +10,37 @@ import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 
-export class UserService implements OnInit {
+export class UserService {
 
-   constructor(public http: HttpClient) {}
+    url: string;
 
-   ngOnInit(): void {
-        this.load();
+    constructor(public http: HttpClient) {
+        this.url = `${environment.apiUrl}/users`;
     }
 
     save(user: User) {
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json'
+                'Content-Type': 'application/json'
             })
         };
-      return this.http.post(`${environment.apiUrl}`, user, httpOptions);
+        return this.http.post(this.url, user, httpOptions);
     }
 
     update(user: User) {
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json'
+                'Content-Type': 'application/json'
             })
         };
-      return this.http.put(`${environment.apiUrl}/${user.id}`, user, httpOptions);
+        return this.http.put(`${this.url}/${user.id}`, user, httpOptions);
     }
 
     load(): Observable<User[]> {
-        return this.http.get<User[]>(`${environment.apiUrl}`);
+        return this.http.get<User[]>(this.url);
     }
 
     remove(id) {
-       return this.http.delete(`${environment.apiUrl}/${id}`);
+        return this.http.delete(`${this.url}/${id}`);
     }
 }

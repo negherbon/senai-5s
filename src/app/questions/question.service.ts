@@ -13,15 +13,40 @@ import { environment } from '../../environments/environment.prod';
 
 export class QuestionService {
 
-   constructor(public http: HttpClient) { }
+    urlAssociate: string;
+    urlQuestion: string;
+
+    constructor(public http: HttpClient) {
+        this.urlAssociate = `${environment.apiUrl}/associate`;
+        this.urlAssociate = `${environment.apiUrl}/questions`;
+    }
 
     save(question: Question) {
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json'
+                'Content-Type': 'application/json'
             })
         };
-      return this.http.post(`${environment.apiUrl}`, question, httpOptions);
+        return this.http.post(this.urlQuestion, question, httpOptions);
+    }
+
+    update(question: Question) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.put(`${this.urlQuestion}/${question.id}`, question, httpOptions);
+    }
+
+    load(): Observable<any> {
+        return this.http.get(this.urlQuestion).map((response: Response) => {
+            return response;
+        });
+    }
+
+    remove(id) {
+        return this.http.delete(`${this.urlQuestion}/${id}`);
     }
 
     saveInAssociateTable(questionId, enviromentTypeId) {
@@ -32,39 +57,20 @@ export class QuestionService {
 
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json'
+                'Content-Type': 'application/json'
             })
         };
 
-      return this.http.post(`${environment.apiUrl}`, relatedIds, httpOptions);
+        return this.http.post(this.urlAssociate, relatedIds, httpOptions);
     }
 
     getAssociatedItems(questionId): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/${questionId}`).map((response: Response) => {
+        return this.http.get(`${this.urlAssociate}/${questionId}`).map((response: Response) => {
             return response;
         });
     }
 
-    removeAssociatedItems(questionId){
-        return this.http.delete(`${environment.apiUrl}/${questionId}`);
-    }
-
-    update(question: Question) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json'
-            })
-        };
-      return this.http.put(`${environment.apiUrl}/${question.id}`, question, httpOptions);
-    }
-
-    load(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}`).map((response: Response) => {
-            return response;
-        });
-    }
-
-    remove(id) {
-       return this.http.delete(`${environment.apiUrl}/${id}`);
+    removeAssociatedItems(questionId) {
+        return this.http.delete(`${this.urlAssociate}/${questionId}`);
     }
 }

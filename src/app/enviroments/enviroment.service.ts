@@ -12,7 +12,11 @@ import { environment } from '../../environments/environment.prod';
 
 export class EnviromentService implements OnInit {
 
-   constructor(public http: HttpClient) { }
+   url: string;
+
+   constructor(public http: HttpClient) {
+       this.url = `${environment.apiUrl}/enviroment`;
+   }
 
     ngOnInit(): void {
         this.load();
@@ -24,7 +28,7 @@ export class EnviromentService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${environment.apiUrl}`, enviroment, httpOptions);
+      return this.http.post(this.url, enviroment, httpOptions);
     }
 
     update(enviroment: Enviroment) {
@@ -33,14 +37,14 @@ export class EnviromentService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${environment.apiUrl}/${enviroment.id}`, enviroment, httpOptions);
+      return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions);
     }
 
     load(): Observable<Enviroment[]> {
-        return this.http.get<Enviroment[]>(`${environment.apiUrl}`);
+        return this.http.get<Enviroment[]>(this.url);
     }
 
     remove(id) {
-       return this.http.delete(`${environment.apiUrl}/${id}`);
+       return this.http.delete(`${this.url}/${id}`);
     }
 }

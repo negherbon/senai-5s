@@ -12,31 +12,35 @@ import { environment } from '../../environments/environment.prod';
 
 export class EnviromentTypeService {
 
-   constructor(public http: HttpClient) { }
+    url: string;
+
+    constructor(public http: HttpClient) {
+        this.url = `${environment.apiUrl}/enviromenttypes`;
+    }
 
     save(enviromentType: EnviromentType) {
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json'
+                'Content-Type': 'application/json'
             })
         };
-      return this.http.post(`${environment.apiUrl}`, enviromentType, httpOptions);
+        return this.http.post(this.url, enviromentType, httpOptions);
     }
 
     update(enviromentType: EnviromentType) {
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json'
+                'Content-Type': 'application/json'
             })
         };
-      return this.http.put(`${environment.apiUrl}/${enviromentType.id}`, enviromentType, httpOptions);
+        return this.http.put(`${this.url}/${enviromentType.id}`, enviromentType, httpOptions);
     }
 
     load(): Observable<EnviromentType[]> {
-        return this.http.get<EnviromentType[]>(`${environment.apiUrl}`);
+        return this.http.get<EnviromentType[]>(`${this.url}`);
     }
 
     remove(id) {
-       return this.http.delete(`${environment.apiUrl}/${id}`);
+        return this.http.delete(`${this.url}/${id}`);
     }
 }
