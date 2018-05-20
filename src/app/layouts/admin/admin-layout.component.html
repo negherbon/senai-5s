@@ -13,6 +13,7 @@
           <a (click)="onMobileMenu()" class="mobile-options">
             <i class="ti-more"></i>
           </a>
+
         </div>
 
         <div class="navbar-container">
@@ -24,6 +25,13 @@
             </ul>
           </div>
         </div>
+
+        <a href="javascript:;" (click)="logout()" class="header--logout">
+          <i class="ti-power-off"></i>
+          Logout
+        </a>
+        
+        
       </div>
     </nav>
 
@@ -36,7 +44,7 @@
               <div class="main-menu-header">
                 <img class="img-40" src="assets/images/user.png" alt="User-Profile-Image">
                 <div class="user-details">
-                  <span>Usuário</span> <!-- Trocar depois por {{userSession.name}} -->
+                  <span>{{userSession.name}}</span>
                 </div>
               </div>
 
@@ -141,19 +149,3 @@
     </div>
   </div>
 </div>
-
-<!--go-top-button [html]="htmlButton"
-               [animate]="true"
-               [speed]="50"
-               [acceleration]="2"
-               [scrollDistance]="100"
-               [styles]="{
-                    'right': '50px',
-                    'bottom': '50px',
-                    'top': 'auto',
-                    'left': 'auto',
-                    'width': 'auto',
-                    'height': 'auto',
-                    'background' : 'transparent'
-                 }">
-</go-top-button-->

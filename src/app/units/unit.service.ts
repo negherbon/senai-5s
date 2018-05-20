@@ -6,14 +6,44 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Unit } from './unit';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 
 export class UnitService {
 
-    private url = 'http://localhost:4000/units';
+    url: string;
+    constructor(public http: HttpClient) {
+        this.url = `${environment.apiUrl}/units`;
+    }
 
-   constructor(public http: HttpClient) { }
+    save(unit: Unit) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.post(this.url, unit, httpOptions);
+    }
+
+    update(unit: Unit) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.put(`${this.url}/${unit.id}`, unit, httpOptions);
+    }
+
+    load(): Observable<any> {
+        return this.http.get(this.url).map((response: Response) => {
+            return response;
+        });
+    }
+
+    remove(id) {
+        return this.http.delete(`${this.url}/${id}`);
+    }
 
     getStates() {
         return this.http.get('https://br-cidade-estado-nodejs.glitch.me/estados/');
@@ -21,33 +51,5 @@ export class UnitService {
 
     getCities(stateId) {
         return this.http.get(`https://br-cidade-estado-nodejs.glitch.me/estados/${stateId}/cidades?`);
-    }
-
-    save(unit: Unit) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json'
-            })
-        };
-      return this.http.post(`${this.url}`, unit, httpOptions);
-    }
-
-    update(unit: Unit) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json'
-            })
-        };
-      return this.http.put(`${this.url}/${unit.id}`, unit, httpOptions);
-    }
-
-    load(): Observable<any> {
-        return this.http.get(`${this.url}`).map((response: Response) => {
-            return response;
-        });
-    }
-
-    remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
     }
 }

@@ -6,24 +6,25 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Evaluation } from './evaluation';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 
-export class EvaluationService implements OnInit {
+export class EvaluationService {
+    
+    url: string;
 
-   private url = 'http://localhost:4000/evaluations';
+   constructor(public http: HttpClient) {
+       this.url = `${environment.apiUrl}/evaluations`;
+    }
 
-   constructor(public http: HttpClient) { }
-
-    ngOnInit(): void {}
-
-    save(evaluation: Evaluation) {
+   save(evaluation: Evaluation) {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(`${this.url}`, evaluation);
+      return this.http.post(this.url, evaluation);
     }
 
     update(evaluation: Evaluation) {
@@ -36,7 +37,7 @@ export class EvaluationService implements OnInit {
     }
 
     load(): Observable<any> {
-        return this.http.get(`${this.url}`).map((response: Response) => {
+        return this.http.get(this.url).map((response: Response) => {
             return response;
         });
     }
