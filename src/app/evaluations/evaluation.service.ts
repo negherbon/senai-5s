@@ -15,7 +15,7 @@ export class EvaluationService {
     url: string;
 
    constructor(public http: HttpClient) {
-       this.url = `${environment.apiUrl}/evaluations`;
+       this.url = `${environment.api_url}/evaluations`;
     }
 
    save(evaluation: Evaluation) {

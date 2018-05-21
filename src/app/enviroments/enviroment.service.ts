@@ -15,7 +15,7 @@ export class EnviromentService implements OnInit {
    url: string;
 
    constructor(public http: HttpClient) {
-       this.url = `${environment.apiUrl}/enviroments`;
+       this.url = `${environment.api_url}/enviroments`;
    }
 
     ngOnInit(): void {

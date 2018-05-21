@@ -14,7 +14,7 @@ export class UnitService {
 
     url: string;
     constructor(public http: HttpClient) {
-        this.url = `${environment.apiUrl}/units`;
+        this.url = `${environment.api_url}/units`;
     }
 
     save(unit: Unit) {

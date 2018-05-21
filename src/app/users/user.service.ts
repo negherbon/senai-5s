@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { User } from './user';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 
@@ -15,7 +15,7 @@ export class UserService {
     url: string;
 
     constructor(public http: HttpClient) {
-        this.url = `${environment.apiUrl}/users`;
+        this.url = `${environment.api_url}/users`;
     }
 
     save(user: User) {

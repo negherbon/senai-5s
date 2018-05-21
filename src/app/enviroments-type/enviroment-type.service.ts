@@ -15,7 +15,7 @@ export class EnviromentTypeService {
     url: string;
 
     constructor(public http: HttpClient) {
-        this.url = `${environment.apiUrl}/enviromenttypes`;
+        this.url = `${environment.api_url}/enviromenttypes`;
     }
 
     save(enviromentType: EnviromentType) {
