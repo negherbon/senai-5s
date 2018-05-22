@@ -14,13 +14,15 @@
           <div class="form-group row">  
             <label class="col-sm-2 col-form-label">Ambiente</label>
             <div class="col-sm-10">
-              <select [(ngModel)]="evaluation.enviroment_id" #evaluationEnviroment="ngModel" required name="evaluationEnviroment" class="form-control">
+              <select [(ngModel)]="evaluation.enviroment_id" #evaluationEnviroment="ngModel" required name="evaluationEnviroment" class="form-control"> 
+                
+                <option disabled *ngIf="enviroments?.length == 0">Nenhum ambiente cadastrado.</option>
                 <option *ngFor="let enviroment of enviroments" [value]="enviroment.id">
                   {{ enviroment.name }}                                                                                                                                                                                                                                                                                                     
                 </option> 
               </select>
               <span *ngIf="evaluationEnviroment.invalid && (evaluationEnviroment.dirty || evaluationEnviroment.touched)" style='color: red'>Este campo é obrigatório.</span>  
-            </div>  
+            </div> 
           </div>
 
           
