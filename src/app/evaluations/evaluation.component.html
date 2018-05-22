@@ -14,13 +14,15 @@
           <div class="form-group row">  
             <label class="col-sm-2 col-form-label">Ambiente</label>
             <div class="col-sm-10">
-              <select [(ngModel)]="evaluation.enviroment_id" #evaluationEnviroment="ngModel" required name="evaluationEnviroment" class="form-control">
+              <select [(ngModel)]="evaluation.enviroment_id" #evaluationEnviroment="ngModel" required name="evaluationEnviroment" class="form-control"> 
+                
+                <option disabled *ngIf="enviroments?.length == 0">Nenhum ambiente cadastrado.</option>
                 <option *ngFor="let enviroment of enviroments" [value]="enviroment.id">
                   {{ enviroment.name }}                                                                                                                                                                                                                                                                                                     
                 </option> 
               </select>
               <span *ngIf="evaluationEnviroment.invalid && (evaluationEnviroment.dirty || evaluationEnviroment.touched)" style='color: red'>Este campo é obrigatório.</span>  
-            </div>  
+            </div> 
           </div>
 
           
@@ -40,7 +42,7 @@
                   </button>
               </div>   
           </div>
-  
+
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Responsável</label>
             <div class="col-sm-10">
@@ -69,6 +71,10 @@
       </ng-template>
 
       <app-card [title]="'Listagem de Avaliações'">
+        <div class="row">
+          <h4 class="col-sm-2">Pesquisar:  </h4>
+          <input class="form-control col-sm-10" #evaluationSearch placeholder="Pesquise por uma Avaliação" (keyup)="findEvaluations(evaluationSearch.value)" >
+        </div>
         <div class="table-responsive">
           <table *ngIf="evaluations?.length > 0; else noEvaluations"  class="table table--clean">
               <thead>
@@ -84,7 +90,7 @@
               </thead>
   
               <tbody>
-                <tr *ngFor="let evaluation of evaluations">
+                <tr *ngFor="let evaluation of evaluationFiltered">
                   <td>{{evaluation.title}}</td>
                   <td>{{evaluation.User.name}}</td>
                   <td>{{evaluation.Enviroment.name}}</td>
@@ -106,6 +112,9 @@
                 </tr>
               </tbody>
             </table>
+            <div class="noContents" *ngIf="lengthEvaluationsPagination > 10">
+              <pagination [totalItems]="lengthEvaluationsPagination" (pageChanged)="pageChanged($event)"></pagination>
+            </div>
         </div>
       </app-card>
     </div>

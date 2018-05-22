@@ -15,3 +15,13 @@ aside.pcoded-slider.ng-sidebar {
 .userlist-box.hide {
     display: none;
 }
+
+.header--logout {
+    padding: 15px;
+    color: white;
+    float: right;
+}
+
+.header--logout:hover {
+    color: white;
+}

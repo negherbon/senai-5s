@@ -19,6 +19,7 @@
                   [options]="selectItems"
                   name="selectItems"
                   multiple="true"
+                  notFoundMsg="Nenhum tipo de ambiente cadastrado."
                   required
                   [(ngModel)]="selectedEnviromentTypes">
               </ng-select>
@@ -42,6 +43,10 @@
       </ng-template>
 
       <app-card [title]="'Listagem de perguntas'">
+        <div class="row">
+          <h4 class="col-sm-2">Pesquisar:  </h4>
+          <input class="form-control col-sm-10" #QuestionSearch placeholder="Pesquise por uma Pergunta" (keyup)="findQuestion(QuestionSearch.value)" >
+        </div>
         <div class="table-responsive">
           <table *ngIf="questions?.length > 0; else noQuestions" class="table table--clean">
             <thead>
@@ -53,7 +58,7 @@
             </thead>
             
             <tbody>
-              <tr *ngFor="let question of questions">
+              <tr *ngFor="let question of questionFiltered">
                 <td>{{question.title}}</td>
                 <td>{{question.description}}</td>
                 <td>
@@ -71,6 +76,9 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="noContents" *ngIf="lengthQuestionPagination > 10">
+          <pagination [totalItems]="lengthQuestionPagination" (pageChanged)="pageChanged($event)"></pagination>
         </div>
       </app-card>
     </div>

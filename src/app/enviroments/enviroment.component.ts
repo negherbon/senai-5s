@@ -9,6 +9,7 @@ import { EnviromentTypeService } from '../enviroments-type/enviroment-type.servi
 import { UserService } from '../users/user.service';
 import { EnviromentType } from '../enviroments-type/enviroment-type';
 import swal from 'sweetalert';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-enviroment',
@@ -25,6 +26,10 @@ export class EnviromentComponent implements OnInit {
   unitSelected: any;
   enviromentTypes: EnviromentType[];
 
+  //Filter and pagination
+  enviromentFiltered: Enviroment[];
+  lengthEnvironmentsPagination: number;
+
   constructor(
       private enviromentService: EnviromentService,
       private unitService: UnitService,
@@ -37,6 +42,12 @@ export class EnviromentComponent implements OnInit {
     this.loadEnviromentTypes();
     this.loadResponsibles();
     this.load();
+  }
+
+  findEnvironments(typed: string){
+    this.enviromentFiltered = this.enviroments.filter(
+        enviroment => enviroment.name.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthEnvironmentsPagination = this.enviromentFiltered.length;
   }
 
   save(enviroment): void {
@@ -96,6 +107,8 @@ export class EnviromentComponent implements OnInit {
     .subscribe(
       enviroments => {
         this.enviroments = enviroments;
+        this.enviromentFiltered = this.enviroments.slice(0, 10);
+        this.lengthEnvironmentsPagination = this.enviroments.length;
       },
       error => {
         console.log(error);
@@ -106,6 +119,12 @@ export class EnviromentComponent implements OnInit {
   update(enviroment: Enviroment): void {
     this.enviroment = enviroment;
     window.scroll(0, 0);
+  }
+
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.enviromentFiltered = this.enviroments.slice(startItem, endItem);
   }
 
   remove(id: string): void {
