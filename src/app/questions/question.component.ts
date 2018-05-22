@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 import { IOption } from 'ng-select';
 import { EnviromentTypeService } from '../enviroments-type/enviroment-type.service';
 import { EnviromentType } from '../enviroments-type/enviroment-type';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 
 @Component({
@@ -22,10 +23,20 @@ export class QuestionComponent implements OnInit {
   selectItems: Array<IOption>;
   selectedEnviromentTypes: Array<String> = [];
 
+    //Filter and pagination
+    questionFiltered: Question[];
+    lengthQuestionPagination: number;
+
   ngOnInit() {
 
    this.load();
     this.loadEnviromentTypes();
+  }
+
+  findQuestion(typed: string){
+    this.questionFiltered = this.questions.filter(
+        question => question.title.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthQuestionPagination = this.questionFiltered.length;
   }
 
   //TODO: REFATORAR ESSA FUNÇÃO
@@ -56,6 +67,8 @@ export class QuestionComponent implements OnInit {
       .subscribe(
         questions => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
           this.questions = questions;
+          this.questionFiltered = this.questions.slice(0, 10);
+          this.lengthQuestionPagination = this.questions.length;
         },
         error => {
           console.log(error)
@@ -89,6 +102,11 @@ export class QuestionComponent implements OnInit {
     window.scroll(0, 0);
   }
 
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.questionFiltered = this.questions.slice(startItem, endItem);
+  }
   remove(id: string): void {
     this.questionService.remove(id)
       .subscribe((res) => {
