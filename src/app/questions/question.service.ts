@@ -6,23 +6,47 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Question } from './question';
+import { environment } from '../../environments/environment.prod';
+
 
 @Injectable()
 
 export class QuestionService {
 
-    private url = 'http://localhost:4000/questions';
-    private urlRelatedItems = 'http://localhost:4000/associate';
+    urlAssociate: string;
+    urlQuestion: string;
 
-   constructor(public http: HttpClient) { }
+    constructor(public http: HttpClient) {
+        this.urlAssociate = `${environment.apiUrl}/associate`;
+        this.urlAssociate = `${environment.apiUrl}/questions`;
+    }
 
     save(question: Question) {
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json'
+                'Content-Type': 'application/json'
             })
         };
-      return this.http.post(`${this.url}`, question, httpOptions);
+        return this.http.post(this.urlQuestion, question, httpOptions);
+    }
+
+    update(question: Question) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.put(`${this.urlQuestion}/${question.id}`, question, httpOptions);
+    }
+
+    load(): Observable<any> {
+        return this.http.get(this.urlQuestion).map((response: Response) => {
+            return response;
+        });
+    }
+
+    remove(id) {
+        return this.http.delete(`${this.urlQuestion}/${id}`);
     }
 
     saveInAssociateTable(questionId, enviromentTypeId) {
@@ -33,39 +57,20 @@ export class QuestionService {
 
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json'
+                'Content-Type': 'application/json'
             })
         };
 
-      return this.http.post(`${this.urlRelatedItems}`, relatedIds, httpOptions);
+        return this.http.post(this.urlAssociate, relatedIds, httpOptions);
     }
 
     getAssociatedItems(questionId): Observable<any> {
-        return this.http.get(`${this.urlRelatedItems}/${questionId}`).map((response: Response) => {
+        return this.http.get(`${this.urlAssociate}/${questionId}`).map((response: Response) => {
             return response;
         });
     }
 
-    removeAssociatedItems(questionId){
-        return this.http.delete(`${this.urlRelatedItems}/${questionId}`);
-    }
-
-    update(question: Question) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json'
-            })
-        };
-      return this.http.put(`${this.url}/${question.id}`, question, httpOptions);
-    }
-
-    load(): Observable<any> {
-        return this.http.get(`${this.url}`).map((response: Response) => {
-            return response;
-        });
-    }
-
-    remove(id) {
-       return this.http.delete(`${this.url}/${id}`);
+    removeAssociatedItems(questionId) {
+        return this.http.delete(`${this.urlAssociate}/${questionId}`);
     }
 }
