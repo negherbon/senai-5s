@@ -18,7 +18,7 @@ export class QuestionService {
 
     constructor(public http: HttpClient) {
         this.urlAssociate = `${environment.apiUrl}/associate`;
-        this.urlAssociate = `${environment.apiUrl}/questions`;
+        this.urlQuestion = `${environment.apiUrl}/questions`;
     }
 
     save(question: Question) {
