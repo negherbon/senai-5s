@@ -1,1 +1,1 @@
-## Repositório do webapp que é a parte gerencial do sistema.
+## Parte gerencial do sistema para os administradores.
