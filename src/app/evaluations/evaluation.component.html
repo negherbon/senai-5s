@@ -83,7 +83,8 @@
                   <th>Responsável</th>
                   <th>Ambiente</th>
                   <th>Status</th>
-                  <th>Período</th>
+                  <th>Data Inicial</th>
+                  <th>Data Final</th>                  
                   <th>Descrição</th>
                   <th>Ações</th>
                 </tr>
@@ -96,6 +97,7 @@
                   <td>{{evaluation.Enviroment.name}}</td>
                   <td>{{evaluation.status}}</td>
                   <td>{{evaluation.createDate | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{evaluation.dueDate | date: 'dd/MM/yyyy' }}</td>                  
                   <td>{{evaluation.description}}</td>
                   <td>
                     <span class="inline-block">
