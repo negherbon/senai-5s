@@ -7,7 +7,7 @@ import { User } from '../users/user';
 import { UserService } from '../users/user.service';
 import * as moment from 'moment';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { defineLocale } from 'ngx-bootstrap';
+import { defineLocale, PageChangedEvent } from 'ngx-bootstrap';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import swal from 'sweetalert';
 
@@ -24,7 +24,10 @@ export class EvaluationComponent implements OnInit {
   enviroments: Enviroment[];
   period: Date[];
 
-  
+//Filter and pagination
+  evaluationFiltered: Evaluation[];
+  lengthEvaluationsPagination: number;
+
   constructor(private evaluationService: EvaluationService,
     private userService: UserService,
     private enviromentService: EnviromentService){
@@ -39,11 +42,19 @@ export class EvaluationComponent implements OnInit {
     this.load();
   }
 
+  findEvaluations(typed: string){
+    this.evaluationFiltered = this.evaluations.filter(
+        evaluation => evaluation.title.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthEvaluationsPagination = this.evaluationFiltered.length
+  }
+
   load() {
     this.evaluationService.load()
     .subscribe(
       evaluations => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
         this.evaluations = evaluations;
+        this.evaluationFiltered = this.evaluations.slice(0, 10);
+        this.lengthEvaluationsPagination = this.evaluations.length;
       },
       error => {
         console.log(error)
@@ -113,6 +124,12 @@ export class EvaluationComponent implements OnInit {
       if (willDelete)
         this.remove(evaluationId);
     });
+  }
+
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.evaluationFiltered = this.evaluations.slice(startItem, endItem);
   }
 
   remove(id: number): void {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EnviromentTypeService } from './enviroment-type.service';
 import { EnviromentType } from './enviroment-type';
 import swal from 'sweetalert';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-enviroment-type',
@@ -15,8 +16,18 @@ export class EnviromentTypeComponent implements OnInit {
   enviromentTypes: EnviromentType[];
   enviromentType: EnviromentType = new EnviromentType();
 
+    //Filter and pagination
+    enviromentTypesFiltered: EnviromentType[];
+    lengthEnvironmentTypePagination: number;
+
   ngOnInit() {
     this.load();
+  }
+
+  findEnvironmentTypes(typed: string){
+    this.enviromentTypesFiltered = this.enviromentTypes.filter(
+        enviromentType => enviromentType.name.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthEnvironmentTypePagination = this.enviromentTypesFiltered.length;
   }
 
   save(enviromentType): void {
@@ -50,6 +61,8 @@ export class EnviromentTypeComponent implements OnInit {
     .subscribe(
       enviromentsType => {
         this.enviromentTypes = enviromentsType;
+        this.enviromentTypesFiltered = this.enviromentTypes.slice(0, 10);
+        this.lengthEnvironmentTypePagination = this.enviromentTypes.length;
       },
       error => {
         console.log(error);
@@ -59,6 +72,12 @@ export class EnviromentTypeComponent implements OnInit {
   update(enviromentType: EnviromentType): void {
     this.enviromentType = enviromentType;
     window.scroll(0, 0);
+  }
+
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.enviromentTypesFiltered = this.enviromentTypes.slice(startItem, endItem);
   }
 
   /* NASS: Colocar icones e mensagens de acordo com retorno da api */

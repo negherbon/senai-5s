@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UnitService } from './unit.service';
 import { Unit } from './unit';
 import swal from 'sweetalert';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-unit',
@@ -17,9 +18,19 @@ export class UnitComponent implements OnInit {
   units: Unit[];
   unit: Unit = new Unit();
 
+  //Filter and pagination
+  unitFiltered: Unit[];
+  lengthUnitPagination: number;
+
   ngOnInit() {
     this.getStates();
     this.load();
+  }
+
+  findUnits(typed: string){
+    this.unitFiltered = this.units.filter(
+        unit => unit.name.toLowerCase().includes(typed.toLowerCase()));
+    this.lengthUnitPagination = this.unitFiltered.length;
   }
 
   getStates() {
@@ -77,6 +88,8 @@ export class UnitComponent implements OnInit {
     .subscribe(
       units => {
         this.units = units;
+        this.unitFiltered = this.units.slice(0, 10);
+        this.lengthUnitPagination = this.units.length;
       },
       error => {
         console.log(error);
@@ -90,6 +103,12 @@ export class UnitComponent implements OnInit {
     window.scroll(0, 0);
   }
 
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.unitFiltered = this.units.slice(startItem, endItem);
+  }
+  
   /* NASS: Colocar icones e mensagens de acordo com retorno da api */
   remove(id: string): void {
     this.unitService.remove(id)
