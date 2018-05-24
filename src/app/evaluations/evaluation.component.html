@@ -18,7 +18,7 @@
                 
                 <option disabled *ngIf="enviroments?.length == 0">Nenhum ambiente cadastrado.</option>
                 <option *ngFor="let enviroment of enviroments" [value]="enviroment.id">
-                  {{ enviroment.name }}                                                                                                                                                                                                                                                                                                     
+                  {{ enviroment?.name }}                                                                                                                                                                                                                                                                                                     
                 </option> 
               </select>
               <span *ngIf="evaluationEnviroment.invalid && (evaluationEnviroment.dirty || evaluationEnviroment.touched)" style='color: red'>Este campo é obrigatório.</span>  
@@ -48,7 +48,7 @@
             <div class="col-sm-10">
               <select [(ngModel)]="evaluation.users_id" #enviromentResponsible="ngModel" required name="enviromentResponsible" class="form-control">
                 <option *ngFor="let user of users" [value]="user.id">
-                  {{ user.name }}                                                                                                                                                                                                                                                                                                     
+                   {{ user.name }} 
                 </option> 
               </select>
               <span *ngIf="enviromentResponsible.invalid && (enviromentResponsible.dirty || enviromentResponsible.touched)" style='color: red'>Este campo é obrigatório.</span>  
