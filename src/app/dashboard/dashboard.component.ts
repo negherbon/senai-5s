@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import { EvaluationService } from '../evaluations/evaluation.service';
+import { Evaluation } from '../evaluations/evaluation';
 declare const $: any;
 declare var Morris: any;
 
@@ -9,7 +11,39 @@ declare var Morris: any;
 
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  evaluationss: Evaluation[];
+  late: Evaluation[] = new Array<Evaluation>();
+  outstanding: Evaluation[] = new Array<Evaluation>();
+  concluded: Evaluation[] = new Array<Evaluation>();
+  
+  constructor(private evaluationService: EvaluationService) { 
+    this.evaluationService.load()
+        .subscribe(
+            evaluations => {
+            this.evaluationss = evaluations;
+              console.log("evaluations",evaluations)
+              this.acharUmNome(evaluations);
+          });
+  }
+
+  acharUmNome(evaluations: Evaluation[]){
+
+    evaluations.forEach(evaluation =>{
+      if(evaluation.status.includes('CONCLUIDA')){
+        this.concluded.push(evaluation);
+      }else if(evaluation.status == "ATRASADA" ){
+        this.late.push(evaluation)
+      } else {
+        this.outstanding.push(evaluation);
+      }
+    });
+
+
+
+    console.log("outstanding", this.outstanding,
+    "late",this.late,
+    "concluded",this.concluded);
+  }
 
   ngOnInit() {
     setTimeout(() => {
