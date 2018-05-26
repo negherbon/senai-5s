@@ -77,18 +77,28 @@ export class EvaluationComponent implements OnInit {
   }
 
   save(evaluation) {
+
+    evaluation.createDate = this.period[0];
+    evaluation.dueDate = this.period[1];
     if(!evaluation.id){
-      evaluation.createDate = this.period[0];
-      evaluation.dueDate = this.period[1];
-      evaluation.status = "NÃO INICIADA";
+      if(evaluation.dueDate.getTime() >= new Date().setHours(0,0,0,0)){
+        evaluation.status = "PENDENTE";
+      } else{
+        evaluation.status = "ATRASADA";
+      }
       this.evaluationService.save(evaluation)
       .subscribe(res => {
         this.getValidation(res);
         this.load();
       }) 
     } else {
-      evaluation.createDate = this.period[0];
-      evaluation.dueDate = this.period[1];
+      if(evaluation.status != "CONCLUIDA"){   
+        if(evaluation.dueDate.getTime() >= new Date().setHours(0,0,0,0)){
+          evaluation.status = "PENDENTE";
+        } else{
+          evaluation.status = "ATRASADA";
+        }
+      }
       this.evaluationService.update(evaluation)
       .subscribe(res => {
         this.getValidation(res);
@@ -98,10 +108,12 @@ export class EvaluationComponent implements OnInit {
   }
 
   update(evaluation: Evaluation): void {
-    moment.locale('pt-BR');
-    this.period = [moment(evaluation.createDate).toDate(), moment(evaluation.dueDate).toDate()];
-    this.evaluation = evaluation;
-    window.scroll(0, 0);
+    if(evaluation.status != "CONCLUIDA"){   
+      moment.locale('pt-BR');
+      this.period = [moment(evaluation.createDate).toDate(), moment(evaluation.dueDate).toDate()];
+      this.evaluation = evaluation;
+      window.scroll(0, 0);
+    }
   }
 
   getValidation(res) {

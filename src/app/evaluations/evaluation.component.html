@@ -18,7 +18,7 @@
                 
                 <option disabled *ngIf="enviroments?.length == 0">Nenhum ambiente cadastrado.</option>
                 <option *ngFor="let enviroment of enviroments" [value]="enviroment.id">
-                  {{ enviroment.name }}                                                                                                                                                                                                                                                                                                     
+                  {{ enviroment?.name }}                                                                                                                                                                                                                                                                                                     
                 </option> 
               </select>
               <span *ngIf="evaluationEnviroment.invalid && (evaluationEnviroment.dirty || evaluationEnviroment.touched)" style='color: red'>Este campo é obrigatório.</span>  
@@ -44,14 +44,14 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Responsável</label>
+            <label class="col-sm-2 col-form-label">Avaliador</label>
             <div class="col-sm-10">
-              <select [(ngModel)]="evaluation.users_id" #enviromentResponsible="ngModel" required name="enviromentResponsible" class="form-control">
+              <select [(ngModel)]="evaluation.users_id" #appraiser="ngModel" required name="appraiser" class="form-control">
                 <option *ngFor="let user of users" [value]="user.id">
-                  {{ user.name }}                                                                                                                                                                                                                                                                                                     
+                   {{ user.name }} 
                 </option> 
               </select>
-              <span *ngIf="enviromentResponsible.invalid && (enviromentResponsible.dirty || enviromentResponsible.touched)" style='color: red'>Este campo é obrigatório.</span>  
+              <span *ngIf="appraiser.invalid && (appraiser.dirty || appraiser.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>  
           </div>
 
@@ -80,10 +80,11 @@
               <thead>
                 <tr>
                   <th>Nome</th>
-                  <th>Responsável</th>
+                  <th>Avaliador</th>
                   <th>Ambiente</th>
                   <th>Status</th>
-                  <th>Período</th>
+                  <th>Data Inicial</th>
+                  <th>Data Final</th>                  
                   <th>Descrição</th>
                   <th>Ações</th>
                 </tr>
@@ -96,16 +97,17 @@
                   <td>{{evaluation.Enviroment.name}}</td>
                   <td>{{evaluation.status}}</td>
                   <td>{{evaluation.createDate | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{evaluation.dueDate | date: 'dd/MM/yyyy' }}</td>                  
                   <td>{{evaluation.description}}</td>
                   <td>
                     <span class="inline-block">
-                      <button class="btn btn-info btn-icon no-margin" (click)="update(evaluation)">
-                        <i class="icofont icofont-edit"></i>
+                      <button class="btn btn-info btn-icon no-margin" [disabled]="evaluation.status === 'CONCLUIDA'" (click)="update(evaluation)">
+                        <i class="icofont icofont-edit" title="Você não pode editar uma avaliação concluida"></i>
                       </button>
                     </span>
                     <span class="inline-block margin-left-10">
-                      <button class="btn btn-danger btn-icon no-margin" (click)="getModalAnswer(evaluation.id)">
-                        <i class="icofont icofont-trash"></i>
+                      <button class="btn btn-danger btn-icon no-margin" [disabled]="evaluation.status === 'CONCLUIDA'" (click)="getModalAnswer(evaluation.id)">
+                        <i class="icofont icofont-trash" title="Você não pode remover uma avaliação concluida"></i>
                       </button>
                     </span>
                   </td>
