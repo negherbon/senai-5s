@@ -108,10 +108,12 @@ export class EvaluationComponent implements OnInit {
   }
 
   update(evaluation: Evaluation): void {
-    moment.locale('pt-BR');
-    this.period = [moment(evaluation.createDate).toDate(), moment(evaluation.dueDate).toDate()];
-    this.evaluation = evaluation;
-    window.scroll(0, 0);
+    if(evaluation.status != "CONCLUIDA"){   
+      moment.locale('pt-BR');
+      this.period = [moment(evaluation.createDate).toDate(), moment(evaluation.dueDate).toDate()];
+      this.evaluation = evaluation;
+      window.scroll(0, 0);
+    }
   }
 
   getValidation(res) {
