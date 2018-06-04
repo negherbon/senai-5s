@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { QuestionService } from './question.service';
 import { Question } from './question';
 import swal from 'sweetalert';
@@ -6,7 +6,7 @@ import { IOption } from 'ng-select';
 import { EnviromentTypeService } from '../enviroments-type/enviroment-type.service';
 import { EnviromentType } from '../enviroments-type/enviroment-type';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-question',
@@ -26,6 +26,8 @@ export class QuestionComponent implements OnInit {
     //Filter and pagination
     questionFiltered: Question[];
     lengthQuestionPagination: number;
+
+    @ViewChild('questionForm') questionForm : NgForm;
 
   ngOnInit() {
 
@@ -112,6 +114,7 @@ export class QuestionComponent implements OnInit {
       .subscribe((res) => {
         swal('', res['message'], 'success');
         this.load();
+        this.questionForm.reset();
       });
   }
 
