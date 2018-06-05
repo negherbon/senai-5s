@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EnviromentTypeService } from './enviroment-type.service';
+import { EnviromentService } from '../enviroments/enviroment.service'
 import { EnviromentType } from './enviroment-type';
 import swal from 'sweetalert';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
@@ -11,14 +12,15 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 export class EnviromentTypeComponent implements OnInit {
 
-  constructor(public enviromentTypeService: EnviromentTypeService) { }
+  constructor(public enviromentTypeService: EnviromentTypeService,
+              public enviromentService: EnviromentService) { }
 
   enviromentTypes: EnviromentType[];
   enviromentType: EnviromentType = new EnviromentType();
 
-    //Filter and pagination
-    enviromentTypesFiltered: EnviromentType[];
-    lengthEnvironmentTypePagination: number;
+  //Filter and pagination
+  enviromentTypesFiltered: EnviromentType[];
+  lengthEnvironmentTypePagination: number;
 
   ngOnInit() {
     this.load();
@@ -36,14 +38,14 @@ export class EnviromentTypeComponent implements OnInit {
         .subscribe(res => {
           this.getValidation(res);
           this.load();
-          this.enviromentType = new EnviromentType();  // reseta valores do formulário
+          this.enviromentType = new EnviromentType(); 
       });
      } else {
       this.enviromentTypeService.update(enviromentType)
       .subscribe(res => {
         this.getValidation(res);
         this.load();
-        this.enviromentType = new EnviromentType(); // reseta valores do formulário
+        this.enviromentType = new EnviromentType();
       });
     }
   }
@@ -51,8 +53,8 @@ export class EnviromentTypeComponent implements OnInit {
   getValidation(res) {
     swal({
       title: '',
-      text: res['status'] === 201 ? 'Tipo de ambiente salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: 'success'
+      text: res["message"],
+      icon: res["type"]
     });
   }
 
@@ -80,12 +82,18 @@ export class EnviromentTypeComponent implements OnInit {
     this.enviromentTypesFiltered = this.enviromentTypes.slice(startItem, endItem);
   }
 
-  /* NASS: Colocar icones e mensagens de acordo com retorno da api */
-  remove(id: string): void {
-    this.enviromentTypeService.remove(id)
+  remove(id: string) {
+    this.enviromentTypeService.removeAssociatedItems(id)
     .subscribe((res) => {
-      swal('', res['message'], 'success');
-      this.load();
+      this.enviromentTypeService.remove(id)
+      .subscribe(res => {
+        this.getValidation(res);
+        this.load();
+      },
+      error => {
+        this.getValidation(error.error);
+      },
+      )
     });
   }
 

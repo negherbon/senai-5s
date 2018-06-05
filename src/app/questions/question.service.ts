@@ -63,7 +63,7 @@ export class QuestionService {
 
         return this.http.post(this.urlAssociate, relatedIds, httpOptions);
     }
-
+    
     getAssociatedItems(questionId): Observable<any> {
         return this.http.get(`${this.urlAssociate}/${questionId}`).map((response: Response) => {
             return response;

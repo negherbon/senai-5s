@@ -37,7 +37,7 @@ const MENUITEMS = [
         state: 'dashboard',
         name: 'Dashboard',
         type: 'link',
-        icon: 'ti-home'
+        icon: 'ti-bar-chart'
       },
       {
         state: 'users',

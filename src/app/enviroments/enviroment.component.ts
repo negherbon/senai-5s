@@ -130,16 +130,19 @@ export class EnviromentComponent implements OnInit {
   remove(id: string): void {
     this.enviromentService.remove(id)
     .subscribe((res) => {
-      swal('', res['message'], 'success');
+      this.getValidation(res)
       this.load();
+    },
+    error => {
+      this.getValidation(error.error)
     });
   }
 
   getValidation(res) {
     swal({
       title: '',
-      text: res['status'] === 201 ? 'Ambiente salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: 'success'
+      text: res["message"],
+      icon: res["type"]
     });
   }
 
