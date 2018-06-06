@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EnviromentService} from './enviroment.service';
 import { UnitService } from '../units/unit.service';
@@ -10,6 +10,7 @@ import { UserService } from '../users/user.service';
 import { EnviromentType } from '../enviroments-type/enviroment-type';
 import swal from 'sweetalert';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-enviroment',
@@ -29,6 +30,8 @@ export class EnviromentComponent implements OnInit {
   //Filter and pagination
   enviromentFiltered: Enviroment[];
   lengthEnvironmentsPagination: number;
+
+  @ViewChild('enviromentForm') enviromentForm : NgForm;
 
   constructor(
       private enviromentService: EnviromentService,
@@ -132,6 +135,7 @@ export class EnviromentComponent implements OnInit {
     .subscribe((res) => {
       this.getValidation(res)
       this.load();
+      this.enviromentForm.reset();
     },
     error => {
       this.getValidation(error.error)

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from './user.service';
 import { User } from './user';
 import swal from 'sweetalert';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { NgForm } from '@angular/forms';
 
 const helper = new JwtHelperService();
 
@@ -24,6 +25,8 @@ export class UserComponent implements OnInit {
   userFiltered: User[];
   lengthUsersPagination: number;
 
+  @ViewChild('userForm') userForm : NgForm;
+
   constructor(private userService: UserService) {
   }
 
@@ -42,7 +45,7 @@ export class UserComponent implements OnInit {
     swal({
       title: 'Exclusão de usuário',
       text: 'Tem certeza que deseja excluir o usuário?',
-      buttons: [null, 'OK'],
+      buttons: ['Cancelar', 'OK'],
       icon: 'warning',
       dangerMode: true,
     })
@@ -86,6 +89,7 @@ export class UserComponent implements OnInit {
     .subscribe((res) => {
       this.getValidation(res);
       this.load();
+      this.userForm.reset();
     },
     error => {
       this.getValidation(error.error)

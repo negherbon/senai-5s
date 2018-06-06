@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EnviromentTypeService } from './enviroment-type.service';
 import { EnviromentService } from '../enviroments/enviroment.service'
 import { EnviromentType } from './enviroment-type';
 import swal from 'sweetalert';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-enviroment-type',
   templateUrl: './enviroment-type.component.html'
@@ -21,6 +21,7 @@ export class EnviromentTypeComponent implements OnInit {
   //Filter and pagination
   enviromentTypesFiltered: EnviromentType[];
   lengthEnvironmentTypePagination: number;
+  @ViewChild('enviromentTypeForm') enviromentTypeForm : NgForm;
 
   ngOnInit() {
     this.load();
@@ -89,6 +90,7 @@ export class EnviromentTypeComponent implements OnInit {
       .subscribe(res => {
         this.getValidation(res);
         this.load();
+        this.enviromentTypeForm.reset();
       },
       error => {
         this.getValidation(error.error);

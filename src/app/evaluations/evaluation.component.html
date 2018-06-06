@@ -34,7 +34,9 @@
                      name="period"
                     [bsConfig]="{rangeInputFormat: 'DD/MM/YYYY', locale: 'pt-br'}"
                      #drp="bsDaterangepicker"
-                     [(ngModel)]="period">
+                     [(ngModel)]="period"
+                     onkeydown="return false">
+                     
                 </div>
                 <div class="col-xs-12 col-12 col-md-3 form-group">
                   <button type="button" class="btn btn-success" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">
@@ -46,12 +48,12 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Avaliador</label>
             <div class="col-sm-10">
-              <select [(ngModel)]="evaluation.users_id" #enviromentResponsible="ngModel" required name="enviromentResponsible" class="form-control">
+              <select [(ngModel)]="evaluation.users_id" #appraiser="ngModel" required name="appraiser" class="form-control">
                 <option *ngFor="let user of users" [value]="user.id">
                    {{ user.name }} 
                 </option> 
               </select>
-              <span *ngIf="enviromentResponsible.invalid && (enviromentResponsible.dirty || enviromentResponsible.touched)" style='color: red'>Este campo é obrigatório.</span>  
+              <span *ngIf="appraiser.invalid && (appraiser.dirty || appraiser.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>  
           </div>
 
@@ -80,7 +82,7 @@
               <thead>
                 <tr>
                   <th>Nome</th>
-                  <th>Responsável</th>
+                  <th>Avaliador</th>
                   <th>Ambiente</th>
                   <th>Status</th>
                   <th>Data Inicial</th>
@@ -101,13 +103,13 @@
                   <td>{{evaluation.description}}</td>
                   <td>
                     <span class="inline-block">
-                      <button class="btn btn-info btn-icon no-margin" (click)="update(evaluation)">
-                        <i class="icofont icofont-edit"></i>
+                      <button class="btn btn-info btn-icon no-margin" [disabled]="evaluation.status === 'CONCLUIDA'" (click)="update(evaluation)">
+                        <i class="icofont icofont-edit" title="Você não pode editar uma avaliação concluida"></i>
                       </button>
                     </span>
                     <span class="inline-block margin-left-10">
-                      <button class="btn btn-danger btn-icon no-margin" (click)="getModalAnswer(evaluation.id)">
-                        <i class="icofont icofont-trash"></i>
+                      <button class="btn btn-danger btn-icon no-margin" [disabled]="evaluation.status === 'CONCLUIDA'" (click)="getModalAnswer(evaluation.id)">
+                        <i class="icofont icofont-trash" title="Você não pode remover uma avaliação concluida"></i>
                       </button>
                     </span>
                   </td>
