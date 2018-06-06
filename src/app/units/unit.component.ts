@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UnitService } from './unit.service';
 import { Unit } from './unit';
 import swal from 'sweetalert';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-unit',
@@ -21,6 +22,8 @@ export class UnitComponent implements OnInit {
   //Filter and pagination
   unitFiltered: Unit[];
   lengthUnitPagination: number;
+
+  @ViewChild('unitForm') unitForm : NgForm;
 
   ngOnInit() {
     this.getStates();
@@ -115,6 +118,7 @@ export class UnitComponent implements OnInit {
     .subscribe((res) => {
       swal('', res['message'], 'success');
       this.load();
+      this.unitForm.reset();
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Evaluation } from './evaluation';
 import { EvaluationService} from './evaluation.service';
 import { EnviromentService } from '../enviroments/enviroment.service';
@@ -10,7 +10,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { defineLocale, PageChangedEvent } from 'ngx-bootstrap';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import swal from 'sweetalert';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-evaluation',
@@ -27,6 +27,7 @@ export class EvaluationComponent implements OnInit {
 //Filter and pagination
   evaluationFiltered: Evaluation[];
   lengthEvaluationsPagination: number;
+  @ViewChild('evaluationForm') evaluationForm : NgForm;
 
   constructor(private evaluationService: EvaluationService,
     private userService: UserService,
@@ -77,18 +78,28 @@ export class EvaluationComponent implements OnInit {
   }
 
   save(evaluation) {
+
+    evaluation.createDate = this.period[0];
+    evaluation.dueDate = this.period[1];
     if(!evaluation.id){
-      evaluation.createDate = this.period[0];
-      evaluation.dueDate = this.period[1];
-      evaluation.status = "NÃO INICIADA";
+      if(evaluation.dueDate.getTime() >= new Date().setHours(0,0,0,0)){
+        evaluation.status = "PENDENTE";
+      } else{
+        evaluation.status = "ATRASADA";
+      }
       this.evaluationService.save(evaluation)
       .subscribe(res => {
         this.getValidation(res);
         this.load();
       }) 
     } else {
-      evaluation.createDate = this.period[0];
-      evaluation.dueDate = this.period[1];
+      if(evaluation.status != "CONCLUIDA"){   
+        if(evaluation.dueDate.getTime() >= new Date().setHours(0,0,0,0)){
+          evaluation.status = "PENDENTE";
+        } else{
+          evaluation.status = "ATRASADA";
+        }
+      }
       this.evaluationService.update(evaluation)
       .subscribe(res => {
         this.getValidation(res);
@@ -98,10 +109,12 @@ export class EvaluationComponent implements OnInit {
   }
 
   update(evaluation: Evaluation): void {
-    moment.locale('pt-BR');
-    this.period = [moment(evaluation.createDate).toDate(), moment(evaluation.dueDate).toDate()];
-    this.evaluation = evaluation;
-    window.scroll(0, 0);
+    if(evaluation.status != "CONCLUIDA"){   
+      moment.locale('pt-BR');
+      this.period = [moment(evaluation.createDate).toDate(), moment(evaluation.dueDate).toDate()];
+      this.evaluation = evaluation;
+      window.scroll(0, 0);
+    }
   }
 
   getValidation(res) {
@@ -137,6 +150,7 @@ export class EvaluationComponent implements OnInit {
     .subscribe((res) => {
       swal('', res['message'], 'success');
       this.load();
+      this.evaluationForm.reset();
     });
   }
 }
