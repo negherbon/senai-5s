@@ -66,14 +66,12 @@ export class UnitComponent implements OnInit {
         .subscribe(res => {
           this.getValidation(res);
           this.load();
-          this.unit = new Unit();
       });
     } else {
       this.unitService.update(unit)
       .subscribe(res => {
         this.getValidation(res);
         this.load();
-        this.unit = new Unit();
       });
     }
   }

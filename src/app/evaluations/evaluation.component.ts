@@ -155,6 +155,5 @@ export class EvaluationComponent implements OnInit {
         this.getValidation(error.error)
       }
     );
-    });
   }
 }

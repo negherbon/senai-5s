@@ -39,14 +39,12 @@ export class EnviromentTypeComponent implements OnInit {
         .subscribe(res => {
           this.getValidation(res);
           this.load();
-          this.enviromentType = new EnviromentType(); 
       });
      } else {
       this.enviromentTypeService.update(enviromentType)
       .subscribe(res => {
         this.getValidation(res);
         this.load();
-        this.enviromentType = new EnviromentType();
       });
     }
   }
