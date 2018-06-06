@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import { Enviroment } from './enviroment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 
@@ -29,6 +30,10 @@ export class EnviromentService implements OnInit {
             })
         };
       return this.http.post(this.url, enviroment, httpOptions);
+    }
+
+    loadById(id) {
+        return this.http.get(`${this.url}/${id}`);
     }
 
     update(enviroment: Enviroment) {
