@@ -59,8 +59,8 @@ export class UserComponent implements OnInit {
   getValidation(res) {
     swal({
       title: '',
-      text: res['status'] === 201 ? 'Usuário salvo com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: 'success'
+      text: res["message"],
+      icon: res["type"]
     } );
   }
 
@@ -87,32 +87,35 @@ export class UserComponent implements OnInit {
   remove(id: string): void {
     this.userService.remove(id)
     .subscribe((res) => {
-      swal('', res['message'], 'success');
+      this.getValidation(res);
       this.load();
       this.userForm.reset();
-    });
+    },
+    error => {
+      this.getValidation(error.error)
+    }
+  );
   }
 
   save(user): void {
     let isRegistered = this.users.find(currentUser => currentUser.email === user.email);
 
-    if (isRegistered  && isRegistered.id !== user.id) {
-
+    if (isRegistered  && isRegistered.id !== user.id) 
       this.showModal('Usuário não cadastrado', 'Já existe um usuário com este e-mail');
-    } else {
+    else {
       if (!user.id) {
         this.userService.save(user)
           .subscribe(res => {
             this.getValidation(res);
             this.load();
-            this.user = new User();  // reseta valores do formulário
+            this.user = new User();
         });
       } else {
         this.userService.update(user)
         .subscribe(res => {
           this.getValidation(res);
           this.load();
-          this.user = new User(); // reseta valores do formulário
+          this.user = new User();
         });
       }
     }
