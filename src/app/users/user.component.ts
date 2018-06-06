@@ -108,14 +108,12 @@ export class UserComponent implements OnInit {
           .subscribe(res => {
             this.getValidation(res);
             this.load();
-            this.user = new User();
         });
       } else {
         this.userService.update(user)
         .subscribe(res => {
           this.getValidation(res);
           this.load();
-          this.user = new User();
         });
       }
     }

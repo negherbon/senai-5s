@@ -49,7 +49,6 @@ export class QuestionComponent implements OnInit {
         this.saveInAssociateTable(res['questions_id'], res['enviroment_types_id']);
         this.getValidation(res);
         this.load();
-        this.question = new Question();
       });
     } else {
         question['enviroment_types_id'] = this.selectedEnviromentTypes;
@@ -61,7 +60,6 @@ export class QuestionComponent implements OnInit {
           })
           this.getValidation(res);
           this.load();
-          this.question = new Question();
         })
       }
     }
