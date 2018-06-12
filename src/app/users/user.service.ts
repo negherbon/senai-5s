@@ -1,5 +1,4 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -13,6 +12,7 @@ import { environment } from '../../environments/environment';
 export class UserService {
 
     url: string;
+    utilUrl: string;
 
     constructor(public http: HttpClient) {
         this.url = `${environment.apiUrl}/users`;
