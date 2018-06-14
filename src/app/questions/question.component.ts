@@ -19,55 +19,55 @@ export class QuestionComponent implements OnInit {
 
   questions: Question[];
   enviromentTypes: EnviromentType[];
-  question: Question = new Question();  
+  question: Question = new Question();
   selectItems: Array<IOption>;
   selectedEnviromentTypes: Array<String> = [];
 
-    //Filter and pagination
-    questionFiltered: Question[];
-    lengthQuestionPagination: number;
+  //Filter and pagination
+  questionFiltered: Question[];
+  lengthQuestionPagination: number;
 
     @ViewChild('questionForm') questionForm : NgForm;
 
   ngOnInit() {
-
-   this.load();
+    this.load();
     this.loadEnviromentTypes();
   }
 
-  findQuestion(typed: string){
+  findQuestion(typed: string) {
     this.questionFiltered = this.questions.filter(
-        question => question.title.toLowerCase().includes(typed.toLowerCase()));
+      question => question.title.toLowerCase().includes(typed.toLowerCase()));
     this.lengthQuestionPagination = this.questionFiltered.length;
   }
 
-  //TODO: REFATORAR ESSA FUNÇÃO
+  /* REFATORAR */
   save(question): void {
     if (!question.id) {
-        question['enviroment_types_id'] = this.selectedEnviromentTypes;
-        this.questionService.save(question)
-        .subscribe(res => {
-          this.saveInAssociateTable(res['questions_id'], res['enviroment_types_id']);
-          this.getValidation(res);
-          this.load();
-          this.question = new Question();  
-        });
-    } else {
       question['enviroment_types_id'] = this.selectedEnviromentTypes;
-      this.questionService.removeAssociatedItems(question.id)
+      this.questionService.save(question)
       .subscribe(res => {
-        this.saveInAssociateTable(question.id, question["enviroment_types_id"]);
+        this.saveInAssociateTable(res['questions_id'], res['enviroment_types_id']);
         this.getValidation(res);
         this.load();
-        this.question = new Question(); 
-      })
+      });
+    } else {
+        question['enviroment_types_id'] = this.selectedEnviromentTypes;
+        this.questionService.update(question)
+        .subscribe(res => {
+          this.questionService.removeAssociatedItems(question.id)
+          .subscribe(res => {
+            this.saveInAssociateTable(question.id, question['enviroment_types_id']);
+          })
+          this.getValidation(res);
+          this.load();
+        })
+      }
     }
-  }
 
   load() {
     this.questionService.load()
       .subscribe(
-        questions => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        questions => {
           this.questions = questions;
           this.questionFiltered = this.questions.slice(0, 10);
           this.lengthQuestionPagination = this.questions.length;
@@ -79,26 +79,26 @@ export class QuestionComponent implements OnInit {
   }
 
   loadEnviromentTypes() {
-    this.enviromentTypeService.load() 
-    .subscribe(
-      enviromentTypes => {
-        this.enviromentTypes = enviromentTypes;
-        this.selectItems = enviromentTypes.map(({id, name}) => ({label: name, value: id.toString()}));
-      }
-    );
+    this.enviromentTypeService.load()
+      .subscribe(
+        enviromentTypes => {
+          this.enviromentTypes = enviromentTypes;
+          this.selectItems = enviromentTypes.map(({ id, name }) => ({ label: name, value: id.toString() }));
+        }
+      );
   }
-   
+
   saveInAssociateTable(questionId, enviromentTypeId): void {
     this.questionService.saveInAssociateTable(questionId, enviromentTypeId)
-    .subscribe(res => {});
+      .subscribe(res => { });
   }
-  
+
   update(question: Question): void {
     this.questionService.getAssociatedItems(question.id)
-    .subscribe(relatedItems => {
-      const items = this.enviromentTypes.filter(enviroment => relatedItems.find(relatedItem => enviroment.id === relatedItem.enviroment_types_id)); 
-      this.selectedEnviromentTypes = items.map( item => String(item.id) );
-    });
+      .subscribe(relatedItems => {
+        const items = this.enviromentTypes.filter(enviroment => relatedItems.find(relatedItem => enviroment.id === relatedItem.enviroment_types_id));
+        this.selectedEnviromentTypes = items.map(item => String(item.id));
+      });
 
     this.question = question;
     window.scroll(0, 0);
@@ -109,20 +109,29 @@ export class QuestionComponent implements OnInit {
     const endItem = event.page * event.itemsPerPage;
     this.questionFiltered = this.questions.slice(startItem, endItem);
   }
+
   remove(id: string): void {
-    this.questionService.remove(id)
+    this.questionService.removeAssociatedItems(id)
+    .subscribe(res => {
+      this.questionService.remove(id)
       .subscribe((res) => {
-        swal('', res['message'], 'success');
+        this.getValidation(res);
         this.load();
         this.questionForm.reset();
-      });
+      },
+      error => {
+        this.getValidation(error.error);
+        this.load();
+      })
+    })
   }
+
 
   getValidation(res) {
     swal({
       title: '',
-      text: res['status'] === 201 ? 'Pergunta salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: 'success'
+      text: res["message"],
+      icon: res["type"]
     });
   }
 
