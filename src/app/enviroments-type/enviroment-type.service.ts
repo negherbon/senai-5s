@@ -13,9 +13,11 @@ import { environment } from '../../environments/environment';
 export class EnviromentTypeService {
 
     url: string;
+    urlAssociate: string;
 
     constructor(public http: HttpClient) {
         this.url = `${environment.apiUrl}/enviromenttypes`;
+        this.urlAssociate = `${environment.apiUrl}/associate`;
     }
 
     save(enviromentType: EnviromentType) {
@@ -42,5 +44,9 @@ export class EnviromentTypeService {
 
     remove(id) {
         return this.http.delete(`${this.url}/${id}`);
+    }
+
+    removeAssociatedItems(enviromentTypeId) {
+        return this.http.delete(`${this.urlAssociate}/${enviromentTypeId}`);
     }
 }

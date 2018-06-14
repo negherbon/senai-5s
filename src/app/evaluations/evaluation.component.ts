@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Evaluation } from './evaluation';
-import { EvaluationService} from './evaluation.service';
+import { EvaluationService } from './evaluation.service';
 import { EnviromentService } from '../enviroments/enviroment.service';
 import { Enviroment } from '../enviroments/enviroment';
 import { User } from '../users/user';
@@ -24,61 +24,60 @@ export class EvaluationComponent implements OnInit {
   enviroments: Enviroment[];
   period: Date[];
 
-//Filter and pagination
+  //Filter and pagination
   evaluationFiltered: Evaluation[];
   lengthEvaluationsPagination: number;
   @ViewChild('evaluationForm') evaluationForm : NgForm;
 
   constructor(private evaluationService: EvaluationService,
     private userService: UserService,
-    private enviromentService: EnviromentService){
-      moment.locale('pt-BR');
-      defineLocale('pt-br', ptBrLocale);
-    }
-    
-    ngOnInit() {
+    private enviromentService: EnviromentService) {
+    moment.locale('pt-BR');
+    defineLocale('pt-br', ptBrLocale);
+  }
+
+  ngOnInit() {
     moment.locale('pt-br');
     this.loadEnviroments();
     this.loadUsers();
     this.load();
   }
 
-  findEvaluations(typed: string){
+  findEvaluations(typed: string) {
     this.evaluationFiltered = this.evaluations.filter(
-        evaluation => evaluation.title.toLowerCase().includes(typed.toLowerCase()));
+      evaluation => evaluation.title.toLowerCase().includes(typed.toLowerCase()));
     this.lengthEvaluationsPagination = this.evaluationFiltered.length
   }
 
   load() {
     this.evaluationService.load()
-    .subscribe(
-      evaluations => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-        this.evaluations = evaluations;
-        this.evaluationFiltered = this.evaluations.slice(0, 10);
-        this.lengthEvaluationsPagination = this.evaluations.length;
-      },
-      error => {
-        console.log(error)
-      },
+      .subscribe(
+        evaluations => {
+          this.evaluations = evaluations;
+          this.evaluationFiltered = this.evaluations.slice(0, 10);
+          this.lengthEvaluationsPagination = this.evaluations.length;
+        },
+        error => {
+          console.log(error)
+        },
     );
   }
 
   loadEnviroments() {
     this.enviromentService.load()
-    .subscribe(enviroments => {
+      .subscribe(enviroments => {
         this.enviroments = enviroments;
-    });
+      });
   }
 
   loadUsers() {
     this.userService.load()
-    .subscribe(users => {
-      this.users = users;
-    })
+      .subscribe(users => {
+        this.users = users;
+      })
   }
 
   save(evaluation) {
-
     evaluation.createDate = this.period[0];
     evaluation.dueDate = this.period[1];
     if(!evaluation.id){
@@ -88,10 +87,10 @@ export class EvaluationComponent implements OnInit {
         evaluation.status = "ATRASADA";
       }
       this.evaluationService.save(evaluation)
-      .subscribe(res => {
-        this.getValidation(res);
-        this.load();
-      }) 
+        .subscribe(res => {
+          this.getValidation(res);
+          this.load();
+        })
     } else {
       if(evaluation.status != "CONCLUIDA"){   
         if(evaluation.dueDate.getTime() >= new Date().setHours(0,0,0,0)){
@@ -101,10 +100,10 @@ export class EvaluationComponent implements OnInit {
         }
       }
       this.evaluationService.update(evaluation)
-      .subscribe(res => {
-        this.getValidation(res);
-        this.load();
-      })
+        .subscribe(res => {
+          this.getValidation(res);
+          this.load();
+        })
     }
   }
 
@@ -120,23 +119,23 @@ export class EvaluationComponent implements OnInit {
   getValidation(res) {
     swal({
       title: '',
-      text: res['status'] === 201 ? 'Avaliação salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: 'success'
+      text: res["message"],
+      icon: res["type"]
     });
   }
 
   getModalAnswer(evaluationId) {
     swal({
       title: 'Exclusão de avaliação',
-      text:  'Tem certeza que deseja excluir a avaliação?',
+      text: 'Tem certeza que deseja excluir a avaliação?',
       buttons: ['Cancelar', 'OK'],
       icon: 'warning',
       dangerMode: true,
     })
-    .then((willDelete) => {
-      if (willDelete)
-        this.remove(evaluationId);
-    });
+      .then((willDelete) => {
+        if (willDelete)
+          this.remove(evaluationId);
+      });
   }
 
   pageChanged(event: PageChangedEvent): void {
@@ -148,9 +147,13 @@ export class EvaluationComponent implements OnInit {
   remove(id: number): void {
     this.evaluationService.remove(id)
     .subscribe((res) => {
-      swal('', res['message'], 'success');
+      this.getValidation(res);
       this.load();
       this.evaluationForm.reset();
-    });
+    },
+      error => {
+        this.getValidation(error.error)
+      }
+    );
   }
 }

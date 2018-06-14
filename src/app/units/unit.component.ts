@@ -66,14 +66,12 @@ export class UnitComponent implements OnInit {
         .subscribe(res => {
           this.getValidation(res);
           this.load();
-          this.unit = new Unit();  // reseta valores do formulário
       });
     } else {
       this.unitService.update(unit)
       .subscribe(res => {
         this.getValidation(res);
         this.load();
-        this.unit = new Unit(); // reseta valores do formulário
       });
     }
   }
@@ -81,8 +79,8 @@ export class UnitComponent implements OnInit {
   getValidation(res) {
     swal({
       title: '',
-      text: res['status'] === 201 ? 'Unidade salva com sucesso!' : 'Ocorreu um problema ao tentar salvar!',
-      icon: 'success'
+      text: res['message'],
+      icon: res['type']
     });
   }
 
@@ -112,11 +110,10 @@ export class UnitComponent implements OnInit {
     this.unitFiltered = this.units.slice(startItem, endItem);
   }
   
-  /* NASS: Colocar icones e mensagens de acordo com retorno da api */
   remove(id: string): void {
     this.unitService.remove(id)
     .subscribe((res) => {
-      swal('', res['message'], 'success');
+      this.getValidation(res);
       this.load();
       this.unitForm.reset();
     });
