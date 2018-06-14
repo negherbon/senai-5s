@@ -37,43 +37,43 @@ const MENUITEMS = [
         state: 'dashboard',
         name: 'Dashboard',
         type: 'link',
-        icon: 'ti-home'
+        icon: 'fas fa-home'
       },
       {
         state: 'users',
         name: 'Usuários',
         type: 'link',
-        icon: 'ti-user'
+        icon: 'fas fa-users'
       },
       {
         state: 'evaluations',
         name: 'Avaliações',
         type: 'link',
-        icon: 'ti-check-box'
+        icon: ' far fa-check-square'
       },
       {
         state: 'enviroments',
         name: 'Ambientes',
         type: 'link',
-        icon: 'ti-location-pin'
+        icon: 'fas fa-map-marker-alt'
       },
       {
         state: 'questions',
         name: 'Perguntas',
         type: 'link',
-        icon: 'ti-agenda'
+        icon: 'fas fa-question'
       },
       {
         state: 'units',
         name: 'Unidades',
         type: 'link',
-        icon: 'ti-star'
+        icon: 'far fa-building'
       },
       {
         state: 'enviromentstype',
         name: 'Tipo de Ambiente',
         type: 'link',
-        icon: 'ti-star'
+        icon: 'fas fa-sitemap'
       }
     ]
   }
