@@ -21,12 +21,11 @@ export class DashboardComponent implements OnInit {
         .subscribe(
             evaluations => {
             this.evaluationss = evaluations;
-              console.log("evaluations",evaluations)
-              this.acharUmNome(evaluations);
+              this.FindEvaluationStatus(evaluations);
           });
   }
 
-  acharUmNome(evaluations: Evaluation[]){
+  FindEvaluationStatus(evaluations: Evaluation[]){
 
     evaluations.forEach(evaluation =>{
       if(evaluation.status.includes('CONCLUIDA')){
@@ -37,12 +36,6 @@ export class DashboardComponent implements OnInit {
         this.outstanding.push(evaluation);
       }
     });
-
-
-
-    console.log("outstanding", this.outstanding,
-    "late",this.late,
-    "concluded",this.concluded);
   }
 
   ngOnInit() {
