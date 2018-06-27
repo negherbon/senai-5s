@@ -120,8 +120,6 @@ export class AdminLayoutComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    
-    
-    window.location.href = 'https://login-senai5s.herokuapp.com/';
+    window.location.href = 'http://localhost:8080/';
   }
 }
