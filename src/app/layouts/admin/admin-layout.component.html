@@ -5,33 +5,33 @@
       <div class="navbar-wrapper">
         <div class="navbar-logo" navbar-theme="theme5">
           <a class="mobile-menu" id="mobile-collapse" href="javascript:;" (click)="toggleOpened()" [exclude]="'#main_navbar'" (clickOutside)="onClickedOutside($event)">
-            <i class="ti-menu"></i>
+            <i class="fas fa-bars"></i>
           </a>
           <a [routerLink]="['/']">
-            SENAI 5S
+            <img src="../../.././assets/images/logo-rodape.png" alt="FIESC SENAI a força da industria catarinense" style="width:auto;">
           </a>
-          <a (click)="onMobileMenu()" class="mobile-options">
+          <!--a (click)="onMobileMenu()" class="mobile-options">
             <i class="ti-more"></i>
-          </a>
-
+          </a-->
+          
         </div>
-
+        
         <div class="navbar-container">
           <div>
             <ul class="nav-left">
               <li>
-                <div class="sidebar_toggle"><a href="javascript:;" (click)="toggleOpened()"><i class="ti-menu f-18"></i></a></div>
+                <div class="sidebar_toggle"><a href="javascript:;" (click)="toggleOpened()"><i class="fas fa-bars f-18"></i></a></div>
               </li>
             </ul>
           </div>
         </div>
 
-        <a href="javascript:;" (click)="logout()" class="header--logout">
-          <i class="ti-power-off"></i>
-          Logout
-        </a>
-        
-        
+          <a href="javascript:;" (click)="logout()" class="header--logout">
+              <i class="fas fa-power-off"></i>
+              Logout
+            </a>
+
+            
       </div>
     </nav>
 
@@ -48,7 +48,7 @@
                 </div>
               </div>
 
-              <div class="main-menu-content">
+              <!--div class="main-menu-content">
                 <ul>
                   <li [@mobileMenuTop]="isCollapsedSideBar" class="more-details" [ngClass]="isCollapsedSideBar">
                     <a href="javascript:"><i class="ti-user"></i>View Profile</a>
@@ -56,7 +56,7 @@
                     <a href="javascript:"><i class="ti-layout-sidebar-left"></i>Logout</a>
                   </li>
                 </ul>
-              </div>
+              </div-->
             </div>
             <div>
             <div *ngFor="let asideItems of menuItems.getAll()">
@@ -97,7 +97,7 @@
                     <ng-template ngFor let-asideChildren [ngForOf]="asideItem.children">
                     <li [routerLinkActive]="['active']" *ngIf="asideChildren.type !== 'sub'">
                       <a [routerLink]="['/', asideItem.state, asideChildren.state]" target="{{asideChildren.target ? '_blank' : '_self'}}">
-                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                        <span class="pcoded-micon"><i class="fas fa-angle-right"></i></span>
                         <span class="pcoded-mtext">{{ asideChildren.name }} </span>
                         <span *ngFor="let asideChildrenBadge of asideChildren.badge" class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
                         <span class="pcoded-mcaret"></span>
@@ -115,7 +115,7 @@
                         <ng-template ngFor let-asideChildrenSub [ngForOf]="asideChildren.children">
                           <li [routerLinkActive]="['active']" >
                             <a [routerLink]="['/', asideItem.state, asideChildren.state, asideChildrenSub.state]" target="{{asideChildrenSub.target ? '_blank' : '_self'}}">
-                              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                              <span class="pcoded-micon"><i class="fas fa-angle-right"></i></span>
                               <span class="pcoded-mtext">{{ asideChildrenSub.name }}</span>
                               <span *ngFor="let asideChildrenSubBadge of asideChildrenSub.badge" class="pcoded-badge label label-{{ asideChildrenSubBadge.type }}">{{asideChildrenSubBadge.value}}</span>
                               <span class="pcoded-mcaret"></span>
