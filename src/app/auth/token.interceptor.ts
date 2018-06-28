@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
     (err: any) => {
         if (err instanceof HttpErrorResponse) {
             if (err.status === 401) {
-                window.location.href = 'https://login-senai5s.herokuapp.com/';
+                window.location.href = 'http://localhost:8080/';
             }
         }
     });
