@@ -10,7 +10,8 @@ import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-question',
-  templateUrl: './question.component.html'
+  templateUrl: './question.component.html',
+  styleUrls: ['./question.component.css']
 })
 
 export class QuestionComponent implements OnInit {
@@ -38,6 +39,17 @@ export class QuestionComponent implements OnInit {
     this.questionFiltered = this.questions.filter(
       question => question.title.toLowerCase().includes(typed.toLowerCase()));
     this.lengthQuestionPagination = this.questionFiltered.length;
+  }
+
+  checkboxValue:boolean;
+
+  selectAll(): void {
+    if(this.checkboxValue) {
+      var teste = this.enviromentTypes.map(({ id, name }) => ({ label: name, value: id.toString() }));
+      this.selectedEnviromentTypes = teste.map(item => String(item.value));
+    } else {
+      this.selectedEnviromentTypes = [];
+    }
   }
 
   /* REFATORAR */
