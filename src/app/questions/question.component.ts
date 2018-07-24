@@ -17,7 +17,8 @@ import { NgForm } from '@angular/forms';
 export class QuestionComponent implements OnInit {
 
   constructor(public questionService: QuestionService, public enviromentTypeService: EnviromentTypeService) { }
-
+  
+  cbSelectAll: boolean;
   questions: Question[];
   enviromentTypes: EnviromentType[];
   question: Question = new Question();
@@ -40,16 +41,15 @@ export class QuestionComponent implements OnInit {
       question => question.title.toLowerCase().includes(typed.toLowerCase()));
     this.lengthQuestionPagination = this.questionFiltered.length;
   }
-
-  checkboxValue:boolean;
-
+  
   selectAll(): void {
-    if(this.checkboxValue) {
-      var teste = this.enviromentTypes.map(({ id, name }) => ({ label: name, value: id.toString() }));
-      this.selectedEnviromentTypes = teste.map(item => String(item.value));
-    } else {
-      this.selectedEnviromentTypes = [];
+    if(this.cbSelectAll) {  
+      this.selectedEnviromentTypes = this.enviromentTypes.map(({ id, name }) => 
+        ({ label: name, value: id.toString() })).map(item => String(item.value));
     }
+    else 
+      this.selectedEnviromentTypes = [];
+    
   }
 
   /* REFATORAR */
