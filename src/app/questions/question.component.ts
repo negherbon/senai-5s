@@ -10,13 +10,15 @@ import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-question',
-  templateUrl: './question.component.html'
+  templateUrl: './question.component.html',
+  styleUrls: ['./question.component.css']
 })
 
 export class QuestionComponent implements OnInit {
 
   constructor(public questionService: QuestionService, public enviromentTypeService: EnviromentTypeService) { }
-
+  
+  cbSelectAll: boolean;
   questions: Question[];
   enviromentTypes: EnviromentType[];
   question: Question = new Question();
@@ -38,6 +40,16 @@ export class QuestionComponent implements OnInit {
     this.questionFiltered = this.questions.filter(
       question => question.title.toLowerCase().includes(typed.toLowerCase()));
     this.lengthQuestionPagination = this.questionFiltered.length;
+  }
+  
+  selectAll(): void {
+    if(this.cbSelectAll) {  
+      this.selectedEnviromentTypes = this.enviromentTypes.map(({ id, name }) => 
+        ({ label: name, value: id.toString() })).map(item => String(item.value));
+    }
+    else 
+      this.selectedEnviromentTypes = [];
+    
   }
 
   /* REFATORAR */

@@ -27,6 +27,18 @@
             </div>
           </div>
 
+          <div class="checkbox-enviroments-type">
+            <label for="environmentTypes">
+                <input
+                  id="environmentTypes"
+                  [(ngModel)]="checkboxValue"
+                  (change)="selectAll()"
+                  type="checkbox"
+                  name="environmentTypes"> 
+                Todos os ambientes
+            </label>
+          </div>
+
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Descrição</label>
             <div class="col-sm-10">
