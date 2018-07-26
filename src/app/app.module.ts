@@ -41,13 +41,14 @@ import { EvaluationService } from './evaluations/evaluation.service';
     FormsModule,
     NgDatepickerModule,
   ],
+  
   providers: [
-    UserService, {
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
     },
-    UnitService, EnviromentTypeService, EnviromentService, QuestionService, EvaluationService
+    UserService, UnitService, EnviromentTypeService, EnviromentService, QuestionService, EvaluationService
   ],
   bootstrap: [AppComponent]
 })
