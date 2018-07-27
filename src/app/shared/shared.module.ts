@@ -15,6 +15,7 @@ import {SpinnerComponent} from '../spinner/spinner.component';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {NgDatepickerModule} from 'ng2-datepicker';
+import { SelectModule } from 'ng-select';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {NgDatepickerModule} from 'ng2-datepicker';
       PaginationModule.forRoot(),
       SimpleNotificationsModule.forRoot(),
       ClickOutsideModule,
+      SelectModule
   ],
   declarations: [
     AccordionAnchorDirective,
@@ -55,7 +57,8 @@ import {NgDatepickerModule} from 'ng2-datepicker';
       ReactiveFormsModule,
       SimpleNotificationsModule,
       ClickOutsideModule,
-      NgDatepickerModule
+      NgDatepickerModule,
+      SelectModule
   ],
   providers: [
       MenuItems
