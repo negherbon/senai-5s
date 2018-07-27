@@ -30,13 +30,17 @@
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Perfil </label>
-            <div class="col-sm-10">
-              <select [(ngModel)]="user.profile" name="profile" required #profile="ngModel" class="form-control">
-                <option value="">Selecione um perfil</option>
-                <option value="admin">Administrador</option>
-                <option value="avaliador">Avaliador</option>
-                <option value="responsavel">Responsável pelo ambiente</option>
-              </select>
+            <div class="col-sm-10"> 
+
+              <ng-select
+                  #profile="ngModel"
+                  [options]="selectedTypeUser"
+                  name="selectItems"
+                  multiple="true"
+                  required
+                  [(ngModel)]="selectItems">
+              </ng-select>
+            
               <span *ngIf="profile.invalid && (profile.dirty || profile.touched)" style='color: red'>Este campo é obrigatório.</span>  
             </div>
           </div>
