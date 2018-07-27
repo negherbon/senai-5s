@@ -7,6 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgForm } from '@angular/forms';
 import { UtilService } from '../util/util.service';
+import { IOption } from 'ng-select';
 
 const helper = new JwtHelperService();
 
@@ -21,11 +22,16 @@ export class UserComponent implements OnInit {
   user: User = new User();
   users: User[];
   userSession: User = new User();
+  selectItems: Array<IOption>;
+  selectedTypeUser: Array<IOption> = [
+    {label: 'Administrador', value: 'Administrador'},
+    {label: 'Avaliador', value: 'Avaliador'},
+    {label: 'Responsável pelo ambiente ', value: 'Responsável pelo ambiente'}
+  ];
 
   //Filter and pagination
   userFiltered: User[];
   lengthUsersPagination: number;
-
   @ViewChild('userForm') userForm: NgForm;
 
   constructor(private userService: UserService, private utilService: UtilService) {
