@@ -6,6 +6,7 @@ import { EvaluationComponent } from './evaluation.component';
 import { EvaluationRoutes } from './evaluation.routing';
 import { SharedModule } from '../shared/shared.module';
 import { BrMasker4Module } from 'brmasker4';
+import { SelectModule } from 'ng-select';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { BrMasker4Module } from 'brmasker4';
     SharedModule,
     BsDatepickerModule.forRoot(),
     BrMasker4Module,
+    SelectModule
   ],
   declarations: [EvaluationComponent]
 })

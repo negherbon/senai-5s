@@ -24,12 +24,10 @@ export class QuestionComponent implements OnInit {
   question: Question = new Question();
   selectItems: Array<IOption>;
   selectedEnviromentTypes: Array<String> = [];
-
-  //Filter and pagination
   questionFiltered: Question[];
   lengthQuestionPagination: number;
 
-    @ViewChild('questionForm') questionForm : NgForm;
+  @ViewChild('questionForm') questionForm : NgForm;
 
   ngOnInit() {
     this.load();
@@ -49,10 +47,9 @@ export class QuestionComponent implements OnInit {
     }
     else 
       this.selectedEnviromentTypes = [];
-    
+   
   }
 
-  /* REFATORAR */
   save(question): void {
     if (!question.id) {
       question['enviroment_types_id'] = this.selectedEnviromentTypes;
