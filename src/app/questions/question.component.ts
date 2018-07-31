@@ -47,6 +47,7 @@ export class QuestionComponent implements OnInit {
     }
     else 
       this.selectedEnviromentTypes = [];
+   
   }
 
   save(question): void {

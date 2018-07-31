@@ -71,7 +71,7 @@
               <tr *ngFor="let user of userFiltered">
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.profile}}</td>
+                <td>{{ UserTypeDisplay[user.profile] }}</td>
                 <td>
                   <span class="inline-block">
                     <button class="btn btn-info btn-icon no-margin" (click)="update(user)">
