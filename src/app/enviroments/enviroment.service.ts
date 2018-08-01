@@ -29,11 +29,7 @@ export class EnviromentService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.post(this.url, enviroment, httpOptions);
-    }
-
-    loadById(id) {
-        return this.http.get(`${this.url}/${id}`);
+        return this.http.post(this.url, enviroment, httpOptions);
     }
 
     update(enviroment: Enviroment) {
@@ -42,7 +38,7 @@ export class EnviromentService implements OnInit {
                 'Content-Type':  'application/json'
             })
         };
-      return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions);
+        return this.http.put(`${this.url}/${enviroment.id}`, enviroment, httpOptions);
     }
 
     load(): Observable<Enviroment[]> {
@@ -51,5 +47,9 @@ export class EnviromentService implements OnInit {
 
     remove(id) {
        return this.http.delete(`${this.url}/${id}`);
+    }
+
+    loadEnviromentsByUnit(unitId: number) {
+       return this.http.get<Enviroment[]>(`${this.url}/${unitId}`);
     }
 }

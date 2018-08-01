@@ -6,9 +6,7 @@ import swal from 'sweetalert';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgForm } from '@angular/forms';
-import { UtilService } from '../util/util.service';
 import { IOption } from 'ng-select';
-
 import { UserType } from './user-type.enum'
 import { UserTypeDisplay } from './user-type-display.enum'
 
@@ -37,7 +35,7 @@ export class UserComponent implements OnInit {
   lengthUsersPagination: number;
   @ViewChild('userForm') userForm: NgForm;
 
-  constructor(private userService: UserService, private utilService: UtilService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -120,7 +118,6 @@ export class UserComponent implements OnInit {
 
   save(user): void {
 
-    /* Valor capturado para inserir na coluna profile */
     user["profile"] = 
       Number(this.selectItems[0]) |
       Number(this.selectItems[1]) |

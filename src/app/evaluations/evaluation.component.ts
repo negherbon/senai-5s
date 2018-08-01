@@ -12,6 +12,8 @@ import { defineLocale, PageChangedEvent } from 'ngx-bootstrap';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import swal from 'sweetalert';
 import { NgForm } from '@angular/forms';
+import { UnitService } from '../units/unit.service';
+import { Unit } from '../units/unit';
 
 @Component({
   selector: 'app-evaluation',
@@ -22,6 +24,7 @@ export class EvaluationComponent implements OnInit {
   evaluation: Evaluation = new Evaluation();
   evaluations: Evaluation[];
   users: User[];
+  units: Unit[];
   enviroments: Enviroment[];
   period: Date[];
   selectItems: Array<IOption>;
@@ -34,15 +37,16 @@ export class EvaluationComponent implements OnInit {
 
   constructor(private evaluationService: EvaluationService,
     private userService: UserService,
-    private enviromentService: EnviromentService) {
+    private enviromentService: EnviromentService,
+    private unitService: UnitService) {
     moment.locale('pt-BR');
     defineLocale('pt-br', ptBrLocale);
   }
 
   ngOnInit() {
     moment.locale('pt-br');
-    this.loadEnviroments();
     this.loadUsers();
+    this.loadUnits();
     this.load();
   }
 
@@ -66,20 +70,27 @@ export class EvaluationComponent implements OnInit {
     );
   }
 
-  loadEnviroments() {
-    this.enviromentService.load()
+  loadEnviromentsByUnit(unitId) {
+    this.enviromentService.loadEnviromentsByUnit(unitId)
       .subscribe(enviroments => {
         this.enviroments = enviroments;
         this.selectItems = enviroments
           .map(({ id, name }) => (
             { label: name, value: id.toString() }));
-      });
+      })
   }
 
   loadUsers() {
     this.userService.load()
       .subscribe(users => {
         this.users = users;
+      })
+  }
+
+  loadUnits() {
+    this.unitService.load()
+      .subscribe(units => {
+        this.units = units;
       })
   }
 
