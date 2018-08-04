@@ -49,4 +49,8 @@ export class EnviromentTypeService {
     removeAssociatedItems(enviromentTypeId) {
         return this.http.delete(`${this.urlAssociate}/${enviromentTypeId}`);
     }
+
+    loadEnviromentsTypeByUnit(unitId: number) {
+        return this.http.get<EnviromentType[]>(`${this.url}/${unitId}`);
+    }
 }

@@ -52,4 +52,8 @@ export class UnitService {
     getCities(stateId) {
         return this.http.get(`https://br-cidade-estado-nodejs.glitch.me/estados/${stateId}/cidades?`);
     }
+
+    getUnitByEnviromentType(questionId) {
+        return this.http.get<Unit>(`${this.url}/${questionId}`);
+    }
 }
