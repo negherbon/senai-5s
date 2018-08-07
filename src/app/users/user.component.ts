@@ -154,7 +154,7 @@ export class UserComponent implements OnInit {
   }
 
   update(user: User): void {
-    this.user = new User(user.id, user.name, user.email, user.password, user.userName, user.profile)
+    this.user = new User(user.id, user.name, user.email, user.password, user.profile)
     window.scroll(0, 0);
     this.selectItems = this.getUserType(user.profile);
   }
